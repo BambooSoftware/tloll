@@ -1,0 +1,53 @@
+****************************************************************************************
+***************                        Setup Guide                       ***************
+****************************************************************************************
+
+$$ This is a live document and will constantly change as needed.  Current instructions are
+only for IntelliJ as that is what I'm using to develop the application. ##
+
+-----------------
+Installing Gradle
+-----------------
+
+Go to the Gradle home page and download the .zip for Gradle.
+
+Unpack into a reasonable location (C:\Program Files or /usr/local/ as a suggestion)
+
+Add the path to the bin directory in the freshly unpacked Gradle directory the PATH
+environment variable.
+
+Run "gradle -v" to confirm installation of Gradle.
+
+
+
+-------------------------------------
+Compiling and Running the Application
+-------------------------------------
+
+Download the latest version of the source code and place it in an easily accessible directory.
+
+Navigate to that directory in the command line.
+
+Run the command "gradle build" to build the application.
+
+Run the command "gradle run" to launch the application.
+
+
+
+---------------------
+IntelliJ Instructions
+---------------------
+
+Download the latest version of IntelliJ.
+
+Install and launch the application.
+
+Download the latest version of the source code from GitHub.
+
+Import the project as a Gradle project.
+
+Set the JVM args based on the args in the build.gradle file.
+
+Configure the Java SDK path appropriately.
+
+Use Shift + F9 to run the application in debug mode.

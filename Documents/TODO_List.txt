@@ -1,0 +1,78 @@
+Items that need to be addressed.
+This is not an exhaustive list.  Need to consult with Andrew and Isaiah about items left to complete.
+
+
+**** TODO by 11/27/2016 ****
+1. Refactor out the basic physics engine stuff and rendering stuff to their respective classes.
+2. Stub out useful classes (Unit class, Player class, Enemy class, etc.)
+3. Look into sound to see if this is easily implementable.
+4. Start collision detection.
+5. Implement linear momentum in acceleration, decceleration, and "friction".
+6. Get assets to display on screen such as background images.
+
+
+**** Physics Engine ****
+- Implement collision detection between objects on the screen.
+- Smooth movement across screen.
+  	 - Acceleration to the top speed of the player.
+	 - Deceleration to no speed of player.
+
+**** Renderer ****
+- Modify the drawSquare method to use sprite sheets.
+  	 - Involves changing the glTexCoord2f()
+	 - Use equation:
+	       - imageHeight/totalPixels and imageWidth/totalPixels
+	       - Allows us to have multiple things on single page.
+- Clean up and move the rendering code out into a separate render class.
+- Need to figure out how to perform event every X number of frames instead of everysingle frame.
+- Change colors to bitwise math instead of making new java color each time.
+
+**** Code ****
+- Need to find a way to display text on the screen for FPS and such.
+- Update called on each object invidually.
+- Helper method for getting updating/getting dimensions of the window.
+- Allow for aspect ratio changes.
+- Menu bar functionality.
+- Move the internal classes to their own external classes.
+- Map generation
+- Implement inheritance.
+- Cap the fps for shipping code.
+- Clean up sys out prints
+
+
+**** Game Logic ****
+- Need to decide on how we are generating the world.
+       - Option 1:
+       	 	- Cover entire background with a single texture (grass)
+		- Randomly place items in the screen
+		- Create collision detection around the items.
+		- Benefits/Drawbacks:
+			- Objects can be placed anywhere on screen.
+			- A little more work for collision detection.
+			- A little more work for making sure exit isn't blocked.
+       - Option 2:
+       	 	- Create a grid layout of squares.
+		- Each square will have an enum or number that is associated with a			 texture
+		- Benefits/Drawbacks:
+			- Objects only allowed to be in blocks.
+			- Objects taking up more than one "block" take up more
+			  space.
+			- Very easy to make sure entrance and exit not blocked.
+
+
+**** Needed Items ****
+- Sprite sheet of hero.  Maybe more than 1 type of character.
+- Sprite sheet of enemy.  Maybe more than 1 type of enemy.
+- Sprite sheet of different types of terrain.  Includes:
+  	 - Grass
+	 - Water
+	 - Dirt
+	 - Mountain
+	 - Tree
+
+- Need to decide on size of sprites.
+       - Thinking some power of 2^n
+       - 32x32 for terrain
+       - 32x64(128??) for trees
+       - 64(128)x128 for mountains
+       - 32x64 for hero/enemy sprites??

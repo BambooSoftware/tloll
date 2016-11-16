@@ -1,0 +1,17 @@
+# List of files to ignore during commit.
+
+#      /build directory
+#      .gradle cache directory
+#      *.*~ <-- Ignore everything else below.
+#      *.*~ <-- Top level ignore.
+#      .idea <-- Intellij created file.  Probably don't want that commited.
+
+build/*
+
+.gradle/*
+
+*/*.*~
+
+*.*~
+
+*.idea
