@@ -101,22 +101,42 @@ public class Tloll
 	else if (glfwGetKey(windowId, GLFW_KEY_A) == 1)
 	    {
 		System.out.println("A Key");
-		movePlayer(player, -10.0f, 0.0f);
-	    }
-	else if (glfwGetKey(windowId, GLFW_KEY_S) == 1)
-	    {
-		System.out.println("S Key");
-		movePlayer(player, 0.0f, -10.0f);
+		player.setSpeedX(player.getSpeedX() - player.getAcceleration());
+		if (player.getSpeedX() < -10.0f)
+		    {
+			player.setSpeedX(-10.0f);
+		    }
+		movePlayer(player, player.getSpeedX(), 0.0f);
 	    }
 	else if (glfwGetKey(windowId, GLFW_KEY_D) == 1)
 	    {
 		System.out.println("D Key");
-		movePlayer(player, 10.0f, 0.0f);
+		player.setSpeedX(player.getSpeedX() + player.getAcceleration());
+		if (player.getSpeedX() > 10.0f)
+		    {
+			player.setSpeedX(10.0f);
+		    }
+		movePlayer(player, player.getSpeedX(), 0.0f);
+	    }
+	else if (glfwGetKey(windowId, GLFW_KEY_S) == 1)
+	    {
+		System.out.println("S Key");
+		player.setSpeedY(player.getSpeedY() - player.getAcceleration());
+		if (player.getSpeedY() < -10.0f)
+		    {
+			player.setSpeedY(-10.0f);
+		    }
+		movePlayer(player, 0.0f, player.getSpeedY());
 	    }
 	else if (glfwGetKey(windowId, GLFW_KEY_W) == 1)
 	    {
 		System.out.println("W Key");
-		movePlayer(player, 0.0f, 10.0f);
+		player.setSpeedY(player.getSpeedY() + player.getAcceleration());
+		if (player.getSpeedY() > 10.0f)
+		    {
+			player.setSpeedY(10.0f);
+		    }
+		movePlayer(player, 0.0f, player.getSpeedY());
 	    }
 	else if (glfwGetKey(windowId, GLFW_KEY_ESCAPE) == 1)
 	    {
@@ -125,6 +145,42 @@ public class Tloll
 	    }
     }
 
+    public void decceleratePlayer(Square player)
+    {
+	// Check if horzontal keys are not being pressed.
+	// Not pressed, then we check for horizontal speed.
+	// Horzontal speed not 0.0, apply decceleartaion.
+	if (glfwGetKey(windowId, GLFW_KEY_A) == 0 && glfwGetKey(windowId, GLFW_KEY_D) == 0)
+	    {
+		if (player.getSpeedX() < 0.0f)
+		    {
+			player.setSpeedX(player.getSpeedX() + player.getAcceleration());
+			movePlayer(player, player.getSpeedX(), 0.0f);
+		    }
+		else if (player.getSpeedX() > 0.0f)
+		    {
+			player.setSpeedX(player.getSpeedX() - player.getAcceleration());
+			movePlayer(player, player.getSpeedX(), 0.0f);
+		    }
+	    }
+
+	// Vertical decceleartion.
+	if (glfwGetKey(windowId, GLFW_KEY_W) == 0 && glfwGetKey(windowId, GLFW_KEY_S) == 0)
+	    {
+		if (player.getSpeedY() < 0.0f)
+		    {
+			player.setSpeedY(player.getSpeedY() + player.getAcceleration());
+			movePlayer(player, 0.0f, player.getSpeedY());
+		    }
+		else if (player.getSpeedY() > 0.0f)
+		    {
+			player.setSpeedY(player.getSpeedY() - player.getAcceleration());
+			movePlayer(player, 0.0f, player.getSpeedY());
+		    }
+	    }
+	
+    }
+    
     public void movePlayer(Square player, float deltaX, float deltaY)
     {
 	player.setPosX(player.getPosX() + isOutOfBoundsX(player, deltaX));
@@ -512,6 +568,7 @@ public class Tloll
 		// glClearColor(background.getRed(), background.getGreen(), background.getBlue(), background.getAlpha());
 
 		tloll.bindKeys(player); // Allow movement with keyboard.
+		tloll.decceleratePlayer(player);
 
 		glfwSwapBuffers(tloll.windowId); // Swaps buffers that will be drawn.
 
