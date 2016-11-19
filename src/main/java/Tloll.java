@@ -81,22 +81,65 @@ public class Tloll
 	if (glfwGetKey(windowId, GLFW_KEY_A) == 1 && glfwGetKey(windowId, GLFW_KEY_S) == 1)
 	    {
 		System.out.println("A + S Combo Key");
-		movePlayer(player, -10.0f, -10.0f);
+		player.setSpeedX(player.getSpeedX() - player.getAcceleration());
+		player.setSpeedY(player.getSpeedY() - player.getAcceleration());
+		if (player.getSpeedX() < -10.0f)
+		    {
+			player.setSpeedX(-10.0f);
+		    }
+		if (player.getSpeedY() < -10.0f)
+		    {
+			player.setSpeedY(-10.0f);
+		    }
+		movePlayer(player, player.getSpeedX(), player.getSpeedY());
 	    }
 	else if (glfwGetKey(windowId, GLFW_KEY_A) == 1 && glfwGetKey(windowId, GLFW_KEY_W) == 1)
 	    {
-		System.out.println("A + S Combo Key");
-		movePlayer(player, -10.0f, 10.0f);
+		System.out.println("A + W Combo Key");
+		player.setSpeedX(player.getSpeedX() - player.getAcceleration());
+		player.setSpeedY(player.getSpeedY() + player.getAcceleration());
+		if (player.getSpeedX() < -10.0f)
+		    {
+			player.setSpeedX(-10.0f);
+		    }
+		if (player.getSpeedY() > 10.0f)
+		    {
+			player.setSpeedY(10.0f);
+		    }
+		movePlayer(player, player.getSpeedX(), player.getSpeedY());
+
 	    }
 	else if (glfwGetKey(windowId, GLFW_KEY_D) == 1 && glfwGetKey(windowId, GLFW_KEY_S) == 1)
 	    {
-		System.out.println("A + S Combo Key");
-		movePlayer(player, 10.0f, -10.0f);
+		System.out.println("D + S Combo Key");
+		player.setSpeedX(player.getSpeedX() + player.getAcceleration());
+		player.setSpeedY(player.getSpeedY() - player.getAcceleration());
+		if (player.getSpeedX() > 10.0f)
+		    {
+			player.setSpeedX(10.0f);
+		    }
+		if (player.getSpeedY() < -10.0f)
+		    {
+			player.setSpeedY(-10.0f);
+		    }
+		movePlayer(player, player.getSpeedX(), player.getSpeedY());
+
 	    }
 	else if (glfwGetKey(windowId, GLFW_KEY_D) == 1 && glfwGetKey(windowId, GLFW_KEY_W) == 1)
 	    {
-		System.out.println("A + S Combo Key");
-		movePlayer(player, 10.0f, 10.0f);
+		System.out.println("D + W Combo Key");
+		player.setSpeedX(player.getSpeedX() + player.getAcceleration());
+		player.setSpeedY(player.getSpeedY() + player.getAcceleration());
+		if (player.getSpeedX() > 10.0f)
+		    {
+			player.setSpeedX(10.0f);
+		    }
+		if (player.getSpeedY() > 10.0f)
+		    {
+			player.setSpeedY(10.0f);
+		    }
+		movePlayer(player, player.getSpeedX(), player.getSpeedY());
+
 	    }
 	else if (glfwGetKey(windowId, GLFW_KEY_A) == 1)
 	    {
