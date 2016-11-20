@@ -12,15 +12,14 @@ allprojects {
 	    targetCompatibility = 1.8
 }
 
-
+project.ext.jvmArgsForMac = ""
+		
 switch ( OperatingSystem.current() ) {
   case OperatingSystem.WINDOWS:
 		project.ext.lwjglNatives = "native_win32"
-		project.ext.jvmArgsForMac = ""
 		break
 	case OperatingSystem.LINUX:
 		project.ext.lwjglNatives = "native_linux"
-		project.ext.jvmArgsForMac = ""
 		break
 	case OperatingSystem.MAC_OS:
 		project.ext.lwjglNatives = "native_mac"
