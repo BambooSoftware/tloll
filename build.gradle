@@ -20,7 +20,7 @@ switch ( OperatingSystem.current() ) {
 		applicationDefaultJvmArgs = ["-Djava.library.path=Dependencies/native_linux"]
 		break
 	case OperatingSystem.MAC_OS:
-		applicationDefaultJvmArgs = ["-Djava.library.path=Dependencies/native_mac", "XstartOnFirstThread"]
+		applicationDefaultJvmArgs = ["-Djava.library.path=Dependencies/native_mac", "-XstartOnFirstThread"]
 		break
 }
 
@@ -57,7 +57,7 @@ dependencies {
 	     compile "org.lwjgl:lwjgl-vulkan:${lwjglVersion}"
 	     compile "org.lwjgl:lwjgl-xxhash:${lwjglVersion}"
 
-			 //On linux he thinks he needs test libs. Feel free to up this to a newer 
+			 //On linux he thinks he needs test libs. Feel free to up this to a newer
        testCompile "junit:junit:4.13-SNAPSHOT"
 
 	     // Needed if compiling through command line.
