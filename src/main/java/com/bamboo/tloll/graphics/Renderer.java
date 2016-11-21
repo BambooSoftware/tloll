@@ -1,4 +1,4 @@
-package com.game.renderer;
+package com.bamboo.tloll.graphics;
 
 // Renderer will do the following:
 // Load a texture.

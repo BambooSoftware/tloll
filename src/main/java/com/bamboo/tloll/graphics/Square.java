@@ -1,4 +1,4 @@
-package com.game.mygame;
+package com.bamboo.tloll.graphics;
 
 /**
  *
@@ -25,7 +25,7 @@ public class Square
 	private float speedX;
 	private float speedY;
 	
-	Square()
+	public Square()
 	{
 	    this.red = 0.0f;
 	    this.green = 0.0f;
@@ -43,7 +43,7 @@ public class Square
 	}
 	
     
-	Square(float red, float green, float blue, float alpha, float posX, float posY, float width, float height)
+	public Square(float red, float green, float blue, float alpha, float posX, float posY, float width, float height)
 	{
 	    this.red = red;
 	    this.green = green;

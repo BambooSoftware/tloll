@@ -1,4 +1,4 @@
-package com.game.physic;
+package com.bamboo.tloll.physics;
 
 // PhysicsEngine will do the following:
 // Bind keys.
