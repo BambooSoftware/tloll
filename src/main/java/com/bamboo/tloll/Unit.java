@@ -1,5 +1,6 @@
 // Parent class that will hold common values for the units such as enemies,
 // allies, pets??, etc.
+package com.bamboo.tloll;
 
 public class Unit
 {

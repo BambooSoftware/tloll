@@ -1,10 +1,7 @@
-package com.game.mygame;
+package com.bamboo.tloll;
 
-import org.lwjgl.*;
-import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 
-import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
@@ -12,7 +9,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import org.lwjgl.BufferUtils;
 
 import java.awt.image.BufferedImage;
-import java.awt.Color;
 import java.io.File;
 import javax.imageio.ImageIO;
 import java.nio.ByteBuffer;
@@ -20,7 +16,7 @@ import java.nio.IntBuffer;
 
 import java.util.ArrayList;
 
-import com.game.mygame.Square;
+import com.bamboo.tloll.graphics.Square;
 
 import org.lwjgl.system.Platform;
 
