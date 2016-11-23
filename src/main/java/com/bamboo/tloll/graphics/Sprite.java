@@ -117,8 +117,6 @@ public class Sprite
     }
     public void addBufferToMap(Integer bufferId, ByteBuffer buffer)
     {
-	// TODO : Maybe include some kind of check to ensure bufferId doesn't
-	// already exist and override.
 	this.bufferMap.put(bufferId, buffer);
     }
 }
