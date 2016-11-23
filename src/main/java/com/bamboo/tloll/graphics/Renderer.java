@@ -37,15 +37,15 @@ public final class Renderer
     }
 
     // TODO(map) : Need to get the width and height of the image being passed in
-    // so we can calulate the min and max values.
-    public static void drawSpriteAnimation(Unit unit, int bufferId, int maxFrames)
+    // so we can calulate the min and max values
+    public static void drawSpriteAnimation(Unit unit, int bufferId, int maxFrames, float width, float height, int imageWidth, int imageHeight)
     {
 	if (unit.getAnimatedSpriteNumber() > maxFrames)
 	    {
 		unit.setAnimatedSpriteNumber(1);
 	    }
-	float xValMin = 0.125f * (unit.getAnimatedSpriteNumber() - 1);
-	float xValMax = 0.125f * unit.getAnimatedSpriteNumber();
+	float xValMin = width * (unit.getAnimatedSpriteNumber() - 1);
+	float xValMax = width * unit.getAnimatedSpriteNumber();
 	glBindTexture(GL_TEXTURE_2D, bufferId);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -53,12 +53,11 @@ public final class Renderer
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	// TODO(map) : Get size of actual buffer instead of 864x280 hard coded.
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 864, 280, 0, GL_RGBA, GL_UNSIGNED_BYTE, unit.getBufferMap().get(bufferId));
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, unit.getBufferMap().get(bufferId));
 	glBegin(GL_QUADS);
-	glTexCoord2f(xValMin, 0.5f);
+	glTexCoord2f(xValMin, height);
 	glVertex3f(unit.getPosX(), unit.getPosY(), 0.0f);
-	glTexCoord2f(xValMax, 0.5f);
+	glTexCoord2f(xValMax, height);
 	glVertex3f(unit.getPosX() + unit.getWidth(), unit.getPosY(), 0.0f);
 	glTexCoord2f(xValMax, 0.0f);
 	glVertex3f(unit.getPosX() + unit.getWidth(), unit.getPosY() + unit.getHeight(), 0.0f);

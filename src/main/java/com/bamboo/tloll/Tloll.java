@@ -69,7 +69,7 @@ public class Tloll
 	Unit enemy = new Unit(0.0f, 200.0f, 128, 128, 0.0f, 0.0f, 0.0f, 0.0f);
 	Unit enemySprite = new Unit(0.0f, 350.0f, 108, 140, 0.0f, 0.0f, 0.0f, 0.0f);
 	Unit background1 = new Unit(0.0f, 0.0f, 512, 512, 0.0f, 0.0f, 0.0f, 0.0f);
-	Unit lingling = new Unit(50.0f, 50.0f, 32, 32, 1.0f, 0.0f, 0.0f, 0.0f);
+	Unit lingling = new Unit(100.0f, 100.0f, 32, 32, 0.0f, 0.0f, 0.0f, 0.0f);
 	
 	player.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/player.png"));
 	enemy.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/enemy.png"));
@@ -95,13 +95,12 @@ public class Tloll
 			Renderer.drawSprite(enemy, 1);
 		    }
 
-		Renderer.drawSpriteAnimation(enemySprite, 0, 8);
-		//Renderer.drawSpriteAnimation(lingling, 0, 4);
+		Renderer.drawSpriteAnimation(enemySprite, 0, 8, 0.125f, 0.5f, 864, 280);
+		Renderer.drawSpriteAnimation(lingling, 0, 4, 0.25f, 0.25f, 128, 128);
 		if (frameSkip < 0)
 		    {
-			
 			enemySprite.setAnimatedSpriteNumber(enemySprite.getAnimatedSpriteNumber() + 1);
-			//lingling.setAnimatedSpriteNumber(lingling.getAnimatedSpriteNumber() + 1);
+			lingling.setAnimatedSpriteNumber(lingling.getAnimatedSpriteNumber() + 1);
 			frameSkip = 2;
 		    }
 		frameSkip--;
