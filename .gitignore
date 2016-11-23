@@ -5,6 +5,7 @@
 #      *.*~ <-- Ignore everything else below.
 #      *.*~ <-- Top level ignore.
 #      .idea <-- Intellij created file.  Probably don't want that commited.
+#      *.log <-- Ignore the log errors created by windows.
 
 build/*
 
@@ -15,3 +16,5 @@ build/*
 *.*~
 
 *.idea
+
+*.log
