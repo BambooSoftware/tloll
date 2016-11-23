@@ -38,8 +38,9 @@ public final class Renderer
 
     // TODO(map) : Need to get the width and height of the image being passed in
     // so we can calulate the min and max values
-    public static void drawSpriteAnimation(Unit unit, int bufferId, int maxFrames, float width, float height, int imageWidth, int imageHeight)
+    public static void drawSpriteAnimation(Unit unit, int bufferId, int maxFrames, float width, float minHeight, float maxHeight, int imageWidth, int imageHeight)
     {
+	
 	if (unit.getAnimatedSpriteNumber() > maxFrames)
 	    {
 		unit.setAnimatedSpriteNumber(1);
@@ -55,13 +56,13 @@ public final class Renderer
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, unit.getBufferMap().get(bufferId));
 	glBegin(GL_QUADS);
-	glTexCoord2f(xValMin, height);
+	glTexCoord2f(xValMin, maxHeight);
 	glVertex3f(unit.getPosX(), unit.getPosY(), 0.0f);
-	glTexCoord2f(xValMax, height);
+	glTexCoord2f(xValMax, maxHeight);
 	glVertex3f(unit.getPosX() + unit.getWidth(), unit.getPosY(), 0.0f);
-	glTexCoord2f(xValMax, 0.0f);
+	glTexCoord2f(xValMax, minHeight);
 	glVertex3f(unit.getPosX() + unit.getWidth(), unit.getPosY() + unit.getHeight(), 0.0f);
-	glTexCoord2f(xValMin, 0.0f);
+	glTexCoord2f(xValMin, minHeight);
 	glVertex3f(unit.getPosX(), unit.getPosY() + unit.getHeight(), 0.0f);
 	glEnd();
     }

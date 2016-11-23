@@ -29,7 +29,6 @@ public class Tloll
     private static int HEIGHT = 512;
     private static String TITLE = "The Legend of Ling Ling";
     private static boolean isRunning = true;
-    private static int animateSpriteFrame = 1;
     private static int frameSkip = 2;
     private static String currentDir = System.getProperty("user.dir");
 
@@ -95,8 +94,8 @@ public class Tloll
 			Renderer.drawSprite(enemy, 1);
 		    }
 
-		Renderer.drawSpriteAnimation(enemySprite, 0, 8, 0.125f, 0.5f, 864, 280);
-		Renderer.drawSpriteAnimation(lingling, 0, 4, 0.25f, 0.25f, 128, 128);
+		Renderer.drawSpriteAnimation(enemySprite, 0, 8, 0.125f, 0.0f, 0.5f, 864, 280);
+		Renderer.drawSpriteAnimation(lingling, 0, 4, 0.25f, 0.0f, 0.25f, 128, 128);
 		if (frameSkip < 0)
 		    {
 			enemySprite.setAnimatedSpriteNumber(enemySprite.getAnimatedSpriteNumber() + 1);
