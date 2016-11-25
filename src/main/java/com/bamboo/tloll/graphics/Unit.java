@@ -13,6 +13,10 @@ public class Unit extends Sprite
     private float speedY;
     private boolean right;
     private boolean up;
+    private boolean outOfBoundsLeft;
+    private boolean outOfBoundsRight;
+    private boolean outOfBoundsUp;
+    private boolean outOfBoundsDown;
 
     public Unit()
     {
@@ -22,6 +26,10 @@ public class Unit extends Sprite
 	this.speedX = 0.0f;
 	this.speedY = 0.0f;
 	this.right = false;
+	this.outOfBoundsLeft = false;
+	this.outOfBoundsRight = false;
+	this.outOfBoundsUp = false;
+	this.outOfBoundsDown = false;
     }
 
     public Unit(float posX,
@@ -39,6 +47,10 @@ public class Unit extends Sprite
 	this.speedX = speedX;
 	this.speedY = speedY;
 	this.right = false;
+	this.outOfBoundsLeft = false;
+	this.outOfBoundsRight = false;
+	this.outOfBoundsUp = false;
+	this.outOfBoundsDown = false;
     }
 
     public float getAcceleration()
@@ -84,5 +96,41 @@ public class Unit extends Sprite
     public void setRight(boolean right)
     {
 	this.right = right;
+    }
+
+    public boolean getOutOfBoundsLeft()
+    {
+	return outOfBoundsLeft;
+    }
+    public void setOutOfBoundsLeft(boolean outOfBoundsLeft)
+    {
+	this.outOfBoundsLeft = outOfBoundsLeft;
+    }
+
+    public boolean getOutOfBoundsRight()
+    {
+	return outOfBoundsRight;
+    }
+    public void setOutOfBoundsRight(boolean outOfBoundsRight)
+    {
+	this.outOfBoundsRight = outOfBoundsRight;
+    }
+
+    public boolean getOutOfBoundsUp()
+    {
+	return outOfBoundsUp;
+    }
+    public void setOutOfBoundsUp(boolean outOfBoundsUp)
+    {
+	this.outOfBoundsUp = outOfBoundsUp;
+    }
+
+    public boolean getOutOfBoundsDown()
+    {
+	return outOfBoundsDown;
+    }
+    public void setOutOfBoundsDown(boolean outOfBoundsDown)
+    {
+	this.outOfBoundsDown = outOfBoundsDown;
     }
 }

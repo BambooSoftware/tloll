@@ -26,12 +26,16 @@ public final class PhysicsEngine
 	// TODO(map) : Hard coded value needs to be passed at some point.
 	if (player.getCenterX() + deltaX > 512)
 	    {
+		player.setOutOfBoundsRight(true);
 		return 0.0f;
 	    }
 	else if (player.getCenterX() + deltaX < 0)
 	    {
+		player.setOutOfBoundsLeft(true);
 		return 0.0f;
 	    }
+	player.setOutOfBoundsRight(false);
+	player.setOutOfBoundsLeft(false);
 	player.setCenterX(player.getCenterX() + deltaX);
 	return deltaX;
     }
@@ -42,12 +46,16 @@ public final class PhysicsEngine
 	// TODO(map) : Hard coded value needs to be passed at some point.
 	if (player.getCenterY() + deltaY > 512)
 	    {
+		player.setOutOfBoundsUp(true);
 		return 0.0f;
 	    }
 	else if (player.getCenterY()+ deltaY < 0)
 	    {
+		player.setOutOfBoundsDown(true);
 		return 0.0f;
 	    }
+	player.setOutOfBoundsUp(false);
+	player.setOutOfBoundsDown(false);
 	player.setCenterY(player.getCenterY() + deltaY);
 	return deltaY;
     }

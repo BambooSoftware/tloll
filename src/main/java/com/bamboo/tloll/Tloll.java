@@ -75,7 +75,12 @@ public class Tloll
 	enemy.addBufferToMap(1, gu.loadTexture(currentDir + "/Assets/Images/enemy_left.png"));
 	enemySprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/SpriteSheet.png"));
 	background1.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_LowerLeft_512x512.png"));
+	background1.addBufferToMap(1, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_LowerRight_512x512.png"));
+	background1.addBufferToMap(2, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_UpperLeft_512x512.png"));
+	background1.addBufferToMap(3, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_UpperRight_512x512.png"));
 	lingling.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Actors/panda_f_base.png"));
+	
+	int backgroundId = 0;
 	
 	while (isRunning)
 	    {
@@ -83,26 +88,42 @@ public class Tloll
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the frame buffer.
 
 		// Draw oversized characters.
-		Renderer.drawSprite(background1, 0);
+		Renderer.drawSprite(background1, backgroundId);
 		Renderer.drawSprite(player, 0);
-		if (enemy.getRight())
+
+		if (backgroundId == 1)
 		    {
-			Renderer.drawSprite(enemy, 0);
-		    }
-		else
-		    {
-			Renderer.drawSprite(enemy, 1);
+			if (enemy.getRight())
+			    {
+				Renderer.drawSprite(enemy, 0);
+			    }
+			else
+			    {
+				Renderer.drawSprite(enemy, 1);
+			    }
 		    }
 
-		Renderer.drawSpriteAnimation(enemySprite, 0, 8, 0.125f, 0.0f, 0.5f, 864, 280);
-		Renderer.drawSpriteAnimation(lingling, 0, 4, 0.25f, 0.0f, 0.25f, 128, 128);
-		if (frameSkip < 0)
+		if (backgroundId == 2)
 		    {
-			enemySprite.setAnimatedSpriteNumber(enemySprite.getAnimatedSpriteNumber() + 1);
-			lingling.setAnimatedSpriteNumber(lingling.getAnimatedSpriteNumber() + 1);
-			frameSkip = 2;
+			Renderer.drawSpriteAnimation(enemySprite, 0, 8, 0.125f, 0.0f, 0.5f, 864, 280);
+			if (frameSkip < 0)
+			    {
+				enemySprite.setAnimatedSpriteNumber(enemySprite.getAnimatedSpriteNumber() + 1);
+				frameSkip = 2;
+			    }
+			frameSkip--;
 		    }
-		frameSkip--;
+
+		if (backgroundId == 3)
+		    {
+			Renderer.drawSpriteAnimation(lingling, 0, 4, 0.25f, 0.0f, 0.25f, 128, 128);
+			if (frameSkip < 0)
+			    {
+				lingling.setAnimatedSpriteNumber(lingling.getAnimatedSpriteNumber() + 1);
+				frameSkip = 2;
+			    }
+			frameSkip--;
+		    }
 		
 		// Set enemies to patrol.
 		BaseBehaviors.patrolUnitLeftRight(enemy, 10.0f);
@@ -112,6 +133,55 @@ public class Tloll
 		in.checkKeyRelease(tloll.windowId, player);
 		isRunning = in.bindEscape(tloll.windowId);
 
+		if(player.getOutOfBoundsRight() && backgroundId == 0)
+		    {
+			backgroundId = 1;
+			player.setPosX(0.0f);
+			player.setCenterX(player.getWidth() / 2);
+		    }
+		else if (player.getOutOfBoundsLeft() && backgroundId == 1)
+		    {
+			backgroundId = 0;
+			player.setPosX(512 - player.getWidth());
+			player.setCenterX(512 - (player.getWidth() / 2));
+		    }
+		else if (player.getOutOfBoundsRight() && backgroundId == 2)
+		    {
+			backgroundId = 3;
+			player.setPosX(0.0f);
+			player.setCenterX(player.getWidth() / 2);
+		    }
+		else if (player.getOutOfBoundsLeft() && backgroundId == 3)
+		    {
+			backgroundId = 2;
+			player.setPosX(512 - player.getWidth());
+			player.setCenterX(512 - (player.getWidth() / 2));
+		    }
+		else if (player.getOutOfBoundsUp() && backgroundId == 0)
+		    {
+			backgroundId = 2;
+			player.setPosY(0.0f);
+			player.setCenterY(player.getWidth() / 2);
+		    }
+		else if (player.getOutOfBoundsDown() && backgroundId == 2)
+		    {
+			backgroundId = 0;
+			player.setPosY(512 - player.getHeight());
+			player.setCenterY(512 - (player.getHeight() / 2));
+		    }
+		else if (player.getOutOfBoundsUp() && backgroundId == 1)
+		    {
+			backgroundId = 3;
+			player.setPosY(0.0f);
+			player.setCenterY(player.getWidth() / 2);
+		    }
+		else if (player.getOutOfBoundsDown() && backgroundId == 3)
+		    {
+			backgroundId = 1;
+			player.setPosY(512 - player.getHeight());
+			player.setCenterY(512 - (player.getHeight() / 2));
+		    }
+		
 		glfwSwapBuffers(tloll.windowId); // Swaps buffers that will be drawn.
 
 		glfwPollEvents(); // Continuosuly polls.
