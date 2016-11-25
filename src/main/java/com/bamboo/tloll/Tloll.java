@@ -74,10 +74,10 @@ public class Tloll
 	enemy.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/enemy.png"));
 	enemy.addBufferToMap(1, gu.loadTexture(currentDir + "/Assets/Images/enemy_left.png"));
 	enemySprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/SpriteSheet.png"));
-	background1.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_LowerLeft_512x512.png"));
-	background1.addBufferToMap(1, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_LowerRight_512x512.png"));
-	background1.addBufferToMap(2, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_UpperLeft_512x512.png"));
-	background1.addBufferToMap(3, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_UpperRight_512x512.png"));
+	background1.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_LowerLeft_512x512.PNG"));
+	background1.addBufferToMap(1, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_LowerRight_512x512.PNG"));
+	background1.addBufferToMap(2, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_UpperLeft_512x512.PNG"));
+	background1.addBufferToMap(3, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_UpperRight_512x512.PNG"));
 	lingling.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Actors/panda_f_base.png"));
 	
 	int backgroundId = 0;
