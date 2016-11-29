@@ -1,20 +1,64 @@
 package com.bamboo.tloll.physics;
 
-// PhysicsEngine will do the following:
-// Bind keys.
-// Accelerate hero and slow hero down.
-// Move the enemies.
-// Collision detection.
-// Check for bounds on map.
-// Check for transition points on map.
+import com.bamboo.tloll.graphics.Unit;
 
-
-public class PhysicsEngine
+public final class PhysicsEngine
 {
 
     public PhysicsEngine()
     {
-	
+	// Empty constructor.
     }
 
+    public static void movePlayer(Unit player, float deltaX, float deltaY)
+    {
+	player.setPosX(player.getPosX() + isOutOfBoundsX(player, deltaX));
+	player.setPosY(player.getPosY() + isOutOfBoundsY(player, deltaY));
+
+	System.out.println("Player X: " + player.getPosX());
+	System.out.println("Player Y: " + player.getPosY());
+	System.out.println("Center coords: " + player.getCenterX() + "," + player.getCenterY());
+    }
+
+    // Bind the player to the X dimension of the board.
+    public static float isOutOfBoundsX(Unit player, float deltaX)
+    {
+	// TODO(map) : Hard coded value needs to be passed at some point.
+	if (player.getCenterX() + deltaX > 512)
+	    {
+		player.setOutOfBoundsRight(true);
+		return 0.0f;
+	    }
+	else if (player.getCenterX() + deltaX < 0)
+	    {
+		player.setOutOfBoundsLeft(true);
+		return 0.0f;
+	    }
+	player.setOutOfBoundsRight(false);
+	player.setOutOfBoundsLeft(false);
+	player.setCenterX(player.getCenterX() + deltaX);
+	return deltaX;
+    }
+
+    // Bind the palyer to the Y dimension of the board.
+    public static float isOutOfBoundsY(Unit player, float deltaY)
+    {
+	// TODO(map) : Hard coded value needs to be passed at some point.
+	if (player.getCenterY() + deltaY > 512)
+	    {
+		player.setOutOfBoundsUp(true);
+		return 0.0f;
+	    }
+	else if (player.getCenterY()+ deltaY < 0)
+	    {
+		player.setOutOfBoundsDown(true);
+		return 0.0f;
+	    }
+	player.setOutOfBoundsUp(false);
+	player.setOutOfBoundsDown(false);
+	player.setCenterY(player.getCenterY() + deltaY);
+	return deltaY;
+    }
+
+        
 }
