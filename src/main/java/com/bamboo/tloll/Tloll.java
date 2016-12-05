@@ -89,6 +89,9 @@ public class Tloll
 	
 	int backgroundId = 0;
 
+	// TODO(map) : Let's get this working by drawing alternating tiles between water and grass
+	// from the image assets file.  Once we are doing that, we will change to load different parts
+	// of the actual map instead.  Normalization needs to happen for this to occur.
 	List<Sprite> tileMap = mc.createSampleMap();
 	for (Sprite sprite : tileMap)
 	    {
