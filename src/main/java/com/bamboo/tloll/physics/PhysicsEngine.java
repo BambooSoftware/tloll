@@ -24,12 +24,12 @@ public final class PhysicsEngine
     public static float isOutOfBoundsX(Unit player, float deltaX)
     {
 	// TODO(map) : Hard coded value needs to be passed at some point.
-	if (player.getCenterX() + deltaX > 512)
+	if (player.getCenterX() + player.getWidth() / 2  + deltaX > 512)
 	    {
 		player.setOutOfBoundsRight(true);
 		return 0.0f;
 	    }
-	else if (player.getCenterX() + deltaX < 0)
+	else if (player.getCenterX() - player.getWidth() / 2 + deltaX < 0)
 	    {
 		player.setOutOfBoundsLeft(true);
 		return 0.0f;
@@ -44,12 +44,12 @@ public final class PhysicsEngine
     public static float isOutOfBoundsY(Unit player, float deltaY)
     {
 	// TODO(map) : Hard coded value needs to be passed at some point.
-	if (player.getCenterY() + deltaY > 512)
+	if (player.getCenterY() + player.getHeight() / 4 + deltaY > 512)
 	    {
 		player.setOutOfBoundsUp(true);
 		return 0.0f;
 	    }
-	else if (player.getCenterY()+ deltaY < 0)
+	else if (player.getCenterY() - player.getHeight() / 2 + deltaY < 0)
 	    {
 		player.setOutOfBoundsDown(true);
 		return 0.0f;

@@ -1,4 +1,4 @@
-package com.bamboo.tloll;
+2package com.bamboo.tloll;
 
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.Platform;
@@ -81,9 +81,6 @@ public class Tloll
 	lingling.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Actors/panda_f_base.png"));
 	
 	int backgroundId = 0;
-
-	System.out.println("Player x, width, center: " + player.getPosX() + " " + player.getWidth() + " " + player.getCenterX());
-	System.out.println("Player y, height, center: " + player.getPosY() + " " + player.getHeight() + " " + player.getCenterY());
 	
 	while (isRunning)
 	    {
@@ -108,26 +105,13 @@ public class Tloll
 
 		if (backgroundId == 2)
 		    {
-			if (enemySprite.getRight())
+			Renderer.drawSpriteAnimation(enemySprite, 0, 8, 0.125f, 0.0f, 0.5f, 864, 280);
+			if (frameSkip < 0)
 			    {
-				Renderer.drawSpriteAnimation(enemySprite, 0, 8, 0.125f, 0.0f, 0.5f, 864, 280);
-				if (frameSkip < 0)
-				    {
-					enemySprite.setAnimatedSpriteNumber(enemySprite.getAnimatedSpriteNumber() + 1);
-					frameSkip = 2;
-				    }
-				frameSkip--;
+				enemySprite.setAnimatedSpriteNumber(enemySprite.getAnimatedSpriteNumber() + 1);
+				frameSkip = 2;
 			    }
-			else
-			    {
-				Renderer.drawSpriteAnimation(enemySprite, 0, 8, 0.125f, 0.5f, 1.0f, 864, 280);
-				if (frameSkip < 0)
-				    {
-					enemySprite.setAnimatedSpriteNumber(enemySprite.getAnimatedSpriteNumber() - 1);
-					frameSkip = 2;
-				    }
-				frameSkip--;
-			    }
+			frameSkip--;
 		    }
 
 		if (backgroundId == 3)
@@ -143,7 +127,6 @@ public class Tloll
 		
 		// Set enemies to patrol.
 		BaseBehaviors.patrolUnitLeftRight(enemy, 10.0f);
-		BaseBehaviors.patrolUnitLeftRight(enemySprite, 5.0f);
 
 		// Set up keyboard controls.
 		in.checkKeyPressed(tloll.windowId, player);
@@ -178,7 +161,7 @@ public class Tloll
 		    {
 			backgroundId = 2;
 			player.setPosY(0.0f);
-			player.setCenterY(player.getHeight() / 2);
+			player.setCenterY(player.getWidth() / 2);
 		    }
 		else if (player.getOutOfBoundsDown() && backgroundId == 2)
 		    {
@@ -190,7 +173,7 @@ public class Tloll
 		    {
 			backgroundId = 3;
 			player.setPosY(0.0f);
-			player.setCenterY(player.getHeight() / 2);
+			player.setCenterY(player.getWidth() / 2);
 		    }
 		else if (player.getOutOfBoundsDown() && backgroundId == 3)
 		    {

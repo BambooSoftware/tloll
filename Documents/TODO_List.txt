@@ -2,15 +2,6 @@ Items that need to be addressed.
 This is not an exhaustive list.  Need to consult with Andrew and Isaiah about items left to complete.
 
 
-**** TODO by 11/27/2016 ****
-1. Refactor out the basic physics engine stuff and rendering stuff to their respective classes.
-2. Stub out useful classes (Unit class, Player class, Enemy class, etc.)
-3. Look into sound to see if this is easily implementable.
-4. Start collision detection.
-5. Implement linear momentum in acceleration, decceleration, and "friction".
-6. Get assets to display on screen such as background images.
-
-
 **** Physics Engine ****
 - Implement collision detection between objects on the screen.
 - Smooth movement across screen.
