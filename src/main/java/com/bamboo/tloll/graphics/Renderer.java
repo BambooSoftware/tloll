@@ -14,7 +14,7 @@ public final class Renderer
 	// Empty constructor.
     }
     
-    public static void drawSprite(Unit unit, int bufferId)
+    public static void drawSprite(Sprite unit, int bufferId)
     {
 	glBindTexture(GL_TEXTURE_2D, bufferId);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -38,7 +38,7 @@ public final class Renderer
 
     // TODO(map) : Need to get the width and height of the image being passed in
     // so we can calulate the min and max values
-    public static void drawSpriteAnimation(Unit unit, int bufferId, int maxFrames, float width, float minHeight, float maxHeight, int imageWidth, int imageHeight)
+    public static void drawSpriteAnimation(Sprite unit, int bufferId, int maxFrames, float width, float minHeight, float maxHeight, int imageWidth, int imageHeight)
     {
 	
 	if (unit.getAnimatedSpriteNumber() > maxFrames)

@@ -14,12 +14,18 @@ import javax.imageio.ImageIO;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.bamboo.tloll.graphics.Unit;
 import com.bamboo.tloll.graphics.GraphicsUtil;
 import com.bamboo.tloll.graphics.Renderer;
+import com.bamboo.tloll.graphics.MapCreator;
+import com.bamboo.tloll.graphics.Sprite;
+
 import com.bamboo.tloll.input.Input;
+
 import com.bamboo.tloll.behaviors.BaseBehaviors;
+
 
 public class Tloll
 {
@@ -45,6 +51,7 @@ public class Tloll
 	Tloll tloll = new Tloll();
 	GraphicsUtil gu = new GraphicsUtil();
 	Input in = new Input();
+	MapCreator mc = new MapCreator();
 	
 	gu.initializeGL();
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
@@ -82,8 +89,12 @@ public class Tloll
 	
 	int backgroundId = 0;
 
-	System.out.println("Player x, width, center: " + player.getPosX() + " " + player.getWidth() + " " + player.getCenterX());
-	System.out.println("Player y, height, center: " + player.getPosY() + " " + player.getHeight() + " " + player.getCenterY());
+	List<Sprite> tileMap = mc.createSampleMap();
+	for (Sprite sprite : tileMap)
+	    {
+	        sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/water.png"));
+	    }
+	//tileMap.get(0).addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/water.png"));
 	
 	while (isRunning)
 	    {
@@ -93,6 +104,10 @@ public class Tloll
 		// Draw oversized characters.
 		Renderer.drawSprite(background1, backgroundId);
 		Renderer.drawSprite(player, 0);
+		for (Sprite sprite : tileMap)
+		    {
+			Renderer.drawSprite(sprite, 0);
+		    }
 
 		if (backgroundId == 1)
 		    {
