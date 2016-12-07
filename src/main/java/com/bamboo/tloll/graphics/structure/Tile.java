@@ -1,8 +1,12 @@
-package com.bamboo.tloll.graphics;
+package com.bamboo.tloll.graphics.structure;
+
+import com.bamboo.tloll.graphics.Sprite;
 
 public class Tile extends Sprite
 {
 
+    //TODO: this should probably be expanded upon to be a more complex structure maybe have 4 ?
+    //TODO: PASSBALE TOP LEFT RIGHT BOTTOM so we can have one way terrain.
     private boolean passable;
     
     public Tile()
