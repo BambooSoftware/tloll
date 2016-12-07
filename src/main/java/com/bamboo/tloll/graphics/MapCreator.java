@@ -22,7 +22,7 @@ public class MapCreator
 		    {
 			float posX = i * 64.0f;
 			float posY = j * 64.0f;
-			if (i == 0)
+			if (i == 0 )
 			    {
 				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 1);
 			    }
@@ -53,13 +53,17 @@ public class MapCreator
 		    {
 			float posX = i * 64.0f;
 			float posY = j * 64.0f;
-			if (i == 7)
+			if (i == 7 && j != 0)
 			    {
 				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 3);
 			    }
-			else if (j == 0)
+			else if (j == 0 && i != 7)
 			    {
 				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 4);
+			    }
+			else if (i == 7 && j == 0)
+			    {
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 99);
 			    }
 			else
 			    {

@@ -94,9 +94,9 @@ public class Tloll
 	// TODO(map) : Let's get this working by drawing alternating tiles between water and grass
 	// from the image assets file.  Once we are doing that, we will change to load different parts
 	// of the actual map instead.  Normalization needs to happen for this to occur.
-	//List<Tile> tileMap = mc.createSampleMapLowerRight();
+	List<Tile> tileMap = mc.createSampleMapLowerRight();
 	//List<Tile> tileMap = mc.createSampleMapLowerLeft();
-	List<Tile> tileMap = mc.createSampleMapUpperLeft();
+	//List<Tile> tileMap = mc.createSampleMapUpperLeft();
 
 	for (Tile tile : tileMap)
 	    {
@@ -121,6 +121,10 @@ public class Tloll
 			else if (tile.getDirection() == 4)
 			    {
 				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/top_grass_bottom_water.PNG"));				
+			    }
+			else if (tile.getDirection() == 99)
+			    {
+				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/grass_bottom_right_water.PNG"));				
 			    }
 		    }
 	    }
