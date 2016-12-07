@@ -4,6 +4,7 @@ public class Tile extends Sprite
 {
 
     private boolean passable;
+    // TODO(map) : We will need to change this at some point.
     // This is a value to represent which side the piece is on.  For now the following applies:
     // 0 = Middle
     // 1 = Left
