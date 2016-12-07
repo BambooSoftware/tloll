@@ -53,20 +53,29 @@ public class MapCreator
 		    {
 			float posX = i * 64.0f;
 			float posY = j * 64.0f;
-			if (i == 7 && j != 0)
+			if (i == 7 || j == 0)
 			    {
+				// One Tile layer of water.
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 5);
+			    }
+			else if (i == 6 && j != 1)
+			    {
+				// Right
 				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 3);
 			    }
-			else if (j == 0 && i != 7)
+			else if (j == 1 && i != 6)
 			    {
+				// Bottom
 				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 4);
 			    }
-			else if (i == 7 && j == 0)
+			else if (j == 1 && i == 6)
 			    {
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 99);
+				// Corner piece.
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 9);
 			    }
 			else
 			    {
+				// Everything else is grass.
 				tile = new Tile(posX, posY, 64.0f, 64.0f, true, 0);
 			    }
 			tileMap.add(tile);

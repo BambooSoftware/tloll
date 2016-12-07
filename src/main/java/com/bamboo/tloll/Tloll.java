@@ -122,7 +122,11 @@ public class Tloll
 			    {
 				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/top_grass_bottom_water.PNG"));				
 			    }
-			else if (tile.getDirection() == 99)
+			else if (tile.getDirection() == 5)
+			    {
+				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/water.PNG"));				
+			    }
+			else if (tile.getDirection() == 9)
 			    {
 				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/grass_bottom_right_water.PNG"));				
 			    }

@@ -6,11 +6,16 @@ public class Tile extends Sprite
     private boolean passable;
     // TODO(map) : We will need to change this at some point.
     // This is a value to represent which side the piece is on.  For now the following applies:
-    // 0 = Middle
+    // 0 = Grass
     // 1 = Left
     // 2 = Top
     // 3 = Right
     // 4 = Bottom
+    // 5 = Water
+    // 6 = Lower Left Corner
+    // 7 = Upper Left Corner
+    // 8 = Upper Right Corner
+    // 9 = Lower Right Corner
     private int direction;
     
     public Tile()
