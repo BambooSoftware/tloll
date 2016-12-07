@@ -84,11 +84,11 @@ public class MapCreator
 		    {
 			float posX = i * 64.0f;
 			float posY = j * 64.0f;
-			if (i == 0)
+			if (i == 0 && j != 7)
 			    {
 				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 1);
 			    }
-			else if (j == 7)
+			else if (j == 7 && i != 0)
 			    {
 				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 2);
 			    }

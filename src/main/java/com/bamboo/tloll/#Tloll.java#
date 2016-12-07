@@ -67,8 +67,6 @@ public class Tloll
 	glOrtho(0, 500, 0, 500, 1, -1);
 	glMatrixMode(GL_MODELVIEW);
 	glEnable(GL_TEXTURE_2D);
-	//glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
-	//glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
