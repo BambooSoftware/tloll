@@ -1,6 +1,10 @@
 Items that need to be addressed.
 This is not an exhaustive list.  Need to consult with Andrew and Isaiah about items left to complete.
 
+1. Andrew -> Map infrastructure linking the Maps to eachother.
+2. Isaiah -> Assets for the dynamically generated maps. Frame locking or attack animation
+3. Mike -> Tiles and map creation with tile objects.  Include storing all nonpassable coordinates and collision detection with that.
+
 
 **** Physics Engine ****
 - Implement collision detection between objects on the screen.

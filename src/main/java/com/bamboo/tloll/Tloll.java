@@ -93,20 +93,21 @@ public class Tloll
 	// from the image assets file.  Once we are doing that, we will change to load different parts
 	// of the actual map instead.  Normalization needs to happen for this to occur.
 	List<Sprite> tileMap = mc.createSampleMap();
+
 	for (Sprite sprite : tileMap)
 	    {
 		if (sprite.getPosY() == 0.0f || sprite.getPosX() == 0.0f)
 		    {
-			sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_LowerLeft_512x512.PNG"));
-			//sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/water.png"));
+			//sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_LowerLeft_512x512.PNG"));
+			sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/water.png"));
 		    }
 		else
 		    {
-			sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_LowerLeft_512x512.PNG"));
-			//sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/grass.png"));
+			//sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_LowerLeft_512x512.PNG"));
+			sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/grass.png"));
 		    }
 	    }
-	
+
 	while (isRunning)
 	    {
 
@@ -116,20 +117,21 @@ public class Tloll
 		//Renderer.drawSprite(background1, backgroundId);
 
 		// TODO(map) : Move this code at some point when the tile map is being drawn correctly again.
-		
+
 		for (Sprite sprite : tileMap)
 		    {
 			if (sprite.getPosY() == 0.0f || sprite.getPosX() == 0.0f)
 			    {
-				Renderer.drawSpriteNormalized(sprite, 0);
+				Renderer.drawSprite(sprite, 0);
+				//Renderer.drawSpriteNormalized(sprite, 0);
 			    }
 			else
 			    {
 				//Renderer.drawSprite(sprite, 0);
-				Renderer.drawSpriteNormalized(sprite, 0);
+				//Renderer.drawSpriteNormalized(sprite, 0);
 			    }
 		    }
-		
+
 		Renderer.drawSpriteNormalized(tileMap.get(0), 0);
 
 		// Draw caveman sprite.
