@@ -16,10 +16,15 @@ public class MapCreator
 	List<Sprite> tileMap = new ArrayList<Sprite>();
 	Sprite sprite;
 	
-	for (int i = 0; i < 64; i++)
+	for (int i = 0; i < 8; i++)
 	    {
-		sprite = new Sprite(0.0f, 0.0f, 64.0f, 64.0f);
-		tileMap.add(sprite);
+		for (int j = 0; j < 8; j++)
+		    {
+			float posX = i * 64.0f;
+			float posY = j * 64.0f;
+			sprite = new Sprite(posX, posY, 64.0f, 64.0f);
+			tileMap.add(sprite);
+		    }
 	    }
 
 	return tileMap;

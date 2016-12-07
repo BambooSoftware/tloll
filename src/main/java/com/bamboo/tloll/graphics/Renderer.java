@@ -66,5 +66,33 @@ public final class Renderer
 	glVertex3f(unit.getPosX(), unit.getPosY() + unit.getHeight(), 0.0f);
 	glEnd();
     }
+
+    public static void drawSpriteNormalized(Sprite sprite, int bufferId)
+    {
+	// NOTE(map) : We have to do (1 - VALUE) for the Y because the map travels from the upper
+	// left downward.  The X value travels normally from left to right. 
+	float xMin = ((sprite.getPosX()) / 512);
+	float xMax = ((sprite.getPosX() + sprite.getWidth()) / 512);
+	float yMin = 1 - ((sprite.getPosY()) / 512);
+	float yMax = 1 - ((sprite.getPosY() + sprite.getHeight()) / 512);
+	glBindTexture(GL_TEXTURE_2D, bufferId);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 512, 512, 0, GL_RGBA, GL_UNSIGNED_BYTE, sprite.getBufferMap().get(bufferId));
+	glBegin(GL_QUADS);
+	glTexCoord2f(xMin, yMin);
+	glVertex3f(sprite.getPosX(), sprite.getPosY(), 0.0f);
+	glTexCoord2f(xMax, yMin);
+	glVertex3f(sprite.getPosX() + sprite.getWidth(), sprite.getPosY(), 0.0f);
+	glTexCoord2f(xMax, yMax);
+	glVertex3f(sprite.getPosX() + sprite.getWidth(), sprite.getPosY() + sprite.getHeight(), 0.0f);
+	glTexCoord2f(xMin, yMax);
+	glVertex3f(sprite.getPosX(), sprite.getPosY() + sprite.getHeight(), 0.0f);
+	glEnd();
+    }
     
 }

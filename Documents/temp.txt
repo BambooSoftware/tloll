@@ -2,7 +2,6 @@
 #This file holds the code set up for the FPS cap on the loop#
 #############################################################
 // TODO(map) : Read up about the FPS and how it's being set here.
-	// TODO(map) : Implement enemies walking across screen.
 	long lastTime = System.nanoTime();
 	double delta = 0.0;
 	double ns = 1000000000.0 / 30.0;
@@ -39,7 +38,6 @@
 		glfwSwapBuffers(tloll.windowId); // Swaps buffers that will be drawn.
 	    
 		glfwPollEvents(); // Continuosuly polls.
-		//glfwWaitEvents(); // Update only on event. TODO(map) : Good for debugging and running frame by frame.
 	    }
 	    frames++;
 	    if (System.currentTimeMillis() - timer > 1000) {

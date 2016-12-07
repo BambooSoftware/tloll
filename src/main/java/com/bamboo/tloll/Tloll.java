@@ -95,22 +95,45 @@ public class Tloll
 	List<Sprite> tileMap = mc.createSampleMap();
 	for (Sprite sprite : tileMap)
 	    {
-	        sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/water.png"));
+		if (sprite.getPosY() == 0.0f || sprite.getPosX() == 0.0f)
+		    {
+			sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_LowerLeft_512x512.PNG"));
+			//sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/water.png"));
+		    }
+		else
+		    {
+			sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_LowerLeft_512x512.PNG"));
+			//sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/grass.png"));
+		    }
 	    }
-	//tileMap.get(0).addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/water.png"));
 	
 	while (isRunning)
 	    {
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the frame buffer.
 
-		// Draw oversized characters.
-		Renderer.drawSprite(background1, backgroundId);
-		Renderer.drawSprite(player, 0);
+		// Draw initial background.
+		//Renderer.drawSprite(background1, backgroundId);
+
+		// TODO(map) : Move this code at some point when the tile map is being drawn correctly again.
+		
 		for (Sprite sprite : tileMap)
 		    {
-			Renderer.drawSprite(sprite, 0);
+			if (sprite.getPosY() == 0.0f || sprite.getPosX() == 0.0f)
+			    {
+				Renderer.drawSpriteNormalized(sprite, 0);
+			    }
+			else
+			    {
+				//Renderer.drawSprite(sprite, 0);
+				Renderer.drawSpriteNormalized(sprite, 0);
+			    }
 		    }
+		
+		Renderer.drawSpriteNormalized(tileMap.get(0), 0);
+
+		// Draw caveman sprite.
+		Renderer.drawSprite(player, 0);
 
 		if (backgroundId == 1)
 		    {

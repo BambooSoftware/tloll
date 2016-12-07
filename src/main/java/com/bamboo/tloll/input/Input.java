@@ -121,6 +121,10 @@ public class Input
 		    }
 		PhysicsEngine.movePlayer(player, 0.0f, player.getSpeedY());
 	    }
+	else if (glfwGetKey(windowId, GLFW_KEY_SPACE) == 1)
+	    {
+		System.out.println("Attack");
+	    }
     }
 
     public void checkKeyRelease(long windowId, Unit player)
