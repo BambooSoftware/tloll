@@ -20,7 +20,7 @@ import com.bamboo.tloll.graphics.Unit;
 import com.bamboo.tloll.graphics.GraphicsUtil;
 import com.bamboo.tloll.graphics.Renderer;
 import com.bamboo.tloll.graphics.MapCreator;
-import com.bamboo.tloll.graphics.Sprite;
+import com.bamboo.tloll.graphics.Tile;
 
 import com.bamboo.tloll.input.Input;
 
@@ -92,19 +92,34 @@ public class Tloll
 	// TODO(map) : Let's get this working by drawing alternating tiles between water and grass
 	// from the image assets file.  Once we are doing that, we will change to load different parts
 	// of the actual map instead.  Normalization needs to happen for this to occur.
-	List<Sprite> tileMap = mc.createSampleMap();
+	//List<Tile> tileMap = mc.createSampleMapLowerRight();
+	//List<Tile> tileMap = mc.createSampleMapLowerLeft();
+	List<Tile> tileMap = mc.createSampleMapUpperLeft();
 
-	for (Sprite sprite : tileMap)
+	for (Tile tile : tileMap)
 	    {
-		if (sprite.getPosY() == 0.0f || sprite.getPosX() == 0.0f)
+		if (tile.isPassable())
 		    {
-			//sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_LowerLeft_512x512.PNG"));
-			sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/water.png"));
+			tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/grass.PNG"));
 		    }
 		else
 		    {
-			//sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_LowerLeft_512x512.PNG"));
-			sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/grass.png"));
+			if (tile.getDirection() == 3)
+			    {
+				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/left_grass_right_water.PNG"));
+			    }
+			else if (tile.getDirection() == 4)
+			    {
+				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/top_grass_bottom_water.PNG"));
+			    }
+			else if (tile.getDirection() == 1)
+			    {
+				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/left_water_right_grass.PNG"));				
+			    }
+			else if (tile.getDirection() == 2)
+			    {
+				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/top_water_bottom_grass.PNG"));				
+			    }
 		    }
 	    }
 
@@ -117,22 +132,11 @@ public class Tloll
 		//Renderer.drawSprite(background1, backgroundId);
 
 		// TODO(map) : Move this code at some point when the tile map is being drawn correctly again.
-
-		for (Sprite sprite : tileMap)
+		for (Tile tile : tileMap)
 		    {
-			if (sprite.getPosY() == 0.0f || sprite.getPosX() == 0.0f)
-			    {
-				Renderer.drawSprite(sprite, 0);
-				//Renderer.drawSpriteNormalized(sprite, 0);
-			    }
-			else
-			    {
-				//Renderer.drawSprite(sprite, 0);
-				//Renderer.drawSpriteNormalized(sprite, 0);
-			    }
+			Renderer.drawSprite(tile, 0);
 		    }
 
-		Renderer.drawSpriteNormalized(tileMap.get(0), 0);
 
 		// Draw caveman sprite.
 		Renderer.drawSprite(player, 0);

@@ -11,10 +11,10 @@ public class MapCreator
     }
 
     // Method for creating a basic map.
-    public static List<Sprite> createSampleMap()
+    public static List<Tile> createSampleMapLowerLeft()
     {
-	List<Sprite> tileMap = new ArrayList<Sprite>();
-	Sprite sprite;
+	List<Tile> tileMap = new ArrayList<Tile>();
+	Tile tile;
 	
 	for (int i = 0; i < 8; i++)
 	    {
@@ -22,14 +22,87 @@ public class MapCreator
 		    {
 			float posX = i * 64.0f;
 			float posY = j * 64.0f;
-			sprite = new Sprite(posX, posY, 64.0f, 64.0f);
-			tileMap.add(sprite);
+			if (i == 0)
+			    {
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 1);
+			    }
+			else if (j == 0)
+			    {
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 4);
+			    }
+			else
+			    {
+				tile = new Tile(posX, posY, 64.0f, 64.0f, true, 0);
+			    }
+			tileMap.add(tile);
 		    }
 	    }
 
 	return tileMap;
     }
 
+    // Method for creating a basic map.
+    public static List<Tile> createSampleMapLowerRight()
+    {
+	List<Tile> tileMap = new ArrayList<Tile>();
+	Tile tile;
+	
+	for (int i = 0; i < 8; i++)
+	    {
+		for (int j = 0; j < 8; j++)
+		    {
+			float posX = i * 64.0f;
+			float posY = j * 64.0f;
+			if (i == 7)
+			    {
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 3);
+			    }
+			else if (j == 0)
+			    {
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 4);
+			    }
+			else
+			    {
+				tile = new Tile(posX, posY, 64.0f, 64.0f, true, 0);
+			    }
+			tileMap.add(tile);
+		    }
+	    }
+
+	return tileMap;
+    }
+
+    // Method for creating a basic map.
+    public static List<Tile> createSampleMapUpperLeft()
+    {
+	List<Tile> tileMap = new ArrayList<Tile>();
+	Tile tile;
+	
+	for (int i = 0; i < 8; i++)
+	    {
+		for (int j = 0; j < 8; j++)
+		    {
+			float posX = i * 64.0f;
+			float posY = j * 64.0f;
+			if (i == 0)
+			    {
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 1);
+			    }
+			else if (j == 7)
+			    {
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 2);
+			    }
+			else
+			    {
+				tile = new Tile(posX, posY, 64.0f, 64.0f, true, 0);
+			    }
+			tileMap.add(tile);
+		    }
+	    }
+
+	return tileMap;
+    }
+    
     // Method for more advanced map creation.
     public void createMap()
     {

@@ -4,6 +4,13 @@ public class Tile extends Sprite
 {
 
     private boolean passable;
+    // This is a value to represent which side the piece is on.  For now the following applies:
+    // 0 = Middle
+    // 1 = Left
+    // 2 = Top
+    // 3 = Right
+    // 4 = Bottom
+    private int direction;
     
     public Tile()
     {
@@ -14,10 +21,12 @@ public class Tile extends Sprite
 		float posY,
 		float width,
 		float height,
-		boolean passable)
+		boolean passable,
+		int direction)
     {
 	super(posX, posY, width, height);
 	this.passable = passable;
+	this.direction = direction;
     }
 
     public boolean isPassable()
@@ -27,6 +36,15 @@ public class Tile extends Sprite
     public void setPassable(boolean passable)
     {
 	this.passable = passable;
+    }
+
+    public int getDirection()
+    {
+	return direction;
+    }
+    public void setDirection(int direction)
+    {
+	this.direction = direction;
     }
 
 }
