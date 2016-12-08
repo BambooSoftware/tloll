@@ -94,45 +94,16 @@ public class Tloll
 	// TODO(map) : Let's get this working by drawing alternating tiles between water and grass
 	// from the image assets file.  Once we are doing that, we will change to load different parts
 	// of the actual map instead.  Normalization needs to happen for this to occur.
-	List<Tile> tileMap = mc.createSampleMapLowerRight();
-	//List<Tile> tileMap = mc.createSampleMapLowerLeft();
-	//List<Tile> tileMap = mc.createSampleMapUpperLeft();
+	List<Tile> lowerLeftTiles = mc.createSampleMapLowerLeft();
+	List<Tile> upperLeftTiles = mc.createSampleMapUpperLeft();
+	List<Tile> lowerRightTiles = mc.createSampleMapLowerRight();
+	List<Tile> upperRightTiles = mc.createSampleMapUpperRight();
 
-	for (Tile tile : tileMap)
-	    {
-		if (tile.isPassable())
-		    {
-			tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/grass.PNG"));
-		    }
-		else
-		    {
-			if (tile.getDirection() == 1)
-			    {
-				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/left_water_right_grass.PNG"));
-			    }
-			else if (tile.getDirection() == 2)
-			    {
-				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/top_water_bottom_grass.PNG"));
-			    }
-			else if (tile.getDirection() == 3)
-			    {
-				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/left_grass_right_water.PNG"));				
-			    }
-			else if (tile.getDirection() == 4)
-			    {
-				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/top_grass_bottom_water.PNG"));				
-			    }
-			else if (tile.getDirection() == 5)
-			    {
-				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/water.PNG"));				
-			    }
-			else if (tile.getDirection() == 9)
-			    {
-				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/grass_bottom_right_water.PNG"));				
-			    }
-		    }
-	    }
-
+	Renderer.loadTileBuffers(lowerLeftTiles, gu, currentDir);
+	Renderer.loadTileBuffers(upperLeftTiles, gu, currentDir);
+	Renderer.loadTileBuffers(lowerRightTiles, gu, currentDir);
+	Renderer.loadTileBuffers(upperRightTiles, gu, currentDir);
+	
 	while (isRunning)
 	    {
 
@@ -140,17 +111,12 @@ public class Tloll
 
 		// TODO(map) : Move this code at some point when the tile map is being drawn
 		// correctly again.
-		for (Tile tile : tileMap)
-		    {
-			Renderer.drawSprite(tile, 0);
-		    }
+		Renderer.drawCanvas(lowerLeftTiles);
 
-
-		// Draw caveman sprite.
-		Renderer.drawSprite(player, 0);
 
 		if (backgroundId == 1)
 		    {
+			Renderer.drawCanvas(lowerRightTiles);
 			if (enemy.getRight())
 			    {
 				Renderer.drawSprite(enemy, 0);
@@ -159,10 +125,13 @@ public class Tloll
 			    {
 				Renderer.drawSprite(enemy, 1);
 			    }
+			// Set enemies to patrol.
+			BaseBehaviors.patrolUnitLeftRight(enemy, 10.0f);
 		    }
 
 		if (backgroundId == 2)
 		    {
+			Renderer.drawCanvas(upperLeftTiles);
 			if (enemySprite.getRight())
 			    {
 				Renderer.drawSpriteAnimation(enemySprite, 0, 8, 0.125f, 0.0f, 0.5f, 864, 280);
@@ -183,10 +152,12 @@ public class Tloll
 				    }
 				frameSkip--;
 			    }
+			BaseBehaviors.patrolUnitLeftRight(enemySprite, 5.0f);
 		    }
 
 		if (backgroundId == 3)
 		    {
+			Renderer.drawCanvas(upperRightTiles);
 			Renderer.drawSpriteAnimation(lingling, 0, 4, 0.25f, 0.0f, 0.25f, 128, 128);
 			if (frameSkip < 0)
 			    {
@@ -196,15 +167,16 @@ public class Tloll
 			frameSkip--;
 		    }
 		
-		// Set enemies to patrol.
-		BaseBehaviors.patrolUnitLeftRight(enemy, 10.0f);
-		BaseBehaviors.patrolUnitLeftRight(enemySprite, 5.0f);
+		// Draw caveman sprite.
+		Renderer.drawSprite(player, 0);
 
 		// Set up keyboard controls.
 		in.checkKeyPressed(tloll.windowId, player);
 		in.checkKeyRelease(tloll.windowId, player);
 		isRunning = in.bindEscape(tloll.windowId);
 
+		// TODO(map) : This should be placed in a method like checkPlayerTransition() or
+		// something else.  But most likely will be removed based on Andrew's code.
 		if(player.getOutOfBoundsRight() && backgroundId == 0)
 		    {
 			backgroundId = 1;
