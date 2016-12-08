@@ -99,6 +99,10 @@ public class Tloll
 	List<Tile> lowerRightTiles = mc.createSampleMapLowerRight();
 	List<Tile> upperRightTiles = mc.createSampleMapUpperRight();
 
+	// TODO(map) : This is loading all 4 tiles right now.  Procedure for moving is given a tile
+	// and its 4 adjacent, load all 5 tiles into memory.  If the player moves, unload the 3 tiles
+	// that are no longer connected (set to null and call garbage collection), and load the new
+	// tiles that are connected into memory.
 	Renderer.loadTileBuffers(lowerLeftTiles, gu, currentDir);
 	Renderer.loadTileBuffers(upperLeftTiles, gu, currentDir);
 	Renderer.loadTileBuffers(lowerRightTiles, gu, currentDir);
