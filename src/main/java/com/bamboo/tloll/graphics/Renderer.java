@@ -2,9 +2,12 @@ package com.bamboo.tloll.graphics;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL12.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 import java.nio.ByteBuffer;
+
+import java.util.List;
 
 public final class Renderer
 {
@@ -17,11 +20,11 @@ public final class Renderer
     public static void drawSprite(Sprite unit, int bufferId)
     {
 	glBindTexture(GL_TEXTURE_2D, bufferId);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glPixelStoref(GL_UNPACK_ALIGNMENT, 1);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
+	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (int)unit.getWidth(), (int)unit.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, unit.getBufferMap().get(bufferId));
 	glBegin(GL_QUADS);
@@ -37,7 +40,7 @@ public final class Renderer
     }
 
     // TODO(map) : Need to get the width and height of the image being passed in
-    // so we can calulate the min and max values
+    // so we can calculate the min and max values
     public static void drawSpriteAnimation(Sprite unit, int bufferId, int maxFrames, float width, float minHeight, float maxHeight, int imageWidth, int imageHeight)
     {
 	
@@ -51,6 +54,10 @@ public final class Renderer
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// TODO(map) : The animated guy randomly disappears if we use GL_CLAMP_TO_EDGE
+	// and I'm not sure why right now.
+	//glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
+	//glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
@@ -77,8 +84,8 @@ public final class Renderer
 	float yMax = 1 - ((sprite.getPosY() + sprite.getHeight()) / 512);
 	glBindTexture(GL_TEXTURE_2D, bufferId);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
+	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
@@ -93,6 +100,64 @@ public final class Renderer
 	glTexCoord2f(xMin, yMax);
 	glVertex3f(sprite.getPosX(), sprite.getPosY() + sprite.getHeight(), 0.0f);
 	glEnd();
+    }
+
+    public static void drawCanvas(List<Tile> tileMap)
+    {
+	for (Tile tile : tileMap)
+	    {
+		drawSprite(tile, 0);
+	    }
+    }
+
+    public static void loadTileBuffers(List<Tile> tileMap, GraphicsUtil gu, String currentDir)
+    {
+	for (Tile tile : tileMap)
+	    {
+		if (tile.isPassable())
+		    {
+			tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/grass.PNG"));
+		    }
+		else
+		    {
+			if (tile.getDirection() == 1)
+			    {
+				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/left_water_right_grass.PNG"));
+			    }
+			else if (tile.getDirection() == 2)
+			    {
+				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/top_water_bottom_grass.PNG"));
+			    }
+			else if (tile.getDirection() == 3)
+			    {
+				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/left_grass_right_water.PNG"));				
+			    }
+			else if (tile.getDirection() == 4)
+			    {
+				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/top_grass_bottom_water.PNG"));				
+			    }
+			else if (tile.getDirection() == 5)
+			    {
+				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/water.PNG"));				
+			    }
+			else if (tile.getDirection() == 6)
+			    {
+				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/grass_bottom_left_water.PNG"));				
+			    }
+			else if (tile.getDirection() == 7)
+			    {
+				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/grass_top_left_water.PNG"));				
+			    }
+			else if (tile.getDirection() == 8)
+			    {
+				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/grass_top_right_water.PNG"));				
+			    } 
+			else if (tile.getDirection() == 9)
+			    {
+				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/grass_bottom_right_water.PNG"));				
+			    }
+		    }
+	    }
     }
     
 }

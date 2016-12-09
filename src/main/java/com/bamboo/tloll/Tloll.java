@@ -20,7 +20,7 @@ import com.bamboo.tloll.graphics.Unit;
 import com.bamboo.tloll.graphics.GraphicsUtil;
 import com.bamboo.tloll.graphics.Renderer;
 import com.bamboo.tloll.graphics.MapCreator;
-import com.bamboo.tloll.graphics.Sprite;
+import com.bamboo.tloll.graphics.Tile;
 
 import com.bamboo.tloll.input.Input;
 
@@ -67,6 +67,8 @@ public class Tloll
 	glOrtho(0, 500, 0, 500, 1, -1);
 	glMatrixMode(GL_MODELVIEW);
 	glEnable(GL_TEXTURE_2D);
+	//glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
+	//glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -92,53 +94,33 @@ public class Tloll
 	// TODO(map) : Let's get this working by drawing alternating tiles between water and grass
 	// from the image assets file.  Once we are doing that, we will change to load different parts
 	// of the actual map instead.  Normalization needs to happen for this to occur.
-	List<Sprite> tileMap = mc.createSampleMap();
+	List<Tile> lowerLeftTiles = mc.createSampleMapLowerLeft();
+	List<Tile> upperLeftTiles = mc.createSampleMapUpperLeft();
+	List<Tile> lowerRightTiles = mc.createSampleMapLowerRight();
+	List<Tile> upperRightTiles = mc.createSampleMapUpperRight();
 
-	for (Sprite sprite : tileMap)
-	    {
-		if (sprite.getPosY() == 0.0f || sprite.getPosX() == 0.0f)
-		    {
-			//sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_LowerLeft_512x512.PNG"));
-			sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/water.png"));
-		    }
-		else
-		    {
-			//sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Grass_Tree_Square/Grass__Tree_LowerLeft_512x512.PNG"));
-			sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/grass.png"));
-		    }
-	    }
-
+	// TODO(map) : This is loading all 4 tiles right now.  Procedure for moving is given a tile
+	// and its 4 adjacent, load all 5 tiles into memory.  If the player moves, unload the 3 tiles
+	// that are no longer connected (set to null and call garbage collection), and load the new
+	// tiles that are connected into memory.
+	Renderer.loadTileBuffers(lowerLeftTiles, gu, currentDir);
+	Renderer.loadTileBuffers(upperLeftTiles, gu, currentDir);
+	Renderer.loadTileBuffers(lowerRightTiles, gu, currentDir);
+	Renderer.loadTileBuffers(upperRightTiles, gu, currentDir);
+	
 	while (isRunning)
 	    {
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the frame buffer.
 
-		// Draw initial background.
-		//Renderer.drawSprite(background1, backgroundId);
+		// TODO(map) : Move this code at some point when the tile map is being drawn
+		// correctly again.
+		Renderer.drawCanvas(lowerLeftTiles);
 
-		// TODO(map) : Move this code at some point when the tile map is being drawn correctly again.
-
-		for (Sprite sprite : tileMap)
-		    {
-			if (sprite.getPosY() == 0.0f || sprite.getPosX() == 0.0f)
-			    {
-				Renderer.drawSprite(sprite, 0);
-				//Renderer.drawSpriteNormalized(sprite, 0);
-			    }
-			else
-			    {
-				//Renderer.drawSprite(sprite, 0);
-				//Renderer.drawSpriteNormalized(sprite, 0);
-			    }
-		    }
-
-		Renderer.drawSpriteNormalized(tileMap.get(0), 0);
-
-		// Draw caveman sprite.
-		Renderer.drawSprite(player, 0);
 
 		if (backgroundId == 1)
 		    {
+			Renderer.drawCanvas(lowerRightTiles);
 			if (enemy.getRight())
 			    {
 				Renderer.drawSprite(enemy, 0);
@@ -147,10 +129,13 @@ public class Tloll
 			    {
 				Renderer.drawSprite(enemy, 1);
 			    }
+			// Set enemies to patrol.
+			BaseBehaviors.patrolUnitLeftRight(enemy, 10.0f);
 		    }
 
 		if (backgroundId == 2)
 		    {
+			Renderer.drawCanvas(upperLeftTiles);
 			if (enemySprite.getRight())
 			    {
 				Renderer.drawSpriteAnimation(enemySprite, 0, 8, 0.125f, 0.0f, 0.5f, 864, 280);
@@ -171,10 +156,12 @@ public class Tloll
 				    }
 				frameSkip--;
 			    }
+			BaseBehaviors.patrolUnitLeftRight(enemySprite, 5.0f);
 		    }
 
 		if (backgroundId == 3)
 		    {
+			Renderer.drawCanvas(upperRightTiles);
 			Renderer.drawSpriteAnimation(lingling, 0, 4, 0.25f, 0.0f, 0.25f, 128, 128);
 			if (frameSkip < 0)
 			    {
@@ -184,15 +171,16 @@ public class Tloll
 			frameSkip--;
 		    }
 		
-		// Set enemies to patrol.
-		BaseBehaviors.patrolUnitLeftRight(enemy, 10.0f);
-		BaseBehaviors.patrolUnitLeftRight(enemySprite, 5.0f);
+		// Draw caveman sprite.
+		Renderer.drawSprite(player, 0);
 
 		// Set up keyboard controls.
 		in.checkKeyPressed(tloll.windowId, player);
 		in.checkKeyRelease(tloll.windowId, player);
 		isRunning = in.bindEscape(tloll.windowId);
 
+		// TODO(map) : This should be placed in a method like checkPlayerTransition() or
+		// something else.  But most likely will be removed based on Andrew's code.
 		if(player.getOutOfBoundsRight() && backgroundId == 0)
 		    {
 			backgroundId = 1;
