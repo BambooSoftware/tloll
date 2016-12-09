@@ -11,7 +11,6 @@ public class WorldMap {
 
 
     DirectedGraph<MapPiece, DefaultEdge> worldMap;
-ad
 
     public void WorldMap() {
 
