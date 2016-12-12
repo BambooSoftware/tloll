@@ -39,8 +39,6 @@ public final class Renderer
 	glEnd();
     }
 
-    // TODO(map) : Need to get the width and height of the image being passed in
-    // so we can calculate the min and max values
     public static void drawSpriteAnimation(Sprite unit, int bufferId, int maxFrames, float width, float minHeight, float maxHeight, int imageWidth, int imageHeight)
     {
 	
@@ -54,7 +52,7 @@ public final class Renderer
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// TODO(map) : The animated guy randomly disappears if we use GL_CLAMP_TO_EDGE
+	// NOTE(map) : The animated guy randomly disappears if we use GL_CLAMP_TO_EDGE
 	// and I'm not sure why right now.
 	//glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
 	//glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
@@ -102,6 +100,7 @@ public final class Renderer
 	glEnd();
     }
 
+    // TODO(map) : This will need to take in a canvas object at some point.
     public static void drawCanvas(List<Tile> tileMap)
     {
 	for (Tile tile : tileMap)
@@ -138,8 +137,8 @@ public final class Renderer
 			    }
 			else if (tile.getDirection() == 5)
 			    {
-				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/water.PNG"));				
-			    }
+				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/water.PNG"));
+	        	    }
 			else if (tile.getDirection() == 6)
 			    {
 				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/grass_bottom_left_water.PNG"));				
