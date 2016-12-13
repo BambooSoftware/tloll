@@ -186,7 +186,7 @@ public class MapCreator
 	return tileMap;
     }
 
-    public static List<Tile> createStraightBlockTopBottom()
+    public static List<Tile> createSampleMapLeftRight()
     {
 	List<Tile> tileMap = new ArrayList<Tile>();
 	Tile tile;
@@ -224,7 +224,7 @@ public class MapCreator
 	return tileMap;
     }
 
-    public static List<Tile> createStraightBlockLeftRight()
+    public static List<Tile> createSampleMapTopDown()
     {
 	List<Tile> tileMap = new ArrayList<Tile>();
 	Tile tile;
