@@ -1,5 +1,6 @@
 package com.bamboo.tloll;
 
+import com.bamboo.tloll.graphics.structure.Tile;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.Platform;
 
@@ -20,7 +21,6 @@ import com.bamboo.tloll.graphics.Unit;
 import com.bamboo.tloll.graphics.GraphicsUtil;
 import com.bamboo.tloll.graphics.Renderer;
 import com.bamboo.tloll.graphics.MapCreator;
-import com.bamboo.tloll.graphics.Tile;
 
 import com.bamboo.tloll.input.Input;
 

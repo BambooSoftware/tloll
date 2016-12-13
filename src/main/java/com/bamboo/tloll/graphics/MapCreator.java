@@ -1,5 +1,7 @@
 package com.bamboo.tloll.graphics;
 
+import com.bamboo.tloll.graphics.structure.Tile;
+
 import java.util.List;
 import java.util.ArrayList;
 
