@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.bamboo.tloll.graphics.Unit;
+import com.bamboo.tloll.graphics.MapCreator;
+
 /**
  * This class represents pieces of the world map. The part of the screen the player will interact with. It consists of a
  * set of tiles which are individual squares which may or may not provide free movement. Building a map piece is rather
@@ -17,20 +20,50 @@ import java.util.Map;
  *
  * @author ablackbu
  */
-public class MapPiece {
+public class Scene {
 
+    int sceneId;
+    
     ImmutableList<Tile> tiles;
     ImmutableMap<Position, Boolean> blockIndex;
 
-    public MapPiece() {
-        buildTiles();
+    private List<Unit> enemyList;
+
+    public Scene() {
         buildBlockIndex();
     }
 
-    private void buildTiles() {
-        List<Tile> tempTiles = new ArrayList<>();
-        //TODO:BUILD TILES How will we be building these ?
-        tiles = ImmutableList.copyOf(tempTiles);
+    // 1 = Lower Left
+    // 2 = Lower Right
+    // 3 = Upper Left
+    // 4 = Upper Right
+    // 5 = Straight Left/Right
+    // 6 = Straight Up/Down
+    public Scene(int sceneId, int typeOfScene)
+    {
+	this.sceneId = sceneId;
+	
+	switch (typeOfScene)
+	    {
+	    case 1:
+		tiles = ImmutableList.copyOf(MapCreator.createSampleMapLowerLeft());
+		break;
+	    case 2:
+		tiles = ImmutableList.copyOf(MapCreator.createSampleMapLowerRight());
+		break;
+	    case 3:
+		tiles = ImmutableList.copyOf(MapCreator.createSampleMapUpperLeft());
+		break;
+	    case 4:
+		tiles = ImmutableList.copyOf(MapCreator.createSampleMapUpperRight());
+		break;
+	    case 5:
+		tiles = ImmutableList.copyOf(MapCreator.createSampleMapLeftRight());
+		break;
+	    case 6:
+		tiles = ImmutableList.copyOf(MapCreator.createSampleMapTopDown());
+		break;
+	    }
     }
 
     /**
@@ -57,6 +90,29 @@ public class MapPiece {
 
     public boolean isMovementAllowed(Position source, Position destination) {
         return blockIndex.get(destination) == null;
+    }
+
+    public List<Tile> getTileList()
+    {
+	return tiles;
+    }
+    
+    public List<Unit> getEnemyList()
+    {
+	return enemyList;
+    }
+    public void setEnemyList(List<Unit> enemyList)
+    {
+	this.enemyList = enemyList;
+    }
+
+    public int getSceneId()
+    {
+	return sceneId;
+    }
+    public void setSceneId(int sceneId)
+    {
+	this.sceneId = sceneId;
     }
 
 }

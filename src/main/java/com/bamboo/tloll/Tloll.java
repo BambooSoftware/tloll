@@ -21,6 +21,8 @@ import com.bamboo.tloll.graphics.Unit;
 import com.bamboo.tloll.graphics.GraphicsUtil;
 import com.bamboo.tloll.graphics.Renderer;
 import com.bamboo.tloll.graphics.MapCreator;
+import com.bamboo.tloll.graphics.structure.Tile;
+import com.bamboo.tloll.graphics.structure.Scene;
 
 import com.bamboo.tloll.input.Input;
 
@@ -89,17 +91,17 @@ public class Tloll
 	// TODO(map) : Let's get this working by drawing alternating tiles between water and grass
 	// from the image assets file.  Once we are doing that, we will change to load different parts
 	// of the actual map instead.  Normalization needs to happen for this to occur.
-	List<Tile> lowerLeftTiles = mc.createSampleMapLowerLeft();
-	List<Tile> upperLeftTiles = mc.createSampleMapUpperLeft();
-	List<Tile> lowerRightTiles = mc.createSampleMapLowerRight();
-	List<Tile> upperRightTiles = mc.createSampleMapUpperRight();
-	List<Tile> straightUpDown = mc.createSampleMapTopDown();
-	List<Tile> straightLeftRight = mc.createSampleMapLeftRight();
+	Scene lowerLeft = new Scene(1, 1);
+	Scene upperLeft = new Scene(2, 2);
+	Scene lowerRight = new Scene(3, 3);
+	Scene upperRight = new Scene(4, 4);
+	Scene straightUpDown = new Scene(5, 5);
+	Scene straightLeftRight = new Scene(6, 6);
 
-	Renderer.loadTileBuffers(lowerLeftTiles, gu, currentDir);
-	Renderer.loadTileBuffers(upperLeftTiles, gu, currentDir);
-	Renderer.loadTileBuffers(lowerRightTiles, gu, currentDir);
-	Renderer.loadTileBuffers(upperRightTiles, gu, currentDir);
+	Renderer.loadTileBuffers(lowerLeft, gu, currentDir);
+	Renderer.loadTileBuffers(upperLeft, gu, currentDir);
+	Renderer.loadTileBuffers(lowerRight, gu, currentDir);
+	Renderer.loadTileBuffers(upperRight, gu, currentDir);
 	Renderer.loadTileBuffers(straightUpDown, gu, currentDir);
 	Renderer.loadTileBuffers(straightLeftRight, gu, currentDir);
 	
@@ -108,21 +110,21 @@ public class Tloll
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the frame buffer.
 
-		Renderer.drawCanvas(lowerLeftTiles);
+		Renderer.drawScene(lowerLeft);
 
 		checkBackgroundStuff(backgroundId,
 				     player,
 				     enemy,
 				     enemySprite,
 				     lingling,
-				     lowerLeftTiles,
-				     lowerRightTiles,
-				     upperLeftTiles,
-				     upperRightTiles,
+				     lowerLeft,
+				     lowerRight,
+				     upperLeft,
+				     upperRight,
 				     straightLeftRight,
 				     straightUpDown
 				     );
-		
+
 		// Draw caveman sprite.
 		Renderer.drawSprite(player, 0);
 
@@ -290,21 +292,21 @@ public class Tloll
 					    Unit enemy,
 					    Unit enemySprite,
 					    Unit lingling,
-					    List<Tile> lowerLeftTiles,
-					    List<Tile> lowerRightTiles,
-					    List<Tile> upperLeftTiles,
-					    List<Tile> upperRightTiles,
-					    List<Tile> straightLeftRight,
-					    List<Tile> straightUpDown)
+					    Scene lowerLeft,
+					    Scene upperLeft,
+					    Scene lowerRight,
+					    Scene upperRight,
+					    Scene straightUpDown,
+					    Scene straightLeftRight)
     {
 	if (backgroundId == 1 || backgroundId == 5)
 	    {
-		Renderer.drawCanvas(straightLeftRight);
+		Renderer.drawScene(straightLeftRight);
 	    }
 
 	if (backgroundId == 2)
 	    {
-		Renderer.drawCanvas(lowerRightTiles);
+		Renderer.drawScene(lowerRight);
 		if (enemy.getRight())
 		    {
 			Renderer.drawSprite(enemy, 0);
@@ -319,12 +321,12 @@ public class Tloll
 
 	if (backgroundId == 3 || backgroundId == 7)
 	    {
-		Renderer.drawCanvas(straightUpDown);
+		Renderer.drawScene(straightUpDown);
 	    }
 	
 	if (backgroundId == 4)
 	    {
-		Renderer.drawCanvas(upperRightTiles);
+		Renderer.drawScene(upperRight);
 		if (enemySprite.getRight())
 		    {
 			Renderer.drawSpriteAnimation(enemySprite, 0, 8, 0.125f, 0.0f, 0.5f, 864, 280);
@@ -350,7 +352,7 @@ public class Tloll
 
 	if (backgroundId == 6)
 	    {
-		Renderer.drawCanvas(upperLeftTiles);
+		Renderer.drawScene(upperLeft);
 		Renderer.drawSpriteAnimation(lingling, 0, 4, 0.25f, 0.0f, 0.25f, 128, 128);
 		if (frameSkip < 0)
 		    {
@@ -359,6 +361,6 @@ public class Tloll
 		    }
 		frameSkip--;
 	    }
-
     }
+
 }

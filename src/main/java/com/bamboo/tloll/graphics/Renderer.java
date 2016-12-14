@@ -11,6 +11,9 @@ import java.nio.ByteBuffer;
 
 import java.util.List;
 
+import com.bamboo.tloll.graphics.structure.Tile;
+import com.bamboo.tloll.graphics.structure.Scene;
+
 public final class Renderer
 {
 
@@ -102,18 +105,17 @@ public final class Renderer
 	glEnd();
     }
 
-    // TODO(map) : This will need to take in a canvas object at some point.
-    public static void drawCanvas(List<Tile> tileMap)
+    public static void drawScene(Scene scene)
     {
-	for (Tile tile : tileMap)
+	for (Tile tile : scene.getTileList())
 	    {
 		drawSprite(tile, 0);
 	    }
     }
 
-    public static void loadTileBuffers(List<Tile> tileMap, GraphicsUtil gu, String currentDir)
+    public static void loadTileBuffers(Scene scene, GraphicsUtil gu, String currentDir)
     {
-	for (Tile tile : tileMap)
+	for (Tile tile : scene.getTileList())
 	    {
 		if (tile.isPassable())
 		    {

@@ -8,37 +8,35 @@ import java.util.List;
 
 public class WorldMap {
 
-    DirectedGraph<MapPiece, DefaultEdge> worldMap;
+    DirectedGraph<Scene, DefaultEdge> worldMap;
 
-    MapPiece currentScene;
-    List<MapPiece> currentSceneConnections;
+    Scene currentScene;
+    List<Scene> currentSceneConnections;
 
     public void WorldMap() {
 
         worldMap = new DirectedMultigraph<>(DefaultEdge.class);
-
-        MapPiece mp1 = new MapPiece(); //BOTTOM
-        MapPiece mp2 = new MapPiece(); //LEFT
-        MapPiece mp3 = new MapPiece(); //TOP
-        MapPiece mp4 = new MapPiece(); //RIGHT
-        MapPiece mp5 = new MapPiece(); //MIDDLE
+        Scene lowerLeft = new Scene();
+        Scene middleBottom = new Scene();
+        Scene lowerRight = new Scene();
+        Scene middleRight = new Scene();
+	Scene upperRight = new Scene();
+	Scene middleTop = new Scene();
+	Scene upperLeft = new Scene();
+	Scene middleLeft = new Scene();
 
         //Adds each vertex (scene) to the map
-        worldMap.addVertex(mp1);
-        worldMap.addVertex(mp2);
-        worldMap.addVertex(mp3);
-        worldMap.addVertex(mp4);
-        worldMap.addVertex(mp5);
+        worldMap.addVertex(lowerLeft);
+	worldMap.addVertex(middleBottom);
+        worldMap.addVertex(lowerRight);
+        worldMap.addVertex(middleRight);
+	worldMap.addVertex(upperRight);
+	worldMap.addVertex(middleTop);
+	worldMap.addVertex(upperLeft);
+	worldMap.addVertex(middleLeft);
 
         //Creates edges between scenes, each edge can go only one direction but a single vertex may have multiple edges
-        worldMap.addEdge(mp1, mp5); //
-        worldMap.addEdge(mp2, mp5); //
-        worldMap.addEdge(mp3, mp5); //
-        worldMap.addEdge(mp4, mp5); //
-        worldMap.addEdge(mp5, mp1); //
-        worldMap.addEdge(mp5, mp2); //
-        worldMap.addEdge(mp5, mp3); //
-        worldMap.addEdge(mp5, mp4); //
+        worldMap.addEdge(lowerLeft, middleBottom); 
 
 
 
