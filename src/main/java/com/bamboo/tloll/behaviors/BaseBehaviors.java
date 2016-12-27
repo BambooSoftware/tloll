@@ -14,7 +14,7 @@ public final class BaseBehaviors
     {
 	if (unit.getRight())
 	    {
-		// TODO(map) : Hard coded value that needs to be passed eventually.
+		// TODO(map) : Hard coded width.  Need to pass in the size of the window.
 		if (unit.getCenterX() + deltaX > 512)
 		    {
 			unit.setRight(false);
