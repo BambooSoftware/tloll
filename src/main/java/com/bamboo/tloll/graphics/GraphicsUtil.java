@@ -62,7 +62,6 @@ public class GraphicsUtil
 	    }
 
 	ByteBuffer buffer = BufferUtils.createByteBuffer(img.getHeight()*img.getWidth()*4);
-	System.out.println("Image type: " + img.getType());
 
 	// Minus 1 from image height because we are decrementing.  See about incrementing to draw going updwards.
 	for(int y = 0; y < img.getHeight(); y++)
@@ -81,7 +80,6 @@ public class GraphicsUtil
         buffer.flip(); // Flip to render the texture.
 
 	int textureNumber = glGenTextures(); // Get the texture ID.
-	System.out.println("Loaded texture number: " + textureNumber);
 
 	return buffer;
     }

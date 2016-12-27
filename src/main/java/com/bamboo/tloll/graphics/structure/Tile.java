@@ -21,6 +21,8 @@ public class Tile extends Sprite
     // 8 = Upper Right Corner
     // 9 = Lower Right Corner
     private int direction;
+
+    private int tileNum;
     
     public Tile()
     {
@@ -32,11 +34,13 @@ public class Tile extends Sprite
 		float width,
 		float height,
 		boolean passable,
-		int direction)
+		int direction,
+		int tileNum)
     {
 	super(posX, posY, width, height);
 	this.passable = passable;
 	this.direction = direction;
+	this.tileNum = tileNum;
     }
 
     public boolean isPassable()
@@ -55,6 +59,11 @@ public class Tile extends Sprite
     public void setDirection(int direction)
     {
 	this.direction = direction;
+    }
+
+    public int getTileNum()
+    {
+	return tileNum;
     }
 
 }

@@ -15,6 +15,22 @@ public final class PhysicsEngine
 	player.setPosX(player.getPosX() + isOutOfBoundsX(player, deltaX));
 	player.setPosY(player.getPosY() + isOutOfBoundsY(player, deltaY));
 
+	if (moveInTileX(player, deltaX))
+	    {
+		player.setRelativeTileX(player.getRelativeTileX() + deltaX);
+	    }
+	else
+	    {
+		if (deltaX > 0)
+		    {
+			player.setRelativeTileX(0);
+		    }
+		else
+		    {
+			player.setRelativeTileX(64);
+		    }
+	    }
+	
 	System.out.println("Player X: " + player.getPosX());
 	System.out.println("Player Y: " + player.getPosY());
 	System.out.println("Center coords: " + player.getCenterX() + "," + player.getCenterY());
@@ -58,6 +74,24 @@ public final class PhysicsEngine
 	player.setOutOfBoundsDown(false);
 	player.setCenterY(player.getCenterY() + deltaY);
 	return deltaY;
+    }
+
+    public static boolean moveInTileX(Unit player, float deltaX)
+    {
+	if (player.getRelativeTileX() + deltaX < 64.0)
+	    {
+		return true;
+	    }
+	else if (player.getRelativeTileX() - deltaX < 0.0)
+	    {
+		return true;
+	    }
+	return false;
+    }
+
+    public static boolean moveInTileY(Unit player, float deltaY)
+    {
+	return false;
     }
 
         

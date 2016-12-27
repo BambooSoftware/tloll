@@ -17,7 +17,10 @@ public class Unit extends Sprite
     private boolean outOfBoundsRight;
     private boolean outOfBoundsUp;
     private boolean outOfBoundsDown;
-
+    private int currentTileNum;
+    private float relativeTileX;
+    private float relativeTileY;
+    
     public Unit()
     {
 	super();
@@ -132,5 +135,23 @@ public class Unit extends Sprite
     public void setOutOfBoundsDown(boolean outOfBoundsDown)
     {
 	this.outOfBoundsDown = outOfBoundsDown;
+    }
+
+    public float getRelativeTileX()
+    {
+	return relativeTileX;
+    }
+    public void setRelativeTileX(float relativeTileX)
+    {
+	this.relativeTileX = relativeTileX;
+    }
+
+    public float getRelativeTileY()
+    {
+	return relativeTileY;
+    }
+    public void setRelativeTileY(float relativeTileY)
+    {
+	this.relativeTileY = relativeTileY;
     }
 }

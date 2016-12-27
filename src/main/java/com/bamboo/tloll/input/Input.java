@@ -7,6 +7,9 @@ import static org.lwjgl.system.MemoryUtil.*;
 import com.bamboo.tloll.graphics.Unit;
 import com.bamboo.tloll.physics.PhysicsEngine;
 
+import com.bamboo.tloll.graphics.structure.Scene;
+import com.bamboo.tloll.graphics.structure.Tile;
+
 public class Input
 {
 
@@ -170,6 +173,38 @@ public class Input
 		return false;
 	    }
 	return true;
+    }
+
+    public void bindDebugKey(long windowId,
+			     Unit player,
+			     Scene lowerLeft,
+			     Scene upperLeft,
+			     Scene lowerRight,
+			     Scene upperRight,
+			     Scene straightUpDown,
+			     Scene straightLeftRight)
+    {
+	if (glfwGetKey(windowId, GLFW_KEY_P) == 1)
+	    {
+		System.out.println("~~~~ Printing debug info ~~~~");
+		printPositionalInformation(player, lowerLeft);
+	    }
+    }
+    
+    public void printPositionalInformation(Unit player, Scene lowerLeft)
+    {
+	for (Tile tile : lowerLeft.getTileList())
+	    {
+		if (player.getPosX() > tile.getPosX() &&
+		    player.getPosX() < (tile.getPosX() + tile.getWidth()) &&
+		    player.getPosY() > tile.getPosY() &&
+		    player.getPosY() < (tile.getPosY() + tile.getHeight()))
+		    {
+			System.out.println("Player in tile number: " + tile.getTileNum());
+		    }
+	    }
+	System.out.println("Player scene position (X,Y) : " + player.getPosX() + ", " + player.getPosY());
+	System.out.println("Player tile position (X,Y) : " + player.getRelativeTileX() + ", " + player.getRelativeTileY());
     }
     
 }

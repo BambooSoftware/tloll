@@ -79,7 +79,7 @@ public class Tloll
 	Unit enemy = new Unit(0.0f, 200.0f, 128, 128, 0.0f, 0.0f, 0.0f, 0.0f);
 	Unit enemySprite = new Unit(0.0f, 350.0f, 108, 140, 0.0f, 0.0f, 0.0f, 0.0f);
 	Unit lingling = new Unit(100.0f, 100.0f, 32, 32, 0.0f, 0.0f, 0.0f, 0.0f);
-	
+
 	player.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/player.png"));
 	enemy.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/enemy.png"));
 	enemy.addBufferToMap(1, gu.loadTexture(currentDir + "/Assets/Images/enemy_left.png"));
@@ -131,6 +131,8 @@ public class Tloll
 		// Set up keyboard controls.
 		in.checkKeyPressed(tloll.windowId, player);
 		in.checkKeyRelease(tloll.windowId, player);
+		in.bindDebugKey(tloll.windowId, player, lowerLeft, upperLeft, lowerRight, upperRight, straightUpDown, straightLeftRight);
+
 		isRunning = in.bindEscape(tloll.windowId);
 
 		backgroundId = checkPlayerTransition(player, backgroundId);

@@ -17,6 +17,8 @@ public class MapCreator
     {
 	List<Tile> tileMap = new ArrayList<Tile>();
 	Tile tile;
+
+	int tileCounter = 0;
 	
 	for (int i = 0; i < 8; i++)
 	    {
@@ -27,29 +29,30 @@ public class MapCreator
 			if (i == 0 || j == 0)
 			    {
 				// One Tile layer of water.
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 5);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 5, tileCounter);
 			    }
 			else if (i == 1 && j != 1)
 			    {
 				// Left
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 1);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 1, tileCounter);
 			    }
 			else if (i != 1 && j == 1)
 			    {
 				// Bottom
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 4);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 4, tileCounter);
 			    }
 			else if (i == 1 && j == 1)
 			    {
 				// Corner piece.
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 6);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 6, tileCounter);
 			    }
 			else
 			    {
 				// Everything else is grass.
-				tile = new Tile(posX, posY, 64.0f, 64.0f, true, 0);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, true, 0, tileCounter);
 			    }
 			tileMap.add(tile);
+			tileCounter++;
 		    }
 	    }
 
@@ -61,6 +64,8 @@ public class MapCreator
     {
 	List<Tile> tileMap = new ArrayList<Tile>();
 	Tile tile;
+
+	int tileCounter = 0;
 	
 	for (int i = 0; i < 8; i++)
 	    {
@@ -71,29 +76,30 @@ public class MapCreator
 			if (i == 7 || j == 0)
 			    {
 				// One Tile layer of water.
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 5);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 5, tileCounter);
 			    }
 			else if (i == 6 && j != 1)
 			    {
 				// Right
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 3);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 3, tileCounter);
 			    }
 			else if (j == 1 && i != 6)
 			    {
 				// Bottom
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 4);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 4, tileCounter);
 			    }
 			else if (j == 1 && i == 6)
 			    {
 				// Corner piece.
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 9);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 9, tileCounter);
 			    }
 			else
 			    {
 				// Everything else is grass.
-				tile = new Tile(posX, posY, 64.0f, 64.0f, true, 0);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, true, 0, tileCounter);
 			    }
 			tileMap.add(tile);
+			tileCounter++;
 		    }
 	    }
 
@@ -105,6 +111,8 @@ public class MapCreator
     {
 	List<Tile> tileMap = new ArrayList<Tile>();
 	Tile tile;
+
+	int tileCounter = 0;
 	
 	for (int i = 0; i < 8; i++)
 	    {
@@ -115,29 +123,30 @@ public class MapCreator
 			if (i == 0 || j == 7)
 			    {
 				// One Tile layer of water.
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 5);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 5, tileCounter);
 			    }
 			else if (i == 1 && j != 6)
 			    {
 				// Left
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 1);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 1, tileCounter);
 			    }
 			else if (i != 1 && j == 6)
 			    {
 				// Top
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 2);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 2, tileCounter);
 			    }
 			else if (1 == 1 && j == 6)
 			    {
 				// Corner piece.
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 7);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 7, tileCounter);
 			    }
 			else
 			    {
 				// Everything else is grass.
-				tile = new Tile(posX, posY, 64.0f, 64.0f, true, 0);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, true, 0, tileCounter);
 			    }
 			tileMap.add(tile);
+			tileCounter++;
 		    }
 	    }
 
@@ -149,6 +158,8 @@ public class MapCreator
     {
 	List<Tile> tileMap = new ArrayList<Tile>();
 	Tile tile;
+
+	int tileCounter = 0;
 	
 	for (int i = 0; i < 8; i++)
 	    {
@@ -159,29 +170,30 @@ public class MapCreator
 			if (i == 7 || j == 7)
 			    {
 				// One Tile layer of water.
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 5);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 5, tileCounter);
 			    }
 			else if (i == 6 && j != 6)
 			    {
 				// Right
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 3);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 3, tileCounter);
 			    }
 			else if (i != 6 && j == 6)
 			    {
 				// Top
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 2);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 2, tileCounter);
 			    }
 			else if (i == 6 && j == 6)
 			    {
 				// Corner piece.
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 8);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 8, tileCounter);
 			    }
 			else
 			    {
 				// Everything else is grass.
-				tile = new Tile(posX, posY, 64.0f, 64.0f, true, 0);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, true, 0, tileCounter);
 			    }
 			tileMap.add(tile);
+			tileCounter++;
 		    }
 	    }
 
@@ -192,6 +204,8 @@ public class MapCreator
     {
 	List<Tile> tileMap = new ArrayList<Tile>();
 	Tile tile;
+
+	int tileCounter = 0;
 	
 	for (int i = 0; i < 8; i++)
 	    {
@@ -203,24 +217,25 @@ public class MapCreator
 			if (j == 0 || j == 7)
 			    {
 				// One Tile layer of water.
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 5);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 5, tileCounter);
 			    }
 			else if (j == 6)
 			    {
 				// Top
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 2);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 2, tileCounter);
 			    }
 			else if (j == 1)
 			    {
 				// Bottom
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 4);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 4, tileCounter);
 			    }
 			else
 			    {
 				// Everything else is grass.
-				tile = new Tile(posX, posY, 64.0f, 64.0f, true, 0);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, true, 0, tileCounter);
 			    }
 			tileMap.add(tile);
+			tileCounter++;
 		    }
 	    }
 	return tileMap;
@@ -230,6 +245,8 @@ public class MapCreator
     {
 	List<Tile> tileMap = new ArrayList<Tile>();
 	Tile tile;
+
+	int tileCounter = 0;
 	
 	for (int i = 0; i < 8; i++)
 	    {
@@ -241,24 +258,25 @@ public class MapCreator
 			if (i == 0 || i == 7)
 			    {
 				// One Tile layer of water.
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 5);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 5, tileCounter);
 			    }
 			else if (i == 6)
 			    {
 				// Right
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 3);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 3, tileCounter);
 			    }
 			else if (i == 1)
 			    {
 				// Left
-				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 1);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 1, tileCounter);
 			    }
 			else
 			    {
 				// Everything else is grass.
-				tile = new Tile(posX, posY, 64.0f, 64.0f, true, 0);
+				tile = new Tile(posX, posY, 64.0f, 64.0f, true, 0, tileCounter);
 			    }
 			tileMap.add(tile);
+			tileCounter++;
 		    }
 	    }
 	return tileMap;
