@@ -21,6 +21,8 @@ public class Input
     // Bind all key presses here to do something.
     public void checkKeyPressed(long windowId, Unit player)
     {
+	// TODO(map) : Maybe we can perform the diagonal calculations in a more clever way using
+	// pythagorean theorum of triangles???
 	if (glfwGetKey(windowId, GLFW_KEY_A) == 1 && glfwGetKey(windowId, GLFW_KEY_S) == 1)
 	    {
 		System.out.println("A + S Combo Key");
@@ -166,6 +168,7 @@ public class Input
 	
     }
     
+    // Bind key to pass back close window.
     public boolean bindEscape(long windowId)
     {
 	if (glfwGetKey(windowId, GLFW_KEY_ESCAPE) == 1)
@@ -175,32 +178,34 @@ public class Input
 	return true;
     }
 
+    // Binding the "P" key to the debug information method
     public void bindDebugKey(long windowId,
 			     Unit player,
-			     Scene lowerLeft,
-			     Scene upperLeft,
-			     Scene lowerRight,
-			     Scene upperRight,
-			     Scene straightUpDown,
-			     Scene straightLeftRight)
+			     Scene currentScene)
     {
 	if (glfwGetKey(windowId, GLFW_KEY_P) == 1)
 	    {
 		System.out.println("~~~~ Printing debug info ~~~~");
-		printPositionalInformation(player, lowerLeft);
+		printPositionalInformation(player, currentScene);
 	    }
     }
-    
+
+    // NOTE: This method is for debugging purposes only.  It is bound to the "P" key for printing
+    // and works displaying the position of the player in relative to the tile as well as the
+    // scene.  It also determines if the current tile is passable.
+
+    // This method can have parts taken and repurposed if they are needed.
     public void printPositionalInformation(Unit player, Scene lowerLeft)
     {
 	for (Tile tile : lowerLeft.getTileList())
 	    {
-		if (player.getPosX() > tile.getPosX() &&
-		    player.getPosX() < (tile.getPosX() + tile.getWidth()) &&
-		    player.getPosY() > tile.getPosY() &&
-		    player.getPosY() < (tile.getPosY() + tile.getHeight()))
+		if (player.getPosX() >= tile.getPosX() &&
+		    player.getPosX() <= (tile.getPosX() + tile.getWidth()) &&
+		    player.getPosY() >= tile.getPosY() &&
+		    player.getPosY() <= (tile.getPosY() + tile.getHeight()))
 		    {
 			System.out.println("Player in tile number: " + tile.getTileNum());
+			System.out.println("Tile passability = " + tile.isPassable());
 		    }
 	    }
 	System.out.println("Player scene position (X,Y) : " + player.getPosX() + ", " + player.getPosY());

@@ -23,13 +23,29 @@ public final class PhysicsEngine
 	    }
 	else
 	    {
-		if (deltaX > 0)
+		if (deltaX < 0.0)
 		    {
-			player.setRelativeTileX(0);
+			player.setRelativeTileX(64.0f);
 		    }
-		else
+		else if (deltaX > 0.0)
 		    {
-			player.setRelativeTileX(64);
+			player.setRelativeTileX(0.0f);
+		    }
+	    }
+
+	if (moveInTileY(player, deltaY))
+	    {
+		player.setRelativeTileY(player.getRelativeTileY() + deltaY);
+	    }
+	else
+	    {
+	    	if (deltaY < 0.0)
+		    {
+			player.setRelativeTileY(64.0f);
+		    }
+		else if (deltaY > 0.0)
+		    {
+			player.setRelativeTileY(0.0f);
 		    }
 	    }
 	
@@ -80,14 +96,10 @@ public final class PhysicsEngine
 
     // TODO(map) : Figure out how we want to handle moving within a single tile.
     // This shouldn't be too complex of a scenario but we need to make sure the
-    // conditional order is handled correctly.
+    // conditional order is handled correctly.P
     public static boolean moveInTileX(Unit player, float deltaX)
     {
-	if (player.getRelativeTileX() + deltaX < 64.0)
-	    {
-		return true;
-	    }
-	else if (player.getRelativeTileX() - deltaX < 0.0)
+	if (player.getRelativeTileX() + deltaX < 64.0 && player.getRelativeTileX() + deltaX > 0.0)
 	    {
 		return true;
 	    }
@@ -96,6 +108,10 @@ public final class PhysicsEngine
 
     public static boolean moveInTileY(Unit player, float deltaY)
     {
+	if (player.getRelativeTileY() + deltaY < 64.0  && player.getRelativeTileY() + deltaY > 0.0)
+	    {
+		return true;
+	    }
 	return false;
     }
 
