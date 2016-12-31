@@ -75,7 +75,7 @@ public class Tloll
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// Sample squares that probably won't stick around.
-        Unit player = new Unit(256.0f, 256.0f, 68, 100, 1.0f, 0.0f, 0.0f, 0.0f);
+        Unit player = new Unit(0.0f, 0.0f, 68, 100, 1.0f, 0.0f, 0.0f, 0.0f);
 	Unit enemy = new Unit(0.0f, 200.0f, 128, 128, 0.0f, 0.0f, 0.0f, 0.0f);
 	Unit enemySprite = new Unit(0.0f, 350.0f, 108, 140, 0.0f, 0.0f, 0.0f, 0.0f);
 	Unit lingling = new Unit(100.0f, 100.0f, 32, 32, 0.0f, 0.0f, 0.0f, 0.0f);
@@ -88,16 +88,15 @@ public class Tloll
 	
 	int backgroundId = 0;
 
-	// TODO(map) : Let's get this working by drawing alternating tiles between water and grass
-	// from the image assets file.  Once we are doing that, we will change to load different parts
-	// of the actual map instead.  Normalization needs to happen for this to occur.
+	// Drawing some sample scenes here.
 	Scene lowerLeft = new Scene(1, 1);
 	Scene upperLeft = new Scene(2, 2);
 	Scene lowerRight = new Scene(3, 3);
 	Scene upperRight = new Scene(4, 4);
 	Scene straightUpDown = new Scene(5, 5);
 	Scene straightLeftRight = new Scene(6, 6);
-
+	Scene currentScene = null;
+	
 	Renderer.loadTileBuffers(lowerLeft, gu, currentDir);
 	Renderer.loadTileBuffers(upperLeft, gu, currentDir);
 	Renderer.loadTileBuffers(lowerRight, gu, currentDir);
@@ -110,9 +109,16 @@ public class Tloll
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the frame buffer.
 
-		Renderer.drawScene(lowerLeft);
+		currentScene = getCurrentScene(backgroundId,
+					       lowerLeft,
+					       lowerRight,
+					       upperLeft,
+					       upperRight,
+					       straightLeftRight,
+					       straightUpDown);
+		Renderer.drawScene(currentScene);
 
-		checkBackgroundStuff(backgroundId,
+		setEnemyUnitActions(backgroundId,
 				     player,
 				     enemy,
 				     enemySprite,
@@ -125,13 +131,16 @@ public class Tloll
 				     straightUpDown
 				     );
 
+		// Highlight the current tile the player lives on.
+		highlightCurrentTile(currentScene, gu, player);
+
 		// Draw caveman sprite.
 		Renderer.drawSprite(player, 0);
 
 		// Set up keyboard controls.
 		in.checkKeyPressed(tloll.windowId, player);
 		in.checkKeyRelease(tloll.windowId, player);
-		in.bindDebugKey(tloll.windowId, player, lowerLeft, upperLeft, lowerRight, upperRight, straightUpDown, straightLeftRight);
+		in.bindDebugKey(tloll.windowId, player, lowerLeft);
 
 		isRunning = in.bindEscape(tloll.windowId);
 
@@ -279,17 +288,9 @@ public class Tloll
 	return backgroundId;
     }
     
-    /**
-     * 0 = Lower Left
-     * 1 = Straight Left/Right Bottom
-     * 2 = Lower Right
-     * 3 = Straight Up/Down Left
-     * 4 = Upper Right
-     * 5 = Straight Left/Right Top
-     * 6 = Upper Left
-     * 7 = Straight Up/Down Right
-     */
-    public static void checkBackgroundStuff(int backgroundId,
+
+    // Sets the enemy units in the scenes to do their actions.
+    public static void setEnemyUnitActions(int backgroundId,
 					    Unit player,
 					    Unit enemy,
 					    Unit enemySprite,
@@ -301,14 +302,8 @@ public class Tloll
 					    Scene straightUpDown,
 					    Scene straightLeftRight)
     {
-	if (backgroundId == 1 || backgroundId == 5)
-	    {
-		Renderer.drawScene(straightLeftRight);
-	    }
-
 	if (backgroundId == 2)
 	    {
-		Renderer.drawScene(lowerRight);
 		if (enemy.getRight())
 		    {
 			Renderer.drawSprite(enemy, 0);
@@ -321,14 +316,8 @@ public class Tloll
 		BaseBehaviors.patrolUnitLeftRight(enemy, 10.0f);
 	    }
 
-	if (backgroundId == 3 || backgroundId == 7)
-	    {
-		Renderer.drawScene(straightUpDown);
-	    }
-	
 	if (backgroundId == 4)
 	    {
-		Renderer.drawScene(upperRight);
 		if (enemySprite.getRight())
 		    {
 			Renderer.drawSpriteAnimation(enemySprite, 0, 8, 0.125f, 0.0f, 0.5f, 864, 280);
@@ -354,7 +343,6 @@ public class Tloll
 
 	if (backgroundId == 6)
 	    {
-		Renderer.drawScene(upperLeft);
 		Renderer.drawSpriteAnimation(lingling, 0, 4, 0.25f, 0.0f, 0.25f, 128, 128);
 		if (frameSkip < 0)
 		    {
@@ -362,6 +350,52 @@ public class Tloll
 			frameSkip = 2;
 		    }
 		frameSkip--;
+	    }
+    }
+
+    // Returns a scene based on a given background ID.
+    public static Scene getCurrentScene(int backgroundId,
+					Scene lowerLeft,
+					Scene upperLeft,
+					Scene lowerRight,
+					Scene upperRight,
+					Scene straightUpDown,
+					Scene straightLeftRight)
+    {
+	switch (backgroundId)
+	    {
+	    case 1:
+		return straightLeftRight;
+	    case 2:
+		return lowerRight;
+	    case 3:
+		return straightUpDown;
+	    case 4:
+		return upperRight;
+	    case 5:
+		return straightLeftRight;
+	    case 6:
+		return upperLeft;
+	    case 7:
+		return straightUpDown;
+	    default:
+		return lowerLeft;
+	    }
+    }	
+    
+    public static void highlightCurrentTile(Scene currentScene, GraphicsUtil gu, Unit player)
+    {
+	for (Tile tile : currentScene.getTileList())
+	    {
+		if (player.getPosX() <= (tile.getPosX() + tile.getWidth()) &&
+		    player.getPosX() >= tile.getPosX() &&
+		    player.getPosY() <= (tile.getPosY() + tile.getHeight()) &&
+		    player.getPosY() >= tile.getPosY())
+		    {
+			Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getDirection(), tile.getTileNum());
+			highlightTile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/highlight.png"));
+			Renderer.drawSprite(highlightTile, 0);
+		    }
 	    }
     }
 
