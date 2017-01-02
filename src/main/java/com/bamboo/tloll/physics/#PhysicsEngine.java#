@@ -37,6 +37,7 @@ public final class PhysicsEngine
 			    }
 		    }
 	    }
+
 	if (!isOutOfBoundsY(player, deltaY))
 	    {
 		player.setPosY(player.getPosY() + deltaY);
@@ -86,7 +87,7 @@ public final class PhysicsEngine
 	return false;
     }
 
-    // Bind the palyer to the Y dimension of the board.
+    // Bind the player to the Y dimension of the board.
     public static boolean isOutOfBoundsY(Unit player, float deltaY)
     {
 	// TODO(map) : Hard coded value needs to be passed at some point.

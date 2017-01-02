@@ -54,6 +54,9 @@ public class Tloll
 	GraphicsUtil gu = new GraphicsUtil();
 	Input in = new Input();
 	MapCreator mc = new MapCreator();
+
+	float bulletPosX = 0.0f;
+	float bulletPosY = 0.0f;
 	
 	gu.initializeGL();
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
@@ -76,11 +79,13 @@ public class Tloll
 
 	// Sample squares that probably won't stick around.
         Unit player = new Unit(0.0f, 0.0f, 68, 100, 1.0f, 0.0f, 0.0f, 0.0f);
+	Unit bullet = new Unit(0.0f, 0.0f, 30, 10, 0.0f, 0.0f, 0.0f, 0.0f);
 	Unit enemy = new Unit(0.0f, 200.0f, 128, 128, 0.0f, 0.0f, 0.0f, 0.0f);
 	Unit enemySprite = new Unit(0.0f, 350.0f, 108, 140, 0.0f, 0.0f, 0.0f, 0.0f);
 	Unit lingling = new Unit(100.0f, 100.0f, 32, 32, 0.0f, 0.0f, 0.0f, 0.0f);
 
 	player.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/player.png"));
+	bullet.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/bullet.png"));
 	enemy.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/enemy.png"));
 	enemy.addBufferToMap(1, gu.loadTexture(currentDir + "/Assets/Images/enemy_left.png"));
 	enemySprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/SpriteSheet.png"));
@@ -133,6 +138,20 @@ public class Tloll
 
 		// Highlight the current tile the player lives on.
 		highlightCurrentTile(currentScene, gu, player);
+
+		// Handle attacking input and moving the direction once to the right pre frame.
+		// TODO(map) : Need to be able to take in a variety of directions.
+		if (player.isAttacking())
+		    {
+			handleAttackAnimation(currentScene, player, "right", bullet);
+			Renderer.drawSprite(bullet, 0);
+			highlightCurrentTile(currentScene, gu, bullet);
+		    }
+		else
+		    {
+			bullet.setPosX(player.getPosX());
+			bullet.setPosY(player.getPosY());
+		    }
 
 		// Draw caveman sprite.
 		Renderer.drawSprite(player, 0);
@@ -383,6 +402,8 @@ public class Tloll
 	    }
     }	
     
+    // Debug method for highlighting the current tile the player lives in.
+    // NOTE(map) : This is only based on the lower left corner of the player
     public static void highlightCurrentTile(Scene currentScene, GraphicsUtil gu, Unit player)
     {
 	for (Tile tile : currentScene.getTileList())
@@ -397,6 +418,47 @@ public class Tloll
 			Renderer.drawSprite(highlightTile, 0);
 		    }
 	    }
+    }
+
+    public static void handleAttackAnimation(Scene currentScene, Unit player, String directionOfAttack, Unit bullet)
+    {
+	System.out.println("Bullet travelling...");
+	switch (directionOfAttack)
+	    {
+	    case "right":
+	        if (bullet.getPosX() + 10 > 512)
+		    {
+			player.setIsAttacking(false);
+			break;
+		    }
+		bullet.setPosX(bullet.getPosX() + 10.0f);
+		break;
+	    case "left":
+		if (bullet.getPosX() - 10 < 0)
+		    {
+			player.setIsAttacking(false);
+			break;
+		    }
+		bullet.setPosX(bullet.getPosX() - 10.0f);
+		break;
+	    case "up":
+		if (bullet.getPosY() + 10 > 512)
+		    {
+			player.setIsAttacking(false);
+			break;
+		    }
+		bullet.setPosY(bullet.getPosY() + 10.0f);
+		break;
+	    case "down":
+		if (bullet.getPosY() - 10 < 0)
+		    {
+			player.setIsAttacking(false);
+			break;
+		    }
+		bullet.setPosY(bullet.getPosY() + 10.0f);
+		break;
+	    }
+	System.out.println("Bullet Position (X,Y): " + bullet.getPosX() + "," + bullet.getPosY());
     }
 
 }

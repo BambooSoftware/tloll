@@ -20,6 +20,7 @@ public class Unit extends Sprite
     private int currentTileNum;
     private float relativeTileX;
     private float relativeTileY;
+    private boolean isAttacking;
     
     public Unit()
     {
@@ -33,6 +34,7 @@ public class Unit extends Sprite
 	this.outOfBoundsRight = false;
 	this.outOfBoundsUp = false;
 	this.outOfBoundsDown = false;
+	this.isAttacking = false;
     }
 
     public Unit(float posX,
@@ -54,6 +56,7 @@ public class Unit extends Sprite
 	this.outOfBoundsRight = false;
 	this.outOfBoundsUp = false;
 	this.outOfBoundsDown = false;
+	this.isAttacking = false;
     }
 
     public float getAcceleration()
@@ -153,5 +156,14 @@ public class Unit extends Sprite
     public void setRelativeTileY(float relativeTileY)
     {
 	this.relativeTileY = relativeTileY;
+    }
+
+    public boolean isAttacking()
+    {
+	return isAttacking;
+    }
+    public void setIsAttacking(boolean isAttacking)
+    {
+	this.isAttacking = isAttacking;
     }
 }

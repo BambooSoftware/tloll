@@ -126,8 +126,9 @@ public class Input
 		    }
 		PhysicsEngine.movePlayer(player, 0.0f, player.getSpeedY());
 	    }
-	else if (glfwGetKey(windowId, GLFW_KEY_SPACE) == 1)
+	else if (glfwGetKey(windowId, GLFW_KEY_SPACE) == 1 && !player.isAttacking())
 	    {
+		player.setIsAttacking(true);
 		System.out.println("Attack");
 	    }
     }
@@ -165,7 +166,6 @@ public class Input
 			PhysicsEngine.movePlayer(player, 0.0f, player.getSpeedY());
 		    }
 	    }
-	
     }
     
     // Bind key to pass back close window.
@@ -195,9 +195,9 @@ public class Input
     // scene.  It also determines if the current tile is passable.
 
     // This method can have parts taken and repurposed if they are needed.
-    public void printPositionalInformation(Unit player, Scene lowerLeft)
+    public void printPositionalInformation(Unit player, Scene currentScene)
     {
-	for (Tile tile : lowerLeft.getTileList())
+	for (Tile tile : currentScene.getTileList())
 	    {
 		if (player.getPosX() >= tile.getPosX() &&
 		    player.getPosX() <= (tile.getPosX() + tile.getWidth()) &&
