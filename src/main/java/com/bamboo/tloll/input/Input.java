@@ -167,6 +167,17 @@ public class Input
 		    }
 	    }
     }
+
+    public void bindResetKey(long windowId, Unit enemyTarget)
+    {
+	// NOTE(map) : This should reset the state of the entire game to a previous point.
+	// It is currently only resetting the HP of a single enemy for testing purposes.
+	if (glfwGetKey(windowId, GLFW_KEY_R) == 1)
+	    {
+		System.out.println("Resetting your game state.");
+		enemyTarget.setHitPoints(3);
+	    }
+    }
     
     // Bind key to pass back close window.
     public boolean bindEscape(long windowId)

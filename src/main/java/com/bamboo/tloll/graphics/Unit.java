@@ -21,6 +21,7 @@ public class Unit extends Sprite
     private float relativeTileX;
     private float relativeTileY;
     private boolean isAttacking;
+    private int hitPoints;
     
     public Unit()
     {
@@ -35,6 +36,7 @@ public class Unit extends Sprite
 	this.outOfBoundsUp = false;
 	this.outOfBoundsDown = false;
 	this.isAttacking = false;
+	this.hitPoints = 3;
     }
 
     public Unit(float posX,
@@ -57,6 +59,7 @@ public class Unit extends Sprite
 	this.outOfBoundsUp = false;
 	this.outOfBoundsDown = false;
 	this.isAttacking = false;
+	this.hitPoints = 3;
     }
 
     public float getAcceleration()
@@ -165,5 +168,14 @@ public class Unit extends Sprite
     public void setIsAttacking(boolean isAttacking)
     {
 	this.isAttacking = isAttacking;
+    }
+
+    public int getHitPoints()
+    {
+	return hitPoints;
+    }
+    public void setHitPoints(int hitPoints)
+    {
+	this.hitPoints = hitPoints;
     }
 }

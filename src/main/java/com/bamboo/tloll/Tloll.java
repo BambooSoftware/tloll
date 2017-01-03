@@ -79,8 +79,10 @@ public class Tloll
 
 	// Sample squares that probably won't stick around.
         Unit player = new Unit(0.0f, 0.0f, 68, 100, 1.0f, 0.0f, 0.0f, 0.0f);
-	Unit bullet = new Unit(0.0f, 0.0f, 30, 10, 0.0f, 0.0f, 0.0f, 0.0f);
+	Unit bullet = new Unit(68.0f, 50.0f, 30, 10, 0.0f, 0.0f, 0.0f, 0.0f);
 	Unit enemy = new Unit(0.0f, 200.0f, 128, 128, 0.0f, 0.0f, 0.0f, 0.0f);
+	Unit enemyTarget = new Unit(400.0f, 100.0f, 64.0f, 64.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+	Unit enemyHp = new Unit(400.0f, 90.0f, 64.0f, 10.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 	Unit enemySprite = new Unit(0.0f, 350.0f, 108, 140, 0.0f, 0.0f, 0.0f, 0.0f);
 	Unit lingling = new Unit(100.0f, 100.0f, 32, 32, 0.0f, 0.0f, 0.0f, 0.0f);
 
@@ -88,6 +90,11 @@ public class Tloll
 	bullet.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/bullet.png"));
 	enemy.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/enemy.png"));
 	enemy.addBufferToMap(1, gu.loadTexture(currentDir + "/Assets/Images/enemy_left.png"));
+	enemyTarget.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/enemy_target.png"));
+	enemyHp.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/hp_bar_0.png"));
+	enemyHp.addBufferToMap(1, gu.loadTexture(currentDir + "/Assets/Images/hp_bar_1.png"));
+	enemyHp.addBufferToMap(2, gu.loadTexture(currentDir + "/Assets/Images/hp_bar_2.png"));
+	enemyHp.addBufferToMap(3, gu.loadTexture(currentDir + "/Assets/Images/hp_bar_3.png"));
 	enemySprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/SpriteSheet.png"));
 	lingling.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Actors/panda_f_base.png"));
 	
@@ -124,17 +131,19 @@ public class Tloll
 		Renderer.drawScene(currentScene);
 
 		setEnemyUnitActions(backgroundId,
-				     player,
-				     enemy,
-				     enemySprite,
-				     lingling,
-				     lowerLeft,
-				     lowerRight,
-				     upperLeft,
-				     upperRight,
-				     straightLeftRight,
-				     straightUpDown
-				     );
+				    player,
+				    enemy,
+				    enemyTarget,
+				    enemyHp,
+				    enemySprite,
+				    lingling,
+				    lowerLeft,
+				    lowerRight,
+				    upperLeft,
+				    upperRight,
+				    straightLeftRight,
+				    straightUpDown
+				    );
 
 		// Highlight the current tile the player lives on.
 		highlightCurrentTile(currentScene, gu, player);
@@ -146,11 +155,26 @@ public class Tloll
 			handleAttackAnimation(currentScene, player, "right", bullet);
 			Renderer.drawSprite(bullet, 0);
 			highlightCurrentTile(currentScene, gu, bullet);
+			if (backgroundId == 1)
+			    {
+				System.out.println("Targetting enemy.");
+				if ((bullet.getPosX() + bullet.getWidth()) > enemyTarget.getPosX() &&
+				    (bullet.getPosX() + bullet.getWidth()) < (enemyTarget.getPosX() + enemyTarget.getWidth()) &&
+				    bullet.getPosY() > enemyTarget.getPosY() &&
+				    bullet.getPosY() < (enemyTarget.getPosY() + enemyTarget.getHeight()) &&
+				    enemyTarget.getHitPoints() > 0)
+				    {
+					player.setIsAttacking(false);
+					enemyTarget.setHitPoints(enemyTarget.getHitPoints() - 1);
+					// TODO(map) : Implement a health bar image somewhere.
+					System.out.println("Enemy HP: " + enemyTarget.getHitPoints());
+				    }
+			    }
 		    }
 		else
 		    {
-			bullet.setPosX(player.getPosX());
-			bullet.setPosY(player.getPosY());
+			bullet.setPosX(player.getPosX() + player.getWidth());
+			bullet.setPosY(player.getPosY() + (player.getHeight() / 2));
 		    }
 
 		// Draw caveman sprite.
@@ -160,6 +184,7 @@ public class Tloll
 		in.checkKeyPressed(tloll.windowId, player);
 		in.checkKeyRelease(tloll.windowId, player);
 		in.bindDebugKey(tloll.windowId, player, lowerLeft);
+		in.bindResetKey(tloll.windowId, enemyTarget);
 
 		isRunning = in.bindEscape(tloll.windowId);
 
@@ -310,17 +335,40 @@ public class Tloll
 
     // Sets the enemy units in the scenes to do their actions.
     public static void setEnemyUnitActions(int backgroundId,
-					    Unit player,
-					    Unit enemy,
-					    Unit enemySprite,
-					    Unit lingling,
-					    Scene lowerLeft,
-					    Scene upperLeft,
-					    Scene lowerRight,
-					    Scene upperRight,
-					    Scene straightUpDown,
-					    Scene straightLeftRight)
+					   Unit player,
+					   Unit enemy,
+					   Unit enemyTarget,
+					   Unit enemyHp,
+					   Unit enemySprite,
+					   Unit lingling,
+					   Scene lowerLeft,
+					   Scene upperLeft,
+					   Scene lowerRight,
+					   Scene upperRight,
+					   Scene straightUpDown,
+					   Scene straightLeftRight)
     {
+	if (backgroundId == 1)
+	    {
+		Renderer.drawSprite(enemyTarget, 0);
+		if (enemyTarget.getHitPoints() == 3)
+		    {
+			Renderer.drawSprite(enemyHp, 3);
+		    }
+		else if (enemyTarget.getHitPoints() == 2)
+		    {
+			Renderer.drawSprite(enemyHp, 2);
+		    }
+		else if (enemyTarget.getHitPoints() == 1)
+		    {
+			Renderer.drawSprite(enemyHp, 1);
+		    }
+		else
+		    {
+			Renderer.drawSprite(enemyHp, 0);
+		    }
+	    }
+	
 	if (backgroundId == 2)
 	    {
 		if (enemy.getRight())
