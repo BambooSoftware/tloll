@@ -126,10 +126,15 @@ public class Input
 		    }
 		PhysicsEngine.movePlayer(player, 0.0f, player.getSpeedY());
 	    }
-	else if (glfwGetKey(windowId, GLFW_KEY_SPACE) == 1 && !player.isAttacking())
+	else if (glfwGetKey(windowId, GLFW_KEY_SPACE) == 1  && glfwGetKey(windowId, GLFW_KEY_LEFT_SHIFT) == 1 && !player.isAttackingRanged())
 	    {
-		player.setIsAttacking(true);
-		System.out.println("Attack");
+		player.setIsAttackingRanged(true);
+		System.out.println("Ranged Attacked");
+	    }
+	else if (glfwGetKey(windowId, GLFW_KEY_SPACE) == 1 && glfwGetKey(windowId, GLFW_KEY_LEFT_SHIFT) == 0 && !player.isAttackingMelee())
+	    {
+		player.setIsAttackingMelee(true);
+		System.out.println("Melee Attack");
 	    }
     }
 
