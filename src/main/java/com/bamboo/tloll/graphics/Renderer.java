@@ -11,6 +11,8 @@ import java.nio.ByteBuffer;
 
 import java.util.List;
 
+import com.bamboo.tloll.Constants;
+
 import com.bamboo.tloll.graphics.structure.Tile;
 import com.bamboo.tloll.graphics.structure.Scene;
 
@@ -81,10 +83,10 @@ public final class Renderer
     {
 	// NOTE(map) : We have to do (1 - VALUE) for the Y because the map travels from the upper
 	// left downward.  The X value travels normally from left to right. 
-	float xMin = ((sprite.getPosX()) / 512);
-	float xMax = ((sprite.getPosX() + sprite.getWidth()) / 512);
-	float yMin = 1 - ((sprite.getPosY()) / 512);
-	float yMax = 1 - ((sprite.getPosY() + sprite.getHeight()) / 512);
+	float xMin = ((sprite.getPosX()) / Constants.WIDTH);
+	float xMax = ((sprite.getPosX() + sprite.getWidth()) / Constants.WIDTH);
+	float yMin = 1 - ((sprite.getPosY()) / Constants.HEIGHT);
+	float yMax = 1 - ((sprite.getPosY() + sprite.getHeight()) / Constants.HEIGHT);
 	glBindTexture(GL_TEXTURE_2D, bufferId);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
@@ -92,7 +94,7 @@ public final class Renderer
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 512, 512, 0, GL_RGBA, GL_UNSIGNED_BYTE, sprite.getBufferMap().get(bufferId));
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Constants.WIDTH, Constants.HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, sprite.getBufferMap().get(bufferId));
 	glBegin(GL_QUADS);
 	glTexCoord2f(xMin, yMin);
 	glVertex3f(sprite.getPosX(), sprite.getPosY(), 0.0f);

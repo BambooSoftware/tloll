@@ -1,5 +1,7 @@
 package com.bamboo.tloll.physics;
 
+import com.bamboo.tloll.Constants;
+
 import com.bamboo.tloll.graphics.Unit;
 
 public final class PhysicsEngine
@@ -70,8 +72,7 @@ public final class PhysicsEngine
     // Bind the player to the X dimension of the board.
     public static boolean isOutOfBoundsX(Unit player, float deltaX)
     {
-	// TODO(map) : Hard coded value needs to be passed at some point.
-	if (player.getCenterX() + player.getWidth() / 2  + deltaX > 512)
+	if (player.getCenterX() + player.getWidth() / 2  + deltaX > Constants.WIDTH)
 	    {
 		player.setOutOfBoundsRight(true);
 		return true;
@@ -90,8 +91,7 @@ public final class PhysicsEngine
     // Bind the player to the Y dimension of the board.
     public static boolean isOutOfBoundsY(Unit player, float deltaY)
     {
-	// TODO(map) : Hard coded value needs to be passed at some point.
-	if (player.getCenterY() + player.getHeight() / 4 + deltaY > 512)
+	if (player.getCenterY() + player.getHeight() / 4 + deltaY > Constants.HEIGHT)
 	    {
 		player.setOutOfBoundsUp(true);
 		return true;

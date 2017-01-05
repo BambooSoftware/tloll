@@ -17,6 +17,8 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bamboo.tloll.Constants;
+
 import com.bamboo.tloll.graphics.Unit;
 import com.bamboo.tloll.graphics.GraphicsUtil;
 import com.bamboo.tloll.graphics.Renderer;
@@ -33,9 +35,6 @@ public class Tloll
 {
 
     private long windowId;
-    private static int WIDTH = 512;
-    private static int HEIGHT = 512;
-    private static String TITLE = "The Legend of Ling Ling";
     private static boolean isRunning = true;
     private static int frameSkip = 2;
     private static String currentDir = System.getProperty("user.dir");
@@ -59,7 +58,7 @@ public class Tloll
 	
 	gu.initializeGL();
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-	tloll.windowId = gu.createWindow(WIDTH, HEIGHT, TITLE);
+	tloll.windowId = gu.createWindow(Constants.WIDTH, Constants.HEIGHT, Constants.TITLE);
 	glfwMakeContextCurrent(tloll.windowId);
 	glfwSwapInterval(1);
 	glfwShowWindow(tloll.windowId);
@@ -270,15 +269,15 @@ public class Tloll
 	// Go left from middle bottom.
 	else if (player.getOutOfBoundsLeft() && backgroundId == 1)
 	    {
-		player.setPosX(512 - player.getWidth());
-		player.setCenterX(512 - (player.getWidth() / 2));
+		player.setPosX(Constants.WIDTH - player.getWidth());
+		player.setCenterX(Constants.WIDTH - (player.getWidth() / 2));
 		return 0;
 	    }
 	// Go down from middle left.
 	else if (player.getOutOfBoundsDown() && backgroundId == 3)
 	    {
-		player.setPosY(512 - player.getHeight());
-		player.setCenterY(512 - (player.getHeight() / 2));
+		player.setPosY(Constants.HEIGHT - player.getHeight());
+		player.setCenterY(Constants.HEIGHT - (player.getHeight() / 2));
 		return 0;
 	    }
 	// Go right from middle bottom.
@@ -298,15 +297,15 @@ public class Tloll
 	// Go down from middle right.
 	else if (player.getOutOfBoundsDown() && backgroundId == 7)
 	    {
-		player.setPosY(512 - player.getHeight());
-		player.setCenterY(512 - (player.getHeight() / 2));
+		player.setPosY(Constants.HEIGHT - player.getHeight());
+		player.setCenterY(Constants.HEIGHT - (player.getHeight() / 2));
 		return 2;
 	    }
 	// Go left from lower right.
 	else if (player.getOutOfBoundsLeft() && backgroundId == 2)
 	    {
-		player.setPosX(512 - player.getWidth());
-		player.setCenterX(512 - (player.getWidth() / 2));
+		player.setPosX(Constants.WIDTH - player.getWidth());
+		player.setCenterX(Constants.WIDTH - (player.getWidth() / 2));
 		return 1;
 	    }
 	// Go up from middle right.
@@ -319,15 +318,15 @@ public class Tloll
 	// Go down from upper right.
 	else if (player.getOutOfBoundsDown() && backgroundId == 4)
 	    {
-		player.setPosY(512 - player.getHeight());
-		player.setCenterY(512 - (player.getHeight() / 2));
+		player.setPosY(Constants.HEIGHT - player.getHeight());
+		player.setCenterY(Constants.HEIGHT - (player.getHeight() / 2));
 		return 7;
 	    }
 	// Go left from upper right.
 	else if (player.getOutOfBoundsLeft() && backgroundId == 4)
 	    {
-		player.setPosX(512 - player.getWidth());
-		player.setCenterX(512 - (player.getWidth() / 2));
+		player.setPosX(Constants.WIDTH - player.getWidth());
+		player.setCenterX(Constants.WIDTH - (player.getWidth() / 2));
 		return 5;
 	    }
 	// Go right from middle top.
@@ -340,8 +339,8 @@ public class Tloll
 	// Go left from middle top.
 	else if (player.getOutOfBoundsLeft() && backgroundId == 5)
 	    {
-		player.setPosX(512 - player.getWidth());
-		player.setCenterX(512 - (player.getWidth() / 2));
+		player.setPosX(Constants.WIDTH - player.getWidth());
+		player.setCenterX(Constants.WIDTH - (player.getWidth() / 2));
 		return 6;
 	    }
 	// Go right from upper left.
@@ -354,8 +353,8 @@ public class Tloll
 	// Go down from upper left.
 	else if (player.getOutOfBoundsDown() && backgroundId == 6)
 	    {
-		player.setPosY(512 - player.getHeight());
-		player.setCenterY(512 - (player.getHeight() / 2));
+		player.setPosY(Constants.HEIGHT - player.getHeight());
+		player.setCenterY(Constants.HEIGHT - (player.getHeight() / 2));
 		return 3;
 	    }
 	// Go up from middle left.
@@ -512,7 +511,7 @@ public class Tloll
 	switch (directionOfAttack)
 	    {
 	    case "right":
-	        if (bullet.getPosX() + 10 > 512)
+	        if (bullet.getPosX() + 10 > Constants.WIDTH)
 		    {
 			player.setIsAttackingRanged(false);
 			break;
@@ -528,7 +527,7 @@ public class Tloll
 		bullet.setPosX(bullet.getPosX() - 10.0f);
 		break;
 	    case "up":
-		if (bullet.getPosY() + 10 > 512)
+		if (bullet.getPosY() + 10 > Constants.HEIGHT)
 		    {
 			player.setIsAttackingRanged(false);
 			break;
