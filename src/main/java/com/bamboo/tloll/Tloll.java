@@ -57,8 +57,7 @@ public class Tloll
 	Input in = new Input();
 	MapCreator mc = new MapCreator();
 
-	float bulletPosX = 0.0f;
-	float bulletPosY = 0.0f;
+	double angle = 45.0;
 	
 	gu.initializeGL();
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
@@ -82,6 +81,7 @@ public class Tloll
 	// Sample squares that probably won't stick around.
         Unit player = new Unit(0.0f, 0.0f, 68, 100, 1.0f, 0.0f, 0.0f, 0.0f);
 	Unit bullet = new Unit(68.0f, 50.0f, 30, 10, 0.0f, 0.0f, 0.0f, 0.0f);
+	Unit sword = new Unit(0.0f, 0.0f, 80, 20, 0.0f, 0.0f, 0.0f, 0.0f);
 	Unit enemy = new Unit(0.0f, 200.0f, 128, 128, 0.0f, 0.0f, 0.0f, 0.0f);
 	Unit enemyTarget = new Unit(400.0f, 100.0f, 64.0f, 64.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 	Unit enemyHp = new Unit(400.0f, 90.0f, 64.0f, 10.0f, 0.0f, 0.0f, 0.0f, 0.0f);
@@ -90,6 +90,7 @@ public class Tloll
 
 	player.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/player.png"));
 	bullet.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/bullet.png"));
+	sword.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/sword.png"));
 	enemy.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/enemy.png"));
 	enemy.addBufferToMap(1, gu.loadTexture(currentDir + "/Assets/Images/enemy_left.png"));
 	enemyTarget.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/enemy_target.png"));
@@ -152,9 +153,12 @@ public class Tloll
 
 		// Handle attacking input and moving the direction once to the right pre frame.
 		// TODO(map) : Need to be able to take in a variety of directions.
-		if (player.isAttacking())
+		// TODO(map) : Need to move this code and melee animation out to their own methods
+		// and clean them up a bit.  The math is very good for doing what we want in the sword
+		// animation hit box though.
+		if (player.isAttackingRanged())
 		    {
-			handleAttackAnimation(currentScene, player, "right", bullet);
+			handleBulletAnimation(currentScene, player, "right", bullet);
 			Renderer.drawSprite(bullet, 0);
 			highlightCurrentTile(currentScene, gu, bullet);
 			if (backgroundId == 1)
@@ -166,9 +170,8 @@ public class Tloll
 				    bullet.getPosY() < (enemyTarget.getPosY() + enemyTarget.getHeight()) &&
 				    enemyTarget.getHitPoints() > 0)
 				    {
-					player.setIsAttacking(false);
+					player.setIsAttackingRanged(false);
 					enemyTarget.setHitPoints(enemyTarget.getHitPoints() - 1);
-					// TODO(map) : Implement a health bar image somewhere.
 					System.out.println("Enemy HP: " + enemyTarget.getHitPoints());
 				    }
 			    }
@@ -179,6 +182,41 @@ public class Tloll
 			bullet.setPosY(player.getPosY() + (player.getHeight() / 2));
 		    }
 
+		if (player.isAttackingMelee())
+		    {
+			handleSwordAnimation(currentScene, player, "right", sword, angle);
+			Renderer.drawSprite(sword, 0);
+			highlightCurrentTile(currentScene, gu, sword);
+			double x = Math.toRadians(angle);
+			double y = Math.toRadians(angle);
+			double nextX = (double) player.getCenterX() + (player.getWidth() / 2) * Math.cos(x);
+			double nextY = (double) player.getCenterY() + (player.getHeight() / 2) * Math.sin(x);
+			
+			sword.setPosX((float) nextX);
+			sword.setPosY((float) nextY);
+			angle-=6;
+			if (backgroundId == 1)
+			    {
+				System.out.println("Targetting enemy.");
+				if((sword.getPosX() + sword.getWidth()) > enemyTarget.getPosX() &&
+				   (sword.getPosX() + sword.getWidth()) < (enemyTarget.getPosX() + enemyTarget.getWidth()) &&
+				   sword.getPosY() > enemyTarget.getPosY() &&
+				   sword.getPosY() < (enemyTarget.getPosY() + enemyTarget.getHeight()) &&
+				   enemyTarget.getHitPoints() > 0)
+				    {
+					player.setIsAttackingMelee(false);
+					enemyTarget.setHitPoints(enemyTarget.getHitPoints() - 1);
+					System.out.println("Enemy HP: " + enemyTarget.getHitPoints());
+				    }
+			    }
+		    }
+		else
+		    {
+			angle = 45.0;
+			sword.setPosX(player.getPosX() + player.getWidth());
+			sword.setPosY(player.getPosY() + player.getHeight() / 2);
+		    }
+		
 		// Draw caveman sprite.
 		Renderer.drawSprite(player, 0);
 
@@ -470,7 +508,7 @@ public class Tloll
 	    }
     }
 
-    public static void handleAttackAnimation(Scene currentScene, Unit player, String directionOfAttack, Unit bullet)
+    public static void handleBulletAnimation(Scene currentScene, Unit player, String directionOfAttack, Unit bullet)
     {
 	System.out.println("Bullet travelling...");
 	switch (directionOfAttack)
@@ -478,7 +516,7 @@ public class Tloll
 	    case "right":
 	        if (bullet.getPosX() + 10 > 512)
 		    {
-			player.setIsAttacking(false);
+			player.setIsAttackingRanged(false);
 			break;
 		    }
 		bullet.setPosX(bullet.getPosX() + 10.0f);
@@ -486,7 +524,7 @@ public class Tloll
 	    case "left":
 		if (bullet.getPosX() - 10 < 0)
 		    {
-			player.setIsAttacking(false);
+			player.setIsAttackingRanged(false);
 			break;
 		    }
 		bullet.setPosX(bullet.getPosX() - 10.0f);
@@ -494,7 +532,7 @@ public class Tloll
 	    case "up":
 		if (bullet.getPosY() + 10 > 512)
 		    {
-			player.setIsAttacking(false);
+			player.setIsAttackingRanged(false);
 			break;
 		    }
 		bullet.setPosY(bullet.getPosY() + 10.0f);
@@ -502,13 +540,35 @@ public class Tloll
 	    case "down":
 		if (bullet.getPosY() - 10 < 0)
 		    {
-			player.setIsAttacking(false);
+			player.setIsAttackingRanged(false);
 			break;
 		    }
 		bullet.setPosY(bullet.getPosY() + 10.0f);
 		break;
 	    }
 	System.out.println("Bullet Position (X,Y): " + bullet.getPosX() + "," + bullet.getPosY());
+    }
+
+    public static void handleSwordAnimation(Scene currentScene, Unit player, String directionOfAttack, Unit sword, double angle)
+    {
+	System.out.println("Sword swinging...");
+	switch (directionOfAttack)
+	    {
+	    case "right":
+		// This works based on Y position for sword only.
+		if (sword.getPosY() < player.getPosY())
+		    {
+			player.setIsAttackingMelee(false);
+			break;
+		    }
+		// WOrks based on angles instead of single coordinate.
+		if (angle < -45)
+		    {
+			player.setIsAttackingMelee(false);
+			break;
+		    }
+	    }
+	System.out.println("Sword Position (X,Y): " + sword.getPosX() + "," + sword.getPosY());
     }
 
 }

@@ -20,7 +20,8 @@ public class Unit extends Sprite
     private int currentTileNum;
     private float relativeTileX;
     private float relativeTileY;
-    private boolean isAttacking;
+    private boolean isAttackingRanged;
+    private boolean isAttackingMelee;
     private int hitPoints;
     
     public Unit()
@@ -35,7 +36,8 @@ public class Unit extends Sprite
 	this.outOfBoundsRight = false;
 	this.outOfBoundsUp = false;
 	this.outOfBoundsDown = false;
-	this.isAttacking = false;
+	this.isAttackingRanged = false;
+	this.isAttackingMelee = false;
 	this.hitPoints = 3;
     }
 
@@ -58,7 +60,8 @@ public class Unit extends Sprite
 	this.outOfBoundsRight = false;
 	this.outOfBoundsUp = false;
 	this.outOfBoundsDown = false;
-	this.isAttacking = false;
+	this.isAttackingRanged = false;
+	this.isAttackingMelee = false;
 	this.hitPoints = 3;
     }
 
@@ -161,13 +164,22 @@ public class Unit extends Sprite
 	this.relativeTileY = relativeTileY;
     }
 
-    public boolean isAttacking()
+    public boolean isAttackingRanged()
     {
-	return isAttacking;
+	return isAttackingRanged;
     }
-    public void setIsAttacking(boolean isAttacking)
+    public void setIsAttackingRanged(boolean isAttackingRanged)
     {
-	this.isAttacking = isAttacking;
+	this.isAttackingRanged = isAttackingRanged;
+    }
+
+    public boolean isAttackingMelee()
+    {
+	return isAttackingMelee;
+    }
+    public void setIsAttackingMelee(boolean isAttackingMelee)
+    {
+	this.isAttackingMelee = isAttackingMelee;
     }
 
     public int getHitPoints()
