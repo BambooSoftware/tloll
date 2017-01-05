@@ -30,6 +30,8 @@ import com.bamboo.tloll.input.Input;
 
 import com.bamboo.tloll.behaviors.BaseBehaviors;
 
+import com.sun.opengl.util.awt.TextRenderer;
+
 
 public class Tloll
 {
