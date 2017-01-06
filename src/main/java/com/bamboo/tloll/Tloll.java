@@ -20,6 +20,7 @@ import java.util.List;
 import com.bamboo.tloll.Constants;
 
 import com.bamboo.tloll.graphics.Unit;
+import com.bamboo.tloll.graphics.Sprite;
 import com.bamboo.tloll.graphics.GraphicsUtil;
 import com.bamboo.tloll.graphics.Renderer;
 import com.bamboo.tloll.graphics.MapCreator;
@@ -29,9 +30,6 @@ import com.bamboo.tloll.graphics.structure.Scene;
 import com.bamboo.tloll.input.Input;
 
 import com.bamboo.tloll.behaviors.BaseBehaviors;
-
-import com.sun.opengl.util.awt.TextRenderer;
-
 
 public class Tloll
 {
@@ -87,6 +85,11 @@ public class Tloll
 	Unit enemySprite = new Unit(0.0f, 350.0f, 108, 140, 0.0f, 0.0f, 0.0f, 0.0f);
 	Unit lingling = new Unit(100.0f, 100.0f, 32, 32, 0.0f, 0.0f, 0.0f, 0.0f);
 
+	Sprite alphabet = new Sprite(0.0f, 0.0f, 468.0f, 25.0f);
+	alphabet.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/alphabet.png"));
+	Sprite alphabetSprite = new Sprite(0.0f, 25.0f, 13.0f, 25.0f);
+	alphabetSprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/alphabet.png"));
+	
 	player.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/player.png"));
 	bullet.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/bullet.png"));
 	sword.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/sword.png"));
@@ -151,74 +154,16 @@ public class Tloll
 		highlightCurrentTile(currentScene, gu, player);
 
 		// Handle attacking input and moving the direction once to the right pre frame.
-		// TODO(map) : Need to be able to take in a variety of directions.
-		// TODO(map) : Need to move this code and melee animation out to their own methods
-		// and clean them up a bit.  The math is very good for doing what we want in the sword
-		// animation hit box though.
-		if (player.isAttackingRanged())
-		    {
-			handleBulletAnimation(currentScene, player, "right", bullet);
-			Renderer.drawSprite(bullet, 0);
-			highlightCurrentTile(currentScene, gu, bullet);
-			if (backgroundId == 1)
-			    {
-				System.out.println("Targetting enemy.");
-				if ((bullet.getPosX() + bullet.getWidth()) > enemyTarget.getPosX() &&
-				    (bullet.getPosX() + bullet.getWidth()) < (enemyTarget.getPosX() + enemyTarget.getWidth()) &&
-				    bullet.getPosY() > enemyTarget.getPosY() &&
-				    bullet.getPosY() < (enemyTarget.getPosY() + enemyTarget.getHeight()) &&
-				    enemyTarget.getHitPoints() > 0)
-				    {
-					player.setIsAttackingRanged(false);
-					enemyTarget.setHitPoints(enemyTarget.getHitPoints() - 1);
-					System.out.println("Enemy HP: " + enemyTarget.getHitPoints());
-				    }
-			    }
-		    }
-		else
-		    {
-			bullet.setPosX(player.getPosX() + player.getWidth());
-			bullet.setPosY(player.getPosY() + (player.getHeight() / 2));
-		    }
-
-		if (player.isAttackingMelee())
-		    {
-			handleSwordAnimation(currentScene, player, "right", sword, angle);
-			Renderer.drawSprite(sword, 0);
-			highlightCurrentTile(currentScene, gu, sword);
-			double x = Math.toRadians(angle);
-			double y = Math.toRadians(angle);
-			double nextX = (double) player.getCenterX() + (player.getWidth() / 2) * Math.cos(x);
-			double nextY = (double) player.getCenterY() + (player.getHeight() / 2) * Math.sin(x);
-			
-			sword.setPosX((float) nextX);
-			sword.setPosY((float) nextY);
-			angle-=6;
-			if (backgroundId == 1)
-			    {
-				System.out.println("Targetting enemy.");
-				if((sword.getPosX() + sword.getWidth()) > enemyTarget.getPosX() &&
-				   (sword.getPosX() + sword.getWidth()) < (enemyTarget.getPosX() + enemyTarget.getWidth()) &&
-				   sword.getPosY() > enemyTarget.getPosY() &&
-				   sword.getPosY() < (enemyTarget.getPosY() + enemyTarget.getHeight()) &&
-				   enemyTarget.getHitPoints() > 0)
-				    {
-					player.setIsAttackingMelee(false);
-					enemyTarget.setHitPoints(enemyTarget.getHitPoints() - 1);
-					System.out.println("Enemy HP: " + enemyTarget.getHitPoints());
-				    }
-			    }
-		    }
-		else
-		    {
-			angle = 45.0;
-			sword.setPosX(player.getPosX() + player.getWidth());
-			sword.setPosY(player.getPosY() + player.getHeight() / 2);
-		    }
+		angle = handlePlayerAttack(sword, player, enemyTarget, bullet, angle, gu, backgroundId, currentScene);
 		
 		// Draw caveman sprite.
 		Renderer.drawSprite(player, 0);
 
+		// TODO(map) : This sample debug print call should be moved out to a debug print method
+		// somewhere in the logger perhaps???
+		// TODO(map) : Look into special characters and how they map to their respective nums.
+		Renderer.drawString(gu, currentDir, 5.0f, 470.0f, "Current FPS");
+		
 		// Set up keyboard controls.
 		in.checkKeyPressed(tloll.windowId, player);
 		in.checkKeyRelease(tloll.windowId, player);
@@ -568,6 +513,79 @@ public class Tloll
 		    }
 	    }
 	System.out.println("Sword Position (X,Y): " + sword.getPosX() + "," + sword.getPosY());
+    }
+
+    // TODO(map) : Java passes primitives by value only, not by reference.  We may need to extend the
+    // Unit class from a Weapons class and include an angle variable there for creating the hitbox.
+    public static double handlePlayerAttack(Unit sword, Unit player, Unit enemyTarget, Unit bullet, double angle, GraphicsUtil gu, int backgroundId, Scene currentScene)
+    {
+	// TODO(map) : Need to be able to take in a variety of directions.
+	// TODO(map) : Need to move this code and melee animation out to their own methods
+	// and clean them up a bit.  The math is very good for doing what we want in the sword
+	// animation hit box though.
+	if (player.isAttackingRanged())
+	    {
+		handleBulletAnimation(currentScene, player, "right", bullet);
+		Renderer.drawSprite(bullet, 0);
+		highlightCurrentTile(currentScene, gu, bullet);
+		if (backgroundId == 1)
+		    {
+			System.out.println("Targetting enemy.");
+			if ((bullet.getPosX() + bullet.getWidth()) > enemyTarget.getPosX() &&
+			    (bullet.getPosX() + bullet.getWidth()) < (enemyTarget.getPosX() + enemyTarget.getWidth()) &&
+			    bullet.getPosY() > enemyTarget.getPosY() &&
+			    bullet.getPosY() < (enemyTarget.getPosY() + enemyTarget.getHeight()) &&
+			    enemyTarget.getHitPoints() > 0)
+			    {
+				player.setIsAttackingRanged(false);
+				enemyTarget.setHitPoints(enemyTarget.getHitPoints() - 1);
+				System.out.println("Enemy HP: " + enemyTarget.getHitPoints());
+			    }
+		    }
+	    }
+	else
+	    {
+		bullet.setPosX(player.getPosX() + player.getWidth());
+		bullet.setPosY(player.getPosY() + (player.getHeight() / 2));
+	    }
+
+	if (player.isAttackingMelee())
+	    {
+		handleSwordAnimation(currentScene, player, "right", sword, angle);
+		Renderer.drawSprite(sword, 0);
+		highlightCurrentTile(currentScene, gu, sword);
+		double x = Math.toRadians(angle);
+		double y = Math.toRadians(angle);
+		double nextX = (double) player.getCenterX() + (player.getWidth() / 2) * Math.cos(x);
+		double nextY = (double) player.getCenterY() + (player.getHeight() / 2) * Math.sin(x);
+			
+		sword.setPosX((float) nextX);
+		sword.setPosY((float) nextY);
+		angle-=6;
+		if (backgroundId == 1)
+		    {
+			System.out.println("Targetting enemy.");
+			if((sword.getPosX() + sword.getWidth()) > enemyTarget.getPosX() &&
+			   (sword.getPosX() + sword.getWidth()) < (enemyTarget.getPosX() + enemyTarget.getWidth()) &&
+			   sword.getPosY() > enemyTarget.getPosY() &&
+			   sword.getPosY() < (enemyTarget.getPosY() + enemyTarget.getHeight()) &&
+			   enemyTarget.getHitPoints() > 0)
+			    {
+				player.setIsAttackingMelee(false);
+				enemyTarget.setHitPoints(enemyTarget.getHitPoints() - 1);
+				System.out.println("Enemy HP: " + enemyTarget.getHitPoints());
+			    }
+		    }
+		return angle;
+	    }
+	else
+	    {
+		angle = 45.0;
+		sword.setPosX(player.getPosX() + player.getWidth());
+		sword.setPosY(player.getPosY() + player.getHeight() / 2);
+		return angle;
+	    }
+
     }
 
 }

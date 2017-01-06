@@ -21,8 +21,6 @@ public class Input
     // Bind all key presses here to do something.
     public void checkKeyPressed(long windowId, Unit player)
     {
-	// TODO(map) : Maybe we can perform the diagonal calculations in a more clever way using
-	// pythagorean theorum of triangles???
 	if (glfwGetKey(windowId, GLFW_KEY_A) == 1 && glfwGetKey(windowId, GLFW_KEY_S) == 1)
 	    {
 		System.out.println("A + S Combo Key");
