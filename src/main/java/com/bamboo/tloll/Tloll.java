@@ -31,6 +31,8 @@ import com.bamboo.tloll.input.Input;
 
 import com.bamboo.tloll.behaviors.BaseBehaviors;
 
+import com.bamboo.tloll.debug.Logger;
+
 public class Tloll
 {
 
@@ -54,7 +56,9 @@ public class Tloll
 	Input in = new Input();
 	MapCreator mc = new MapCreator();
 
-	double angle = 45.0;
+	Logger logger = new Logger("DEBUG");
+
+	double angle = 70.0;
 	
 	gu.initializeGL();
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
@@ -159,10 +163,8 @@ public class Tloll
 		// Draw caveman sprite.
 		Renderer.drawSprite(player, 0);
 
-		// TODO(map) : This sample debug print call should be moved out to a debug print method
-		// somewhere in the logger perhaps???
-		// TODO(map) : Look into special characters and how they map to their respective nums.
-		Renderer.drawString(gu, currentDir, 5.0f, 470.0f, "Current FPS");
+		// Print out some debug info on the screen.
+		logger.printToWindow(gu, currentDir, "Test String", 0.0f, 470.0f, false);
 		
 		// Set up keyboard controls.
 		in.checkKeyPressed(tloll.windowId, player);
@@ -173,6 +175,8 @@ public class Tloll
 		isRunning = in.bindEscape(tloll.windowId);
 
 		backgroundId = checkPlayerTransition(player, backgroundId);
+
+		checkForStairs(currentScene, player);
 				
 		glfwSwapBuffers(tloll.windowId); // Swaps buffers that will be drawn.
 
@@ -506,7 +510,7 @@ public class Tloll
 			break;
 		    }
 		// WOrks based on angles instead of single coordinate.
-		if (angle < -45)
+		if (angle < -70)
 		    {
 			player.setIsAttackingMelee(false);
 			break;
@@ -580,12 +584,29 @@ public class Tloll
 	    }
 	else
 	    {
-		angle = 45.0;
+		angle = 70.0;
 		sword.setPosX(player.getPosX() + player.getWidth());
 		sword.setPosY(player.getPosY() + player.getHeight() / 2);
 		return angle;
 	    }
 
+    }
+
+    public static void checkForStairs(Scene currentScene, Unit player)
+    {
+	for (Tile tile : currentScene.getTileList())
+	    {
+		if (tile.getDirection() == 10)
+		    {
+			if ((player.getPosX() + player.getWidth()) < (tile.getPosX() + tile.getWidth()) &&
+			    (player.getPosX() + player.getWidth()) > tile.getPosX() &&
+			    player.getPosY() < tile.getPosY() + tile.getHeight() &&
+			    player.getPosY() > tile.getPosY())
+			    {
+				System.out.println("Player is on the stairs!");
+			    }
+		    }
+	    }
     }
 
 }

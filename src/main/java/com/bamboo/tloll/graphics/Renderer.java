@@ -108,7 +108,7 @@ public final class Renderer
     // Method for drawing a string onto the screen.  Only draws left to right curently.
     // NOTE(map) : There are hard coded values currently because they match with the png file and have
     // no need to be changed at the moment.  They could be changed later if desired.
-    public static void drawString(GraphicsUtil gu, String currentDir, float posX, float posY, String message)
+    public static void drawString(GraphicsUtil gu, String currentDir, float posX, float posY, String message, boolean leftToRight)
     {
 	int imageWidth = 468;
 	int imageHeight = 25;
@@ -116,41 +116,83 @@ public final class Renderer
 	message = message.toUpperCase();
 	char[] characters = message.toCharArray();
 
-	Sprite sprite = new Sprite(posX, posY, 13.0f, 25.0f);
-	sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/alphabet.png"));
-	int bufferId = 0;
-
-	for(char character : characters)
+	if (leftToRight)
 	    {
-		// Setting up the parameters for getting the correct letter from the alphabet.
-		int numRepOfChar = character - 'A';
-		float xMin = (1.0f / 36.0f) * (numRepOfChar * 1);
-		float xMax = (1.0f / 36.0f) * ((numRepOfChar + 1) * 1);
-		float yMin = 0.0f;
-		float yMax = 1.0f;
+		Sprite sprite = new Sprite(posX, posY, 13.0f, 25.0f);
+		sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/alphabet.png"));
+		int bufferId = 0;
 
-		// Doing the actual rendering here.
-		glBindTexture(GL_TEXTURE_2D, bufferId);
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
-		glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, sprite.getBufferMap().get(bufferId));
-		glBegin(GL_QUADS);
-		glTexCoord2f(xMin, yMax);
-		glVertex3f(sprite.getPosX(), sprite.getPosY(), 0.0f);
-		glTexCoord2f(xMax, yMax);
-		glVertex3f(sprite.getPosX() + sprite.getWidth(), sprite.getPosY(), 0.0f);
-		glTexCoord2f(xMax, yMin);
-		glVertex3f(sprite.getPosX() + sprite.getWidth(), sprite.getPosY() + sprite.getHeight(), 0.0f);
-		glTexCoord2f(xMin, yMin);
-		glVertex3f(sprite.getPosX(), sprite.getPosY() + sprite.getHeight(), 0.0f);
-		glEnd();
-		sprite.setPosX(sprite.getPosX() + sprite.getWidth());;
+		for(char character : characters)
+		    {
+			// Setting up the parameters for getting the correct letter from the alphabet.
+			int numRepOfChar = character - 'A';
+			float xMin = (1.0f / 36.0f) * (numRepOfChar * 1);
+			float xMax = (1.0f / 36.0f) * ((numRepOfChar + 1) * 1);
+			float yMin = 0.0f;
+			float yMax = 1.0f;
+
+			// Doing the actual rendering here.
+			glBindTexture(GL_TEXTURE_2D, bufferId);
+			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+			glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
+			glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, sprite.getBufferMap().get(bufferId));
+			glBegin(GL_QUADS);
+			glTexCoord2f(xMin, yMax);
+			glVertex3f(sprite.getPosX(), sprite.getPosY(), 0.0f);
+			glTexCoord2f(xMax, yMax);
+			glVertex3f(sprite.getPosX() + sprite.getWidth(), sprite.getPosY(), 0.0f);
+			glTexCoord2f(xMax, yMin);
+			glVertex3f(sprite.getPosX() + sprite.getWidth(), sprite.getPosY() + sprite.getHeight(), 0.0f);
+			glTexCoord2f(xMin, yMin);
+			glVertex3f(sprite.getPosX(), sprite.getPosY() + sprite.getHeight(), 0.0f);
+			glEnd();
+			sprite.setPosX(sprite.getPosX() + sprite.getWidth());;
+		    }
 	    }
+	else
+	    {
+		// TODO(map) : Why does this have to be - 26 instead of 13???
+		// That's double the width.
+		float leftJustifiedPosX = Constants.WIDTH - 26.0f;
+		Sprite sprite = new Sprite(leftJustifiedPosX, posY, 13.0f, 25.0f);
+		sprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/alphabet.png"));
+		int bufferId = 0;
 
+		for(int i = characters.length - 1; i > -1; i--)
+		    {
+			// Setting up the parameters for getting the correct letter from the alphabet.
+			int numRepOfChar = characters[i] - 'A';
+			float xMin = (1.0f / 36.0f) * (numRepOfChar * 1);
+			float xMax = (1.0f / 36.0f) * ((numRepOfChar + 1) * 1);
+			float yMin = 0.0f;
+			float yMax = 1.0f;
+
+			// Doing the actual rendering here.
+			glBindTexture(GL_TEXTURE_2D, bufferId);
+			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+			glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
+			glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, sprite.getBufferMap().get(bufferId));
+			glBegin(GL_QUADS);
+			glTexCoord2f(xMin, yMax);
+			glVertex3f(sprite.getPosX(), sprite.getPosY(), 0.0f);
+			glTexCoord2f(xMax, yMax);
+			glVertex3f(sprite.getPosX() + sprite.getWidth(), sprite.getPosY(), 0.0f);
+			glTexCoord2f(xMax, yMin);
+			glVertex3f(sprite.getPosX() + sprite.getWidth(), sprite.getPosY() + sprite.getHeight(), 0.0f);
+			glTexCoord2f(xMin, yMin);
+			glVertex3f(sprite.getPosX(), sprite.getPosY() + sprite.getHeight(), 0.0f);
+			glEnd();
+			sprite.setPosX(sprite.getPosX() - sprite.getWidth());;
+		    }
+	    }
     }
     
     public static void drawScene(Scene scene)
@@ -167,7 +209,14 @@ public final class Renderer
 	    {
 		if (tile.isPassable())
 		    {
-			tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/grass.PNG"));
+			if (tile.getDirection() == 10)
+			    {
+				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/stairs.png"));
+			    }
+			else
+			    {
+				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/grass.PNG"));
+			    }
 		    }
 		else
 		    {

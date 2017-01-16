@@ -86,7 +86,7 @@ public class GraphicsUtil
 
     public void loadSurroundingCanvas()
     {
-	// TODO(map) : Stubbed out method for loading the surrounding canvases.  This won't actually
+	// NOTE(map) : Stubbed out method for loading the surrounding canvases.  This won't actually
 	// be implemented until Andrew finishes his part and also may get moved depending.
 
 	// NOTE(map) : This will likely take in a canvas object or multiple canvas objects.
@@ -94,7 +94,7 @@ public class GraphicsUtil
 
     public void unloadPreviousCanvases()
     {
-	// TODO(map) : Stubbed out method for unloading previously surrounding canvases.  Not
+	// NOTE(map) : Stubbed out method for unloading previously surrounding canvases.  Not
 	// implemented until Andre finishes his part and might be moved.
 
 	// NOTE(map) : Not sure of parameters being passed in yet.

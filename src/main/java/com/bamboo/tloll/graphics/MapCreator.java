@@ -46,6 +46,11 @@ public class MapCreator
 				// Corner piece.
 				tile = new Tile(posX, posY, 64.0f, 64.0f, false, 6, tileCounter);
 			    }
+			else if (i == 4 && j == 4)
+			    {
+				// Stairs
+				tile = new Tile(posX, posY, 64.0f, 64.0f, true, 10, tileCounter);
+			    }
 			else
 			    {
 				// Everything else is grass.

@@ -18,6 +18,7 @@ public class Tile extends Sprite
     // 7 = Upper Left Corner
     // 8 = Upper Right Corner
     // 9 = Lower Right Corner
+    // 10 = Stairs
     private int direction;
 
     private int tileNum;
