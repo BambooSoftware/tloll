@@ -57,8 +57,12 @@ dependencies {
 	     compile "org.lwjgl:lwjgl-vulkan:${lwjglVersion}"
 	     compile "org.lwjgl:lwjgl-xxhash:${lwjglVersion}"
 
-			 //On linux he thinks he needs test libs. Feel free to up this to a newer
-       testCompile "junit:junit:4.13-SNAPSHOT"
+		 compile group: 'com.google.guava', name: 'guava', version: '20.0'
+	     compile group: 'org.jgrapht', name: 'jgrapht-core', version: '1.0.0'
+
+
+	//On linux he thinks he needs test libs. Feel free to up this to a newer
+	     testCompile "junit:junit:4.13-SNAPSHOT"
 
 	     // Needed if compiling through command line.
 	     compile fileTree(dir: 'Dependencies/jar', include: '*.jar')

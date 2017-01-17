@@ -1,5 +1,7 @@
 package com.bamboo.tloll.behaviors;
 
+import com.bamboo.tloll.Constants;
+
 import com.bamboo.tloll.graphics.Unit;
 
 public final class BaseBehaviors
@@ -14,8 +16,7 @@ public final class BaseBehaviors
     {
 	if (unit.getRight())
 	    {
-		// TODO(map) : Hard coded value that needs to be passed eventually.
-		if (unit.getCenterX() + deltaX > 512)
+		if (unit.getCenterX() + deltaX > Constants.WIDTH)
 		    {
 			unit.setRight(false);
 		    }

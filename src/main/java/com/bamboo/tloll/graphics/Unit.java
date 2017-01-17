@@ -17,7 +17,13 @@ public class Unit extends Sprite
     private boolean outOfBoundsRight;
     private boolean outOfBoundsUp;
     private boolean outOfBoundsDown;
-
+    private int currentTileNum;
+    private float relativeTileX;
+    private float relativeTileY;
+    private boolean isAttackingRanged;
+    private boolean isAttackingMelee;
+    private int hitPoints;
+    
     public Unit()
     {
 	super();
@@ -30,6 +36,9 @@ public class Unit extends Sprite
 	this.outOfBoundsRight = false;
 	this.outOfBoundsUp = false;
 	this.outOfBoundsDown = false;
+	this.isAttackingRanged = false;
+	this.isAttackingMelee = false;
+	this.hitPoints = 3;
     }
 
     public Unit(float posX,
@@ -51,6 +60,9 @@ public class Unit extends Sprite
 	this.outOfBoundsRight = false;
 	this.outOfBoundsUp = false;
 	this.outOfBoundsDown = false;
+	this.isAttackingRanged = false;
+	this.isAttackingMelee = false;
+	this.hitPoints = 3;
     }
 
     public float getAcceleration()
@@ -132,5 +144,50 @@ public class Unit extends Sprite
     public void setOutOfBoundsDown(boolean outOfBoundsDown)
     {
 	this.outOfBoundsDown = outOfBoundsDown;
+    }
+
+    public float getRelativeTileX()
+    {
+	return relativeTileX;
+    }
+    public void setRelativeTileX(float relativeTileX)
+    {
+	this.relativeTileX = relativeTileX;
+    }
+
+    public float getRelativeTileY()
+    {
+	return relativeTileY;
+    }
+    public void setRelativeTileY(float relativeTileY)
+    {
+	this.relativeTileY = relativeTileY;
+    }
+
+    public boolean isAttackingRanged()
+    {
+	return isAttackingRanged;
+    }
+    public void setIsAttackingRanged(boolean isAttackingRanged)
+    {
+	this.isAttackingRanged = isAttackingRanged;
+    }
+
+    public boolean isAttackingMelee()
+    {
+	return isAttackingMelee;
+    }
+    public void setIsAttackingMelee(boolean isAttackingMelee)
+    {
+	this.isAttackingMelee = isAttackingMelee;
+    }
+
+    public int getHitPoints()
+    {
+	return hitPoints;
+    }
+    public void setHitPoints(int hitPoints)
+    {
+	this.hitPoints = hitPoints;
     }
 }

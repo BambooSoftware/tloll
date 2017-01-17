@@ -2,14 +2,18 @@
 
 #      /build directory
 #      .gradle cache directory
+#      .idea directory that intellij is creating.
 #      *.*~ <-- Ignore everything else below.
 #      *.*~ <-- Top level ignore.
 #      .idea <-- Intellij created file.  Probably don't want that commited.
 #      *.log <-- Ignore the log errors created by windows.
+#      .iml <-- Ignore any possible iml files created outside the IDEA directory
 
 build/*
 
 .gradle/*
+
+.idea/*
 
 */*.*~
 
@@ -18,3 +22,5 @@ build/*
 *.idea
 
 *.log
+
+*.iml
