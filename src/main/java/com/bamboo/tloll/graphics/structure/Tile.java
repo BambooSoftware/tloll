@@ -28,6 +28,8 @@ public class Tile extends Sprite
 	super();
     }
 
+    // NOTE(map) : There are two constructors, one that take posX/Y and one that doesn't. If no posX/Y
+    // is provided, it calculates.  Currently there is no posX/Y in JSON.  They are optional values.
     public Tile(float posX,
 		float posY,
 		float width,
@@ -36,6 +38,21 @@ public class Tile extends Sprite
 		int direction,
 		int tileNum)
     {
+	super(posX, posY, width, height);
+	this.passable = passable;
+	this.direction = direction;
+	this.tileNum = tileNum;
+    }
+
+    public Tile(float width,
+		float height,
+		booolean passable,
+		int direction,
+		int tileNum)
+    {
+
+	float posX = 64.0f * (int) (tileNum / 8);
+	float posY = 64.0f * (tileNum % 8);
 	super(posX, posY, width, height);
 	this.passable = passable;
 	this.direction = direction;
