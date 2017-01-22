@@ -24,8 +24,10 @@ public class MapCreator
 	    {
 		for (int j = 0; j < 8; j++)
 		    {
-			float posX = i * 64.0f;
-			float posY = j * 64.0f;
+			// float posX = i * 64.0f;
+			// float posY = j * 64.0f;
+			float posX = 64.0f * (int) (tileCounter / 8);
+			float posY = 64.0f * (tileCounter % 8);
 			if (i == 0 || j == 0)
 			    {
 				// One Tile layer of water.
@@ -76,8 +78,10 @@ public class MapCreator
 	    {
 		for (int j = 0; j < 8; j++)
 		    {
-			float posX = i * 64.0f;
-			float posY = j * 64.0f;
+			// float posX = i * 64.0f;
+			// float posY = j * 64.0f;
+			float posX = 64.0f * (int) (tileCounter / 8);
+			float posY = 64.0f * (tileCounter % 8);
 			if (i == 7 || j == 0)
 			    {
 				// One Tile layer of water.
@@ -123,8 +127,10 @@ public class MapCreator
 	    {
 		for (int j = 0; j < 8; j++)
 		    {
-			float posX = i * 64.0f;
-			float posY = j * 64.0f;
+			// float posX = i * 64.0f;
+			// float posY = j * 64.0f;
+			float posX = 64.0f * (int) (tileCounter / 8);
+			float posY = 64.0f * (tileCounter % 8);
 			if (i == 0 || j == 7)
 			    {
 				// One Tile layer of water.
@@ -170,8 +176,10 @@ public class MapCreator
 	    {
 		for (int j = 0; j < 8; j++)
 		    {
-			float posX = i * 64.0f;
-			float posY = j * 64.0f;
+			// float posX = i * 64.0f;
+			// float posY = j * 64.0f;
+			float posX = 64.0f * (int) (tileCounter / 8);
+			float posY = 64.0f * (tileCounter % 8);
 			if (i == 7 || j == 7)
 			    {
 				// One Tile layer of water.
@@ -216,9 +224,10 @@ public class MapCreator
 	    {
 		for (int j = 0; j < 8; j++)
 		    {
-			float posX = i * 64.0f;
-			float posY = j * 64.0f;
-
+			// float posX = i * 64.0f;
+			// float posY = j * 64.0f;
+			float posX = 64.0f * (int) (tileCounter / 8);
+			float posY = 64.0f * (tileCounter % 8);
 			if (j == 0 || j == 7)
 			    {
 				// One Tile layer of water.
@@ -257,9 +266,10 @@ public class MapCreator
 	    {
 		for (int j = 0; j < 8; j++)
 		    {
-			float posX = i * 64.0f;
-			float posY = j * 64.0f;
-
+			// float posX = i * 64.0f;
+			// float posY = j * 64.0f;
+			float posX = 64.0f * (int) (tileCounter / 8);
+			float posY = 64.0f * (tileCounter % 8);
 			if (i == 0 || i == 7)
 			    {
 				// One Tile layer of water.

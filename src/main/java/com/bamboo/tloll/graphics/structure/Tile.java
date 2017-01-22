@@ -44,6 +44,9 @@ public class Tile extends Sprite
 	this.tileNum = tileNum;
     }
 
+    // TODO(map) : This is a problem because super() has to be called first.  Maybe we can handle it
+    // in the MapCreator or something but we can't calculate it on the fly in the constructor.
+    /*
     public Tile(float width,
 		float height,
 		booolean passable,
@@ -58,6 +61,7 @@ public class Tile extends Sprite
 	this.direction = direction;
 	this.tileNum = tileNum;
     }
+    */
 
     public boolean isPassable()
     {
