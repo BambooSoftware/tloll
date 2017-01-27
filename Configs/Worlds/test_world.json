@@ -1,0 +1,1086 @@
+{
+    "world" :
+    {
+	"scenes" :
+	[
+	    {
+		"id" : "0",
+		"tiles" :
+		[
+		    {
+			"id" : "0",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "1",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "2",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "3",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "4",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "5",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "6",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "7",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "8",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "9",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "10",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "11",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "11",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "12",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "13",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "14",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "15",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "16",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "17",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "18",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "19",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "20",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "21",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "22",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "23",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "24",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "25",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "26",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "27",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "28",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "29",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "30",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "31",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "32",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "33",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "34",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "35",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "36",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "37",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "38",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "39",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "40",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "41",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "42",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "43",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "44",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "45",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "46",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "47",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "48",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "49",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "50",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "51",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "52",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "53",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "54",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "55",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "56",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "57",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "58",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "59",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "60",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "61",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "62",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "63",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    }
+		],
+		"links" :
+		[
+		    {
+			"56" : { "sceneId" : "1", "exitId" : "0" },
+			"57" : { "sceneId" : "1", "exitId" : "1" },
+			"58" : { "sceneId" : "1", "exitId" : "2" },
+			"59" : { "sceneId" : "1", "exitId" : "3" },
+			"60" : { "sceneId" : "1", "exitId" : "4" },
+			"61" : { "sceneId" : "1", "exitId" : "5" },
+			"62" : { "sceneId" : "1", "exitId" : "6" },
+			"63" : { "sceneId" : "1", "exitId" : "7" }
+		    }
+		]
+	    },
+	    {
+		"id" : "1",
+		"tiles" :
+		[
+		    {
+			"id" : "0",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "1",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "2",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "3",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "4",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "5",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "6",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "7",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "8",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "9",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "10",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "11",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "11",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "12",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "13",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "14",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "15",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "16",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "17",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "18",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "19",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "20",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "21",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "22",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "23",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "24",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "25",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "26",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "27",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "28",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "29",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "30",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "31",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "32",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "33",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "34",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "35",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "36",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "37",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "38",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "39",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "40",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "41",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "42",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "43",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "44",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "45",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "46",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "47",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "48",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "49",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "50",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "51",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "52",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "53",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "54",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "55",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "56",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "57",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "58",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "59",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "60",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "61",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "62",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    },
+		    {
+			"id" : "63",
+			"passable" : "true",
+			"exit" : "true",
+			"bufferId" : "0",
+			"width" : "64",
+			"height" : "64"
+		    }
+		],
+		"links" :
+		[
+		    {
+			"56" : { "sceneId" : "0", "exitId" : "8" },
+			"57" : { "sceneId" : "0", "exitId" : "9" },
+			"58" : { "sceneId" : "0", "exitId" : "10" },
+			"59" : { "sceneId" : "0", "exitId" : "11" },
+			"60" : { "sceneId" : "0", "exitId" : "12" },
+			"61" : { "sceneId" : "0", "exitId" : "13" },
+			"62" : { "sceneId" : "0", "exitId" : "14" },
+			"63" : { "sceneId" : "0", "exitId" : "15" }
+		    }
+		]
+	    }
+	]
+    }
+}
