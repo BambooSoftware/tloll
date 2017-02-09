@@ -27,6 +27,9 @@ public class Scene {
     ImmutableList<Tile> tiles;
     ImmutableMap<Position, Boolean> blockIndex;
 
+    // TODO(map) : Temp list of tiles so we can add dynamically.
+    List<Tile> tilesTemp = new ArrayList<Tile>();
+
     private List<Unit> enemyList;
 
     public Scene() {
@@ -64,6 +67,14 @@ public class Scene {
 		tiles = ImmutableList.copyOf(MapCreator.createSampleMapTopDown());
 		break;
 	    }
+    }
+
+    // TODO(map) : Maybe we need a class to take in a list of tiles now instead of some arbitrary
+    // number???
+    public Scene(int sceneId, List<Tile> tiles)
+    {
+	this.sceneId = sceneId;
+	this.tiles = ImmutableList.copyOf(tiles);
     }
 
     /**
