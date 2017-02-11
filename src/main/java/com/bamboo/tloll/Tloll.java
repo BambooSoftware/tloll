@@ -17,14 +17,19 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 // TODO(map) : Some imports for reading JSON.  We aren't sure we will use these yet.
+/*
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
+import java.util.Iterator;
+*/
+import org.json.*;
+import java.nio.file.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Iterator;
+
 
 import com.bamboo.tloll.Constants;
 
@@ -119,8 +124,8 @@ public class Tloll
 	int backgroundId = 0;
 
 	// Drawing some sample scenes here.
-	Scene lowerLeft = null;
-	lowerLeft = tloll.loadMapFromJson();
+	Scene lowerLeft = tloll.loadMapFromJson();
+	//Scene lowerLeft = new Scene(1, 1);
 	Scene upperLeft = new Scene(2, 2);
 	Scene lowerRight = new Scene(3, 3);
 	Scene upperRight = new Scene(4, 4);
@@ -135,9 +140,6 @@ public class Tloll
 	Renderer.loadTileBuffers(straightUpDown, gu, currentDir);
 	Renderer.loadTileBuffers(straightLeftRight, gu, currentDir);
 
-	// TODO(map) : Testing loading the world.
-	//tloll.loadMapFromJson();
-	
 	while (isRunning)
 	    {
 
@@ -627,55 +629,57 @@ public class Tloll
 	Scene retScene = null;
 	List<Tile> tileList = new ArrayList<Tile>();
 	
-	JSONParser parser = new JSONParser();
-
         try
 	    {
-
+		String contents = new String(Files.readAllBytes(Paths.get("/home/michael/Desktop/VideoGame/tloll/tloll/Configs/Worlds/test_world.json")));
+		
 		// Grab the world object as a whole from the JSON.
-		JSONObject worldObj = (JSONObject) parser.parse(new FileReader("/home/michael/Desktop/VideoGame/tloll/tloll/Configs/Worlds/test_world.json"));
+		JSONObject worldObj = new JSONObject(contents);
 		// Get the actual world within the JSON file.
-		JSONObject world = (JSONObject) worldObj.get("world");
+		JSONObject world = worldObj.getJSONObject("world");
+		JSONArray scenes = world.getJSONArray("scenes");
 
-		// Get the list of all scenes and loop over.
-		JSONArray scenes = (JSONArray) world.get("scenes");
-		for (int i = 0; i < scenes.size(); i++)
+		// Loop over every scene here.
+		for (int i = 0; i < scenes.length(); i++)
 		    {
-			// For each scene get a list of tiles and loop over it.
-			JSONArray tiles = (JSONArray) ((JSONObject)scenes.get(i)).get("tiles");
-			for (int j = 0; j < tiles.size(); j++)
+			// Grab all tiles for a given scene and loop over.
+			JSONArray tiles = scenes.getJSONObject(i).getJSONArray("tiles");
+			for (int j = 0; j < tiles.length(); j++)
 			    {
-				System.out.println("Test   " + tiles.get(j));
 				float posX = 64.0f * (int) (j / 8);
 				float posY = 64.0f * (j % 8);
 				Tile tile = new Tile(posX,
 						     posY,
-						     Float.parseFloat((String)((JSONObject)tiles.get(j)).get("width")),
-						     Float.parseFloat((String)((JSONObject)tiles.get(j)).get("height")),
-						     Boolean.parseBoolean(((String) ((JSONObject)tiles.get(j)).get("passable"))),
+						     (float) tiles.getJSONObject(j).getInt("width"),
+						     (float) tiles.getJSONObject(j).getInt("height"),
+						     tiles.getJSONObject(j).getBoolean("passable"),
 						     5,
-						     Integer.parseInt((String) ((JSONObject)tiles.get(j)).get("id"))
+						     tiles.getJSONObject(j).getInt("id")
 						     );
 				tileList.add(tile);
 			    }
+
+			retScene = new Scene(1, tileList);
+
+			// TODO(map) : We are breaking because we only want to load the single
+			// scene for now.
 			break;
+
 		    }
-		retScene = new Scene(1, tileList);
-	    }
-	catch (FileNotFoundException e)
-	    {
-		e.printStackTrace();
+		
 	    }
 	catch (IOException e)
 	    {
 		e.printStackTrace();
 	    }
-	catch (ParseException e)
+	catch (JSONException e)
 	    {
 		e.printStackTrace();
 	    }
 
 	return retScene;
+	
+	
     }
 
 }
