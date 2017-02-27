@@ -21,7 +21,9 @@ public class Tile extends Sprite
     // 10 = Stairs
     private int direction;
 
-    private int tileNum;
+    private int tileId;
+
+    private boolean exit;
     
     public Tile()
     {
@@ -36,12 +38,14 @@ public class Tile extends Sprite
 		float height,
 		boolean passable,
 		int direction,
-		int tileNum)
+		int tileId,
+        boolean exit)
     {
 	super(posX, posY, width, height);
 	this.passable = passable;
 	this.direction = direction;
-	this.tileNum = tileNum;
+	this.tileId = tileId;
+    this.exit = exit;
     }
 
     // TODO(map) : This is a problem because super() has to be called first.  Maybe we can handle it
@@ -51,15 +55,15 @@ public class Tile extends Sprite
 		float height,
 		booolean passable,
 		int direction,
-		int tileNum)
+		int tileId)
     {
 
-	float posX = 64.0f * (int) (tileNum / 8);
-	float posY = 64.0f * (tileNum % 8);
+	float posX = 64.0f * (int) (tileId / 8);
+	float posY = 64.0f * (tileId % 8);
 	super(posX, posY, width, height);
 	this.passable = passable;
 	this.direction = direction;
-	this.tileNum = tileNum;
+	this.tileId = tileId;
     }
     */
 
@@ -81,9 +85,17 @@ public class Tile extends Sprite
 	this.direction = direction;
     }
 
-    public int getTileNum()
+    public int getTileId()
     {
-	return tileNum;
+	return tileId;
+    }
+
+    public boolean isExit() {
+        return exit;
+    }
+
+    public void setExit(boolean exit) {
+        this.exit = exit;
     }
 
 }

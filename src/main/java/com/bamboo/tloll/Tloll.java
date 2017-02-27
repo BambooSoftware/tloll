@@ -1,6 +1,9 @@
 package com.bamboo.tloll;
 
 import com.bamboo.tloll.graphics.structure.Tile;
+import com.bamboo.tloll.graphics.structure.WorldMap;
+
+
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.Platform;
 
@@ -15,6 +18,8 @@ import javax.imageio.ImageIO;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 // TODO(map) : Some imports for reading JSON.  We aren't sure we will use these yet.
 /*
@@ -39,6 +44,7 @@ import com.bamboo.tloll.graphics.GraphicsUtil;
 import com.bamboo.tloll.graphics.Renderer;
 import com.bamboo.tloll.graphics.MapCreator;
 import com.bamboo.tloll.graphics.structure.Tile;
+import com.bamboo.tloll.graphics.structure.Link;
 import com.bamboo.tloll.graphics.structure.Scene;
 
 import com.bamboo.tloll.input.Input;
@@ -124,37 +130,32 @@ public class Tloll
 	int backgroundId = 0;
 
 	// Drawing some sample scenes here.
-	Scene lowerLeft = tloll.loadMapFromJson();
+	List<Scene> loadedScenes = loadMapFromJson();
+	Scene lowerLeft = loadedScenes.get(0);
+	Scene upperLeft = loadedScenes.get(1);
 	//Scene lowerLeft = new Scene(1, 1);
-	Scene upperLeft = new Scene(2, 2);
-	Scene lowerRight = new Scene(3, 3);
-	Scene upperRight = new Scene(4, 4);
-	Scene straightUpDown = new Scene(5, 5);
-	Scene straightLeftRight = new Scene(6, 6);
-	Scene currentScene = null;
+	//Scene upperLeft = new Scene(2, 2);
+	//Scene lowerRight = new Scene(3, 3);
+	//Scene upperRight = new Scene(4, 4);
+	//Scene straightUpDown = new Scene(5, 5);
+	//Scene straightLeftRight = new Scene(6, 6);
+	Scene currentScene = lowerLeft;
 	
 	Renderer.loadTileBuffers(lowerLeft, gu, currentDir);
 	Renderer.loadTileBuffers(upperLeft, gu, currentDir);
-	Renderer.loadTileBuffers(lowerRight, gu, currentDir);
-	Renderer.loadTileBuffers(upperRight, gu, currentDir);
-	Renderer.loadTileBuffers(straightUpDown, gu, currentDir);
-	Renderer.loadTileBuffers(straightLeftRight, gu, currentDir);
+	//Renderer.loadTileBuffers(lowerRight, gu, currentDir);
+	//Renderer.loadTileBuffers(upperRight, gu, currentDir);
+	//Renderer.loadTileBuffers(straightUpDown, gu, currentDir);
+	//Renderer.loadTileBuffers(straightLeftRight, gu, currentDir);
 
 	while (isRunning)
 	    {
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the frame buffer.
 
-		currentScene = getCurrentScene(backgroundId,
-					       lowerLeft,
-					       lowerRight,
-					       upperLeft,
-					       upperRight,
-					       straightLeftRight,
-					       straightUpDown);
 		Renderer.drawScene(currentScene);
 
-		setEnemyUnitActions(backgroundId,
+		/*setEnemyUnitActions(backgroundId,
 				    player,
 				    enemy,
 				    enemyTarget,
@@ -167,7 +168,7 @@ public class Tloll
 				    upperRight,
 				    straightLeftRight,
 				    straightUpDown
-				    );
+				    );*/
 
 		// Highlight the current tile the player lives on.
 		highlightCurrentTile(currentScene, gu, player);
@@ -182,14 +183,16 @@ public class Tloll
 		logger.printToWindow(gu, currentDir, "Test String", 0.0f, 470.0f, false);
 		
 		// Set up keyboard controls.
-		in.checkKeyPressed(tloll.windowId, player);
+		in.checkKeyPressed(tloll.windowId, player, currentScene);
 		in.checkKeyRelease(tloll.windowId, player);
-		in.bindDebugKey(tloll.windowId, player, lowerLeft);
+		in.bindDebugKey(tloll.windowId, player, currentScene);
 		in.bindResetKey(tloll.windowId, enemyTarget);
 
 		isRunning = in.bindEscape(tloll.windowId);
 
-		backgroundId = checkPlayerTransition(player, backgroundId);
+		//backgroundId = checkPlayerTransition(player, backgroundId);
+
+		handlePlayerMovement(player, currentScene);
 
 		checkForStairs(currentScene, player);
 				
@@ -204,6 +207,41 @@ public class Tloll
 		    }
 	    }
     }
+
+	public static void handlePlayerMovement(Unit player, Scene currentScene) {
+
+
+
+		Link link  = getSceneLink(player, currentScene);
+		if(link != null ) {
+			handleSceneTransition(player, currentScene, link);
+		}
+
+	}
+
+	public static void handleSceneTransition(Unit player, Scene currentScene, Link link) {
+
+		currentScene = WorldMap.getInstance().getSceneMap().get(link.getSceneId());
+		for(Tile tile : currentScene.getTileList()) { //TODO: maybe cleanup ? 
+			if(link.getExitId()  == tile.getTileId()) {
+				player.setPosX(tile.getPosX());
+				player.setPosY(tile.getPosY());
+				player.setCurrentTileId(tile.getTileId());
+				break;
+			}
+		}
+		
+		//TODO: set the players position on the new scene from 
+		//link.getExitId() //tile on the above that we want to bet set on. 
+		
+	}
+
+
+
+	//TODO: we should make this part of a set of suite of options maybe handlePlayerMovement
+	public static Link getSceneLink(Unit player, Scene currentScene) {
+		return currentScene.getLinks().get(player.getCurrentTileId());
+	}
 
     /**
      * 0 = Lower Left
@@ -422,36 +460,6 @@ public class Tloll
 		frameSkip--;
 	    }
     }
-
-    // Returns a scene based on a given background ID.
-    public static Scene getCurrentScene(int backgroundId,
-					Scene lowerLeft,
-					Scene upperLeft,
-					Scene lowerRight,
-					Scene upperRight,
-					Scene straightUpDown,
-					Scene straightLeftRight)
-    {
-	switch (backgroundId)
-	    {
-	    case 1:
-		return straightLeftRight;
-	    case 2:
-		return lowerRight;
-	    case 3:
-		return straightUpDown;
-	    case 4:
-		return upperRight;
-	    case 5:
-		return straightLeftRight;
-	    case 6:
-		return upperLeft;
-	    case 7:
-		return straightUpDown;
-	    default:
-		return lowerLeft;
-	    }
-    }	
     
     // Debug method for highlighting the current tile the player lives in.
     // NOTE(map) : This is only based on the lower left corner of the player
@@ -464,7 +472,7 @@ public class Tloll
 		    player.getPosY() <= (tile.getPosY() + tile.getHeight()) &&
 		    player.getPosY() >= tile.getPosY())
 		    {
-			Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getDirection(), tile.getTileNum());
+			Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getDirection(), tile.getTileId(), false);
 			highlightTile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/highlight.png"));
 			Renderer.drawSprite(highlightTile, 0);
 		    }
@@ -624,60 +632,73 @@ public class Tloll
 	    }
     }
 
-    public static Scene loadMapFromJson()
+    public static List<Scene> loadMapFromJson()
     {
-	Scene retScene = null;
-	List<Tile> tileList = new ArrayList<Tile>();
-	
-        try
-	    {
-		String contents = new String(Files.readAllBytes(Paths.get("/home/michael/Desktop/VideoGame/tloll/tloll/Configs/Worlds/test_world.json")));
+		List<Scene> retScenes = new ArrayList<>();
+		List<Tile> tileList = new ArrayList<>();
 		
-		// Grab the world object as a whole from the JSON.
-		JSONObject worldObj = new JSONObject(contents);
-		// Get the actual world within the JSON file.
-		JSONObject world = worldObj.getJSONObject("world");
-		JSONArray scenes = world.getJSONArray("scenes");
+			try
+			{
+			//String contents = new String(Files.readAllBytes(Paths.get("/home/michael/Desktop/VideoGame/tloll/tloll/Configs/Worlds/test_world.json")));
+			String contents = new String(Files.readAllBytes(Paths.get(currentDir+ "/Configs/Worlds/test_world.json")));
+			
+			// Grab the world object as a whole from the JSON.
+			JSONObject worldObj = new JSONObject(contents);
+			// Get the actual world within the JSON file.
+			JSONObject world = worldObj.getJSONObject("world");
+			JSONArray scenes = world.getJSONArray("scenes");
 
-		// Loop over every scene here.
-		for (int i = 0; i < scenes.length(); i++)
-		    {
-			// Grab all tiles for a given scene and loop over.
-			JSONArray tiles = scenes.getJSONObject(i).getJSONArray("tiles");
-			for (int j = 0; j < tiles.length(); j++)
-			    {
-				float posX = 64.0f * (int) (j / 8);
-				float posY = 64.0f * (j % 8);
-				Tile tile = new Tile(posX,
-						     posY,
-						     (float) tiles.getJSONObject(j).getInt("width"),
-						     (float) tiles.getJSONObject(j).getInt("height"),
-						     tiles.getJSONObject(j).getBoolean("passable"),
-						     5,
-						     tiles.getJSONObject(j).getInt("id")
-						     );
-				tileList.add(tile);
-			    }
+			// Loop over every scene here.
+			for (int i = 0; i < scenes.length(); i++) {
+				// Grab all tiles for a given scene and loop over.
+				JSONArray tiles = scenes.getJSONObject(i).getJSONArray("tiles");
+				for (int j = 0; j < tiles.length(); j++) {
+					float posX = 64.0f * (int) (j / 8);
+					float posY = 64.0f * (j % 8);
+					Tile tile = new Tile(posX,
+								posY,
+								(float) tiles.getJSONObject(j).getInt("width"),
+								(float) tiles.getJSONObject(j).getInt("height"),
+								tiles.getJSONObject(j).getBoolean("passable"),
+								(i==0) ? 5 : 6,
+								tiles.getJSONObject(j).getInt("id"),
+								tiles.getJSONObject(j).getBoolean("exit")
+								);
+					tileList.add(tile);
+				}
 
-			retScene = new Scene(1, tileList);
+				JSONArray jsonLinks = scenes.getJSONObject(i).getJSONArray("links");
+				
+				Map<Integer, Link> links = new HashMap<>();
+				//TODO: squish me and make me pretty 
+				for(int k = 0; k < jsonLinks.length(); ++k) {
+					JSONObject link = jsonLinks.getJSONObject(k);
+					int newSceneId = link.getInt("newSceneId");
+					int newTileId = link.getInt("newTileId");
+					int exitTileId = link.getInt("exitTileId");
+					links.put(exitTileId, new Link(newSceneId, newTileId));
+				}
+				
 
-			// TODO(map) : We are breaking because we only want to load the single
-			// scene for now.
-			break;
 
-		    }
+				int sceneId = scenes.getJSONObject(i).getInt("id");
+				Scene scene = new Scene(sceneId, tileList, links);
+				retScenes.add(scene);
+				WorldMap.getInstance().getSceneMap().put(sceneId, scene);
 		
-	    }
-	catch (IOException e)
-	    {
-		e.printStackTrace();
-	    }
-	catch (JSONException e)
-	    {
-		e.printStackTrace();
-	    }
+			}
+			
+			}
+		catch (IOException e)
+			{
+			e.printStackTrace();
+			}
+		catch (JSONException e)
+			{
+			e.printStackTrace();
+			}
 
-	return retScene;
+		return retScenes;
 	
 	
     }

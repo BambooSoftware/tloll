@@ -28,10 +28,11 @@ public class Stairs extends Tile
 		  float height,
 		  boolean passable,
 		  int direction,
-		  int tileNum,
+		  int tileId,
+          boolean exit,
 		  int stairDirection)
     {
-	super(posX, posY, width, height, passable, direction, tileNum);
+	super(posX, posY, width, height, passable, direction, tileId, exit);
 	this.stairDirection = stairDirection;
     }
     

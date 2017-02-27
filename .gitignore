@@ -24,3 +24,12 @@ build/*
 *.log
 
 *.iml
+.classpath
+.project
+.settings
+gradlew
+gradlew.bat
+*.class
+settings.json
+gradle-wrapper.jar
+gradle-wrapper.properties

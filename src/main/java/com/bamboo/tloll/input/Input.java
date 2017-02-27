@@ -19,7 +19,7 @@ public class Input
     }
 
     // Bind all key presses here to do something.
-    public void checkKeyPressed(long windowId, Unit player)
+    public void checkKeyPressed(long windowId, Unit player, Scene currentScene)
     {
 	if (glfwGetKey(windowId, GLFW_KEY_A) == 1 && glfwGetKey(windowId, GLFW_KEY_S) == 1)
 	    {
@@ -134,6 +134,11 @@ public class Input
 		player.setIsAttackingMelee(true);
 		System.out.println("Melee Attack");
 	    }
+
+		//TODO: Make me pretty -- really the whole class 
+
+		updatePlayerTileId(player, currentScene);
+
     }
 
     public void checkKeyRelease(long windowId, Unit player)
@@ -216,14 +221,29 @@ public class Input
 		if (player.getPosX() >= tile.getPosX() &&
 		    player.getPosX() <= (tile.getPosX() + tile.getWidth()) &&
 		    player.getPosY() >= tile.getPosY() &&
-		    player.getPosY() <= (tile.getPosY() + tile.getHeight()))
-		    {
-			System.out.println("Player in tile number: " + tile.getTileNum());
-			System.out.println("Tile passability = " + tile.isPassable());
+		    player.getPosY() <= (tile.getPosY() + tile.getHeight())) {
+				System.out.println("Player in tile number: " + tile.getTileId());
+				System.out.println("Tile passability = " + tile.isPassable());
+				player.setCurrentTileId(tile.getTileId());
 		    }
 	    }
 	System.out.println("Player scene position (X,Y) : " + player.getPosX() + ", " + player.getPosY());
 	System.out.println("Player tile position (X,Y) : " + player.getRelativeTileX() + ", " + player.getRelativeTileY());
+
+    }
+
+
+	private void updatePlayerTileId(Unit player, Scene currentScene) {
+		for (Tile tile : currentScene.getTileList()) {
+		if (player.getPosX() >= tile.getPosX() &&
+		    player.getPosX() <= (tile.getPosX() + tile.getWidth()) &&
+		    player.getPosY() >= tile.getPosY() &&
+		    player.getPosY() <= (tile.getPosY() + tile.getHeight())) {
+				player.setCurrentTileId(tile.getTileId());
+				break;
+		    }
+	    }
+
     }
     
 }

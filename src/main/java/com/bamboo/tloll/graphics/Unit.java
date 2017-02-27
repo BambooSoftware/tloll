@@ -17,7 +17,7 @@ public class Unit extends Sprite
     private boolean outOfBoundsRight;
     private boolean outOfBoundsUp;
     private boolean outOfBoundsDown;
-    private int currentTileNum;
+    private int currentTileId;
     private float relativeTileX;
     private float relativeTileY;
     private boolean isAttackingRanged;
@@ -190,4 +190,14 @@ public class Unit extends Sprite
     {
 	this.hitPoints = hitPoints;
     }
+    
+    public int getCurrentTileId() {
+        return currentTileId;
+    }
+
+    public void setCurrentTileId(int currentTileId) {
+	    this.currentTileId = currentTileId;
+    }
+
+
 }
