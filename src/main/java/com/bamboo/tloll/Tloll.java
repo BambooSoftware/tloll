@@ -21,14 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
-// TODO(map) : Some imports for reading JSON.  We aren't sure we will use these yet.
-/*
-import org.json.simple.JSONObject;
-import org.json.simple.JSONArray;
-import org.json.simple.parser.ParseException;
-import org.json.simple.parser.JSONParser;
-import java.util.Iterator;
-*/
+
 import org.json.*;
 import java.nio.file.*;
 import java.io.FileNotFoundException;
@@ -91,7 +84,7 @@ public class Tloll
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(0, 500, 0, 500, 1, -1);
+	glOrtho(0, Constants.WIDTH, 0, Constants.HEIGHT, 1, -1); // NOTE(map) : This needs the same size as the window you idiot!!!
 	glMatrixMode(GL_MODELVIEW);
 	glEnable(GL_TEXTURE_2D);
 	//glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
@@ -100,7 +93,8 @@ public class Tloll
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// Sample squares that probably won't stick around.
-        Unit player = new Unit(0.0f, 0.0f, 68, 100, 1.0f, 0.0f, 0.0f, 0.0f);
+        Unit player = new Unit(0.0f, 0.0f, 64, 64, 1.0f, 0.0f, 0.0f, 0.0f);
+	//Unit player = new Unit(0.0f, 0.0f, 68, 100, 1.0f, 0.0f, 0.0f, 0.0f);
 	Unit bullet = new Unit(68.0f, 50.0f, 30, 10, 0.0f, 0.0f, 0.0f, 0.0f);
 	Unit sword = new Unit(0.0f, 0.0f, 80, 20, 0.0f, 0.0f, 0.0f, 0.0f);
 	Unit enemy = new Unit(0.0f, 200.0f, 128, 128, 0.0f, 0.0f, 0.0f, 0.0f);
@@ -114,7 +108,8 @@ public class Tloll
 	Sprite alphabetSprite = new Sprite(0.0f, 25.0f, 13.0f, 25.0f);
 	alphabetSprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/alphabet.png"));
 	
-	player.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/player.png"));
+	player.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/gainz.png"));
+	//player.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/player.png"));
 	bullet.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/bullet.png"));
 	sword.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/sword.png"));
 	enemy.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/enemy.png"));
@@ -150,11 +145,11 @@ public class Tloll
 
 	while (isRunning)
 	    {
-
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f );
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the frame buffer.
 
 		Renderer.drawScene(currentScene);
-
+		
 		/*setEnemyUnitActions(backgroundId,
 				    player,
 				    enemy,
@@ -190,13 +185,7 @@ public class Tloll
 
 		isRunning = in.bindEscape(tloll.windowId);
 
-		//backgroundId = checkPlayerTransition(player, backgroundId);
-
-		handlePlayerMovement(player, currentScene);
-
-		checkForStairs(currentScene, player);
-				
-		glfwSwapBuffers(tloll.windowId); // Swaps buffers that will be drawn.
+		currentScene = handlePlayerMovement(player, currentScene);
 
 		glfwPollEvents(); // Continuosuly polls.
 
@@ -205,31 +194,40 @@ public class Tloll
 		    {
 			isRunning = false;
 		    }
+
+		glfwSwapBuffers(tloll.windowId); // Swaps buffers that will be drawn.
+				
 	    }
     }
 
-	public static void handlePlayerMovement(Unit player, Scene currentScene) {
+	public static Scene handlePlayerMovement(Unit player, Scene currentScene) {
 
 
 
 		Link link  = getSceneLink(player, currentScene);
 		if(link != null ) {
-			handleSceneTransition(player, currentScene, link);
+		    return handleSceneTransition(player, currentScene, link);
 		}
+
+		return currentScene;
+		
 
 	}
 
-	public static void handleSceneTransition(Unit player, Scene currentScene, Link link) {
+    public static Scene handleSceneTransition(Unit player, Scene currentScene, Link link) {
 
-		currentScene = WorldMap.getInstance().getSceneMap().get(link.getSceneId());
 		for(Tile tile : currentScene.getTileList()) { //TODO: maybe cleanup ? 
 			if(link.getExitId()  == tile.getTileId()) {
 				player.setPosX(tile.getPosX());
 				player.setPosY(tile.getPosY());
+				player.setCenterX(tile.getPosX() + (player.getWidth() / 2));
+				player.setCenterY(tile.getPosY() + (player.getHeight() / 2));
 				player.setCurrentTileId(tile.getTileId());
 				break;
 			}
 		}
+
+		return WorldMap.getInstance().getSceneMap().get(link.getSceneId());
 		
 		//TODO: set the players position on the new scene from 
 		//link.getExitId() //tile on the above that we want to bet set on. 
@@ -615,23 +613,6 @@ public class Tloll
 
     }
 
-    public static void checkForStairs(Scene currentScene, Unit player)
-    {
-	for (Tile tile : currentScene.getTileList())
-	    {
-		if (tile.getDirection() == 10)
-		    {
-			if ((player.getPosX() + player.getWidth()) < (tile.getPosX() + tile.getWidth()) &&
-			    (player.getPosX() + player.getWidth()) > tile.getPosX() &&
-			    player.getPosY() < tile.getPosY() + tile.getHeight() &&
-			    player.getPosY() > tile.getPosY())
-			    {
-				System.out.println("Player is on the stairs!");
-			    }
-		    }
-	    }
-    }
-
     public static List<Scene> loadMapFromJson()
     {
 		List<Scene> retScenes = new ArrayList<>();
@@ -653,6 +634,12 @@ public class Tloll
 				// Grab all tiles for a given scene and loop over.
 				JSONArray tiles = scenes.getJSONObject(i).getJSONArray("tiles");
 				for (int j = 0; j < tiles.length(); j++) {
+				    int tileDirection = (i == 0) ? 5 : 11;
+				    if (tiles.getJSONObject(j).getBoolean("exit"))
+					{
+					    tileDirection = 10;
+					}
+				    
 					float posX = 64.0f * (int) (j / 8);
 					float posY = 64.0f * (j % 8);
 					Tile tile = new Tile(posX,
@@ -660,7 +647,7 @@ public class Tloll
 								(float) tiles.getJSONObject(j).getInt("width"),
 								(float) tiles.getJSONObject(j).getInt("height"),
 								tiles.getJSONObject(j).getBoolean("passable"),
-								(i==0) ? 5 : 6,
+								tileDirection,
 								tiles.getJSONObject(j).getInt("id"),
 								tiles.getJSONObject(j).getBoolean("exit")
 								);

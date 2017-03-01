@@ -256,6 +256,10 @@ public final class Renderer
 			    {
 				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/grass_bottom_right_water.PNG"));				
 			    }
+			else if (tile.getDirection() == 11)
+			    {
+				tile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/dirt.PNG"));				
+			    }
 		    }
 	    }
     }

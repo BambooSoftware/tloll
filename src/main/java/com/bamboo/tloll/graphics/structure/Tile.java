@@ -19,6 +19,7 @@ public class Tile extends Sprite
     // 8 = Upper Right Corner
     // 9 = Lower Right Corner
     // 10 = Stairs
+    // 11 = Dirt
     private int direction;
 
     private int tileId;

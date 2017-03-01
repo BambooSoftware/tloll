@@ -104,14 +104,6 @@
 			"height" : "64"
 		    },
 		    {
-			"id" : "11",
-			"passable" : "true",
-			"exit" : "false",
-			"bufferId" : "0",
-			"width" : "64",
-			"height" : "64"
-		    },
-		    {
 			"id" : "12",
 			"passable" : "true",
 			"exit" : "false",
@@ -386,7 +378,7 @@
 		    {
 			"id" : "46",
 			"passable" : "true",
-			"exit" : "false",
+			"exit" : "true",
 			"bufferId" : "0",
 			"width" : "64",
 			"height" : "64"
@@ -457,7 +449,7 @@
 		    },
 		    {
 			"id" : "55",
-			"passable" : "false",
+			"passable" : "true",
 			"exit" : "false",
 			"bufferId" : "0",
 			"width" : "64",
@@ -505,8 +497,8 @@
 		    },
 		    {
 			"id" : "61",
-			"passable" : "false",
-			"exit" : "false",
+			"passable" : "true",
+			"exit" : "true",
 			"bufferId" : "0",
 			"width" : "64",
 			"height" : "64"
@@ -522,7 +514,7 @@
 		    {
 			"id" : "63",
 			"passable" : "false",
-			"exit" : "true",
+			"exit" : "false",
 			"bufferId" : "0",
 			"width" : "64",
 			"height" : "64"
@@ -530,7 +522,7 @@
 		],
 		"links" :
 		[
-			{ "exitTileId" : "47", "newSceneId" : "1", "newTileId" : "25" }   
+			{ "exitTileId" : "46", "newSceneId" : "1", "newTileId" : "25" }   
 		]
 	    },
 	    {
@@ -539,7 +531,7 @@
 		[
 		    {
 			"id" : "0",
-			"passable" : "true",
+			"passable" : "false",
 			"exit" : "false",
 			"bufferId" : "0",
 			"width" : "64",
@@ -547,7 +539,7 @@
 		    },
 		    {
 			"id" : "1",
-			"passable" : "true",
+			"passable" : "false",
 			"exit" : "false",
 			"bufferId" : "0",
 			"width" : "64",
@@ -555,7 +547,7 @@
 		    },
 		    {
 			"id" : "2",
-			"passable" : "true",
+			"passable" : "false",
 			"exit" : "false",
 			"bufferId" : "0",
 			"width" : "64",
@@ -563,7 +555,7 @@
 		    },
 		    {
 			"id" : "3",
-			"passable" : "true",
+			"passable" : "false",
 			"exit" : "false",
 			"bufferId" : "0",
 			"width" : "64",
@@ -571,7 +563,7 @@
 		    },
 		    {
 			"id" : "4",
-			"passable" : "true",
+			"passable" : "false",
 			"exit" : "false",
 			"bufferId" : "0",
 			"width" : "64",
@@ -579,7 +571,7 @@
 		    },
 		    {
 			"id" : "5",
-			"passable" : "true",
+			"passable" : "false",
 			"exit" : "false",
 			"bufferId" : "0",
 			"width" : "64",
@@ -587,7 +579,7 @@
 		    },
 		    {
 			"id" : "6",
-			"passable" : "true",
+			"passable" : "false",
 			"exit" : "false",
 			"bufferId" : "0",
 			"width" : "64",
@@ -595,7 +587,7 @@
 		    },
 		    {
 			"id" : "7",
-			"passable" : "true",
+			"passable" : "false",
 			"exit" : "false",
 			"bufferId" : "0",
 			"width" : "64",
@@ -634,14 +626,6 @@
 			"height" : "64"
 		    },
 		    {
-			"id" : "11",
-			"passable" : "true",
-			"exit" : "false",
-			"bufferId" : "0",
-			"width" : "64",
-			"height" : "64"
-		    },
-		    {
 			"id" : "12",
 			"passable" : "true",
 			"exit" : "false",
@@ -652,7 +636,7 @@
 		    {
 			"id" : "13",
 			"passable" : "true",
-			"exit" : "false",
+			"exit" : "true",
 			"bufferId" : "0",
 			"width" : "64",
 			"height" : "64"
@@ -972,7 +956,7 @@
 		    {
 			"id" : "53",
 			"passable" : "true",
-			"exit" : "false",
+			"exit" : "true",
 			"bufferId" : "0",
 			"width" : "64",
 			"height" : "64"
@@ -995,7 +979,7 @@
 		    },
 		    {
 			"id" : "56",
-			"passable" : "true",
+			"passable" : "false",
 			"exit" : "false",
 			"bufferId" : "0",
 			"width" : "64",
@@ -1003,7 +987,7 @@
 		    },
 		    {
 			"id" : "57",
-			"passable" : "true",
+			"passable" : "false",
 			"exit" : "false",
 			"bufferId" : "0",
 			"width" : "64",
@@ -1011,7 +995,7 @@
 		    },
 		    {
 			"id" : "58",
-			"passable" : "true",
+			"passable" : "false",
 			"exit" : "false",
 			"bufferId" : "0",
 			"width" : "64",
@@ -1019,7 +1003,7 @@
 		    },
 		    {
 			"id" : "59",
-			"passable" : "true",
+			"passable" : "false",
 			"exit" : "false",
 			"bufferId" : "0",
 			"width" : "64",
@@ -1027,7 +1011,7 @@
 		    },
 		    {
 			"id" : "60",
-			"passable" : "true",
+			"passable" : "false",
 			"exit" : "false",
 			"bufferId" : "0",
 			"width" : "64",
@@ -1035,7 +1019,7 @@
 		    },
 		    {
 			"id" : "61",
-			"passable" : "true",
+			"passable" : "false",
 			"exit" : "false",
 			"bufferId" : "0",
 			"width" : "64",
@@ -1044,14 +1028,14 @@
 		    {
 			"id" : "62",
 			"passable" : "true",
-			"exit" : "false",
+			"exit" : "true",
 			"bufferId" : "0",
 			"width" : "64",
 			"height" : "64"
 		    },
 		    {
 			"id" : "63",
-			"passable" : "true",
+			"passable" : "false",
 			"exit" : "false",
 			"bufferId" : "0",
 			"width" : "64",
@@ -1060,8 +1044,8 @@
 		],
 		"links" :
 		[
-			{ "exitTileId" : "47", "newSceneId" : "0", "newTileId" : "8" } ,
-			{ "exitTileId" : "48", "newSceneId" : "0", "newTileId" : "9" }   			
+			{ "exitTileId" : "53", "newSceneId" : "0", "newTileId" : "8" } ,
+			{ "exitTileId" : "13", "newSceneId" : "0", "newTileId" : "9" }   			
 		]
 	    }
 	]
