@@ -33,3 +33,4 @@ gradlew.bat
 settings.json
 gradle-wrapper.jar
 gradle-wrapper.properties
+.vscode/*
