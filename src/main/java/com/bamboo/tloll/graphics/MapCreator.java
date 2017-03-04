@@ -13,7 +13,7 @@ public class MapCreator
     }
 
     // Method for creating a basic map.
-    public static List<Tile> createSampleMapLowerLeft()
+    /*public static List<Tile> createSampleMapLowerLeft()
     {
 	List<Tile> tileMap = new ArrayList<Tile>();
 	Tile tile;
@@ -289,6 +289,6 @@ public class MapCreator
     public void createMap()
     {
 	
-    }
+    }*/
     
 }

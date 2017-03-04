@@ -13,57 +13,60 @@ allprojects {
 }
 
 switch ( OperatingSystem.current() ) {
-  case OperatingSystem.WINDOWS:
-		applicationDefaultJvmArgs = ["-Djava.library.path=Dependencies/native_win32"]
-		break
-	case OperatingSystem.LINUX:
-		applicationDefaultJvmArgs = ["-Djava.library.path=Dependencies/native_linux"]
-		break
-	case OperatingSystem.MAC_OS:
-		applicationDefaultJvmArgs = ["-Djava.library.path=Dependencies/native_mac", "-XstartOnFirstThread"]
-		break
+       case OperatingSystem.WINDOWS:
+       	    applicationDefaultJvmArgs = ["-Djava.library.path=Dependencies/native_win32"]
+	           break
+       case OperatingSystem.LINUX:
+              applicationDefaultJvmArgs = ["-Djava.library.path=Dependencies/native_linux"]
+	             break
+       case OperatingSystem.MAC_OS:
+              applicationDefaultJvmArgs = ["-Djava.library.path=Dependencies/native_mac", "-XstartOnFirstThread"]
+	             break
 }
 
 // Add these properties to your Gradle script
 project.ext.lwjglVersion = "3.0.1-SNAPSHOT"
 
 repositories {
-	     // Add this repository to your Gradle script
-	     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-			 mavenCentral()
+// Add this repository to your Gradle script
+   maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+   mavenCentral()
 }
 
 dependencies {
 
-	     // LWJGL dependencies START
-	     compile "org.lwjgl:lwjgl:${lwjglVersion}"
-	     compile "org.lwjgl:lwjgl-egl:${lwjglVersion}"
-	     compile "org.lwjgl:lwjgl-glfw:${lwjglVersion}"
-	     compile "org.lwjgl:lwjgl-jawt:${lwjglVersion}"
-	     compile "org.lwjgl:lwjgl-jemalloc:${lwjglVersion}"
-	     compile "org.lwjgl:lwjgl-lmdb:${lwjglVersion}"
-	     compile "org.lwjgl:lwjgl-nanovg:${lwjglVersion}"
-	     compile "org.lwjgl:lwjgl-nfd:${lwjglVersion}"
-	     compile "org.lwjgl:lwjgl-nuklear:${lwjglVersion}"
-	     compile "org.lwjgl:lwjgl-openal:${lwjglVersion}"
-	     compile "org.lwjgl:lwjgl-opencl:${lwjglVersion}"
-	     compile "org.lwjgl:lwjgl-opengl:${lwjglVersion}"
-	     compile "org.lwjgl:lwjgl-opengles:${lwjglVersion}"
-	     compile "org.lwjgl:lwjgl-ovr:${lwjglVersion}"
-	     compile "org.lwjgl:lwjgl-par:${lwjglVersion}"
-	     compile "org.lwjgl:lwjgl-sse:${lwjglVersion}"
-	     compile "org.lwjgl:lwjgl-stb:${lwjglVersion}"
-	     compile "org.lwjgl:lwjgl-tinyfd:${lwjglVersion}"
-	     compile "org.lwjgl:lwjgl-vulkan:${lwjglVersion}"
-	     compile "org.lwjgl:lwjgl-xxhash:${lwjglVersion}"
+// LWJGL dependencies START
+   compile "org.lwjgl:lwjgl:${lwjglVersion}"
+   compile "org.lwjgl:lwjgl-egl:${lwjglVersion}"
+   compile "org.lwjgl:lwjgl-glfw:${lwjglVersion}"
+   compile "org.lwjgl:lwjgl-jawt:${lwjglVersion}"
+   compile "org.lwjgl:lwjgl-jemalloc:${lwjglVersion}"
+   compile "org.lwjgl:lwjgl-lmdb:${lwjglVersion}"
+   compile "org.lwjgl:lwjgl-nanovg:${lwjglVersion}"
+   compile "org.lwjgl:lwjgl-nfd:${lwjglVersion}"
+   compile "org.lwjgl:lwjgl-nuklear:${lwjglVersion}"
+   compile "org.lwjgl:lwjgl-openal:${lwjglVersion}"
+   compile "org.lwjgl:lwjgl-opencl:${lwjglVersion}"
+   compile "org.lwjgl:lwjgl-opengl:${lwjglVersion}"
+   compile "org.lwjgl:lwjgl-opengles:${lwjglVersion}"
+   compile "org.lwjgl:lwjgl-ovr:${lwjglVersion}"
+   compile "org.lwjgl:lwjgl-par:${lwjglVersion}"
+   compile "org.lwjgl:lwjgl-sse:${lwjglVersion}"
+   compile "org.lwjgl:lwjgl-stb:${lwjglVersion}"
+   compile "org.lwjgl:lwjgl-tinyfd:${lwjglVersion}"
+   compile "org.lwjgl:lwjgl-vulkan:${lwjglVersion}"
+   compile "org.lwjgl:lwjgl-xxhash:${lwjglVersion}"
 
-		 compile group: 'com.google.guava', name: 'guava', version: '20.0'
-	     compile group: 'org.jgrapht', name: 'jgrapht-core', version: '1.0.0'
+   compile group: 'com.google.guava', name: 'guava', version: '20.0'
+   compile group: 'org.jgrapht', name: 'jgrapht-core', version: '1.0.0'
+   // TODO(map) : This may not be what we end up using.
+   //compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+   compile group: 'org.json', name: 'json', version: '20090211'
 
 
-	//On linux he thinks he needs test libs. Feel free to up this to a newer
-	     testCompile "junit:junit:4.13-SNAPSHOT"
+   //On linux he thinks he needs test libs. Feel free to up this to a newer
+   testCompile "junit:junit:4.13-SNAPSHOT"
 
-	     // Needed if compiling through command line.
-	     compile fileTree(dir: 'Dependencies/jar', include: '*.jar')
-  }
+   // Needed if compiling through command line.
+   compile fileTree(dir: 'Dependencies/jar', include: '*.jar')
+}
