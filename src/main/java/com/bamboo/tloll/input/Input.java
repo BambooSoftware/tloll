@@ -4,6 +4,7 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
+import com.bamboo.tloll.graphics.Direction;
 import com.bamboo.tloll.graphics.Unit;
 import com.bamboo.tloll.physics.PhysicsEngine;
 
@@ -93,6 +94,7 @@ public class Input
 			player.setSpeedX(-10.0f);
 		    }
 		PhysicsEngine.movePlayer(player, player.getSpeedX(), 0.0f);
+		player.setDirection(Direction.LEFT);
 	    }
 	else if (glfwGetKey(windowId, GLFW_KEY_D) == 1)
 	    {
@@ -103,6 +105,7 @@ public class Input
 			player.setSpeedX(10.0f);
 		    }
 		PhysicsEngine.movePlayer(player, player.getSpeedX(), 0.0f);
+		player.setDirection(Direction.RIGHT);
 	    }
 	else if (glfwGetKey(windowId, GLFW_KEY_S) == 1)
 	    {
@@ -113,6 +116,7 @@ public class Input
 			player.setSpeedY(-10.0f);
 		    }
 		PhysicsEngine.movePlayer(player, 0.0f, player.getSpeedY());
+			player.setDirection(Direction.DOWN);
 	    }
 	else if (glfwGetKey(windowId, GLFW_KEY_W) == 1)
 	    {
@@ -123,6 +127,7 @@ public class Input
 			player.setSpeedY(10.0f);
 		    }
 		PhysicsEngine.movePlayer(player, 0.0f, player.getSpeedY());
+		player.setDirection(Direction.UP);
 	    }
 	else if (glfwGetKey(windowId, GLFW_KEY_SPACE) == 1  && glfwGetKey(windowId, GLFW_KEY_LEFT_SHIFT) == 1 && !player.isAttackingRanged())
 	    {

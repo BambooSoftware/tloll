@@ -2,6 +2,7 @@ package com.bamboo.tloll;
 
 import com.bamboo.tloll.graphics.structure.Tile;
 import com.bamboo.tloll.graphics.structure.WorldMap;
+import com.bamboo.tloll.graphics.SpriteBuffer;
 
 
 import org.lwjgl.opengl.*;
@@ -33,6 +34,7 @@ import com.bamboo.tloll.Constants;
 
 import com.bamboo.tloll.graphics.Unit;
 import com.bamboo.tloll.graphics.Sprite;
+import com.bamboo.tloll.graphics.Direction;
 import com.bamboo.tloll.graphics.GraphicsUtil;
 import com.bamboo.tloll.graphics.Renderer;
 import com.bamboo.tloll.graphics.MapCreator;
@@ -93,34 +95,40 @@ public class Tloll
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// Sample squares that probably won't stick around.
-        Unit player = new Unit(0.0f, 0.0f, 64, 64, 1.0f, 0.0f, 0.0f, 0.0f);
+    Unit player = new Unit(0.0f, 0.0f, 64, 64, 1.0f, 0.0f, 0.0f, 0.0f, Direction.DOWN);
+	Unit player2 = new Unit(0.0f, 0.0f, 32, 32, 1.0f, 0.0f, 0.0f, 0.0f, Direction.DOWN);
+
+
 	//Unit player = new Unit(0.0f, 0.0f, 68, 100, 1.0f, 0.0f, 0.0f, 0.0f);
-	Unit bullet = new Unit(68.0f, 50.0f, 30, 10, 0.0f, 0.0f, 0.0f, 0.0f);
-	Unit sword = new Unit(0.0f, 0.0f, 80, 20, 0.0f, 0.0f, 0.0f, 0.0f);
-	Unit enemy = new Unit(0.0f, 200.0f, 128, 128, 0.0f, 0.0f, 0.0f, 0.0f);
-	Unit enemyTarget = new Unit(400.0f, 100.0f, 64.0f, 64.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-	Unit enemyHp = new Unit(400.0f, 90.0f, 64.0f, 10.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-	Unit enemySprite = new Unit(0.0f, 350.0f, 108, 140, 0.0f, 0.0f, 0.0f, 0.0f);
-	Unit lingling = new Unit(100.0f, 100.0f, 32, 32, 0.0f, 0.0f, 0.0f, 0.0f);
+	Unit bullet = new Unit(68.0f, 50.0f, 30, 10, 0.0f, 0.0f, 0.0f, 0.0f, Direction.DOWN);
+	Unit sword = new Unit(0.0f, 0.0f, 80, 20, 0.0f, 0.0f, 0.0f, 0.0f, Direction.DOWN);
+	//Unit enemy = new Unit(0.0f, 200.0f, 128, 128, 0.0f, 0.0f, 0.0f, 0.0f);
+	//Unit enemyTarget = new Unit(400.0f, 100.0f, 64.0f, 64.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+	//Unit enemyHp = new Unit(400.0f, 90.0f, 64.0f, 10.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+	//Unit enemySprite = new Unit(0.0f, 350.0f, 108, 140, 0.0f, 0.0f, 0.0f, 0.0f);
+	//Unit lingling = new Unit(100.0f, 100.0f, 32, 32, 0.0f, 0.0f, 0.0f, 0.0f);
 
 	Sprite alphabet = new Sprite(0.0f, 0.0f, 468.0f, 25.0f);
-	alphabet.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/alphabet.png"));
+	alphabet.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Images/alphabet.png"), alphabet.getHeight(), alphabet.getWidth()));
+
 	Sprite alphabetSprite = new Sprite(0.0f, 25.0f, 13.0f, 25.0f);
-	alphabetSprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/alphabet.png"));
-	
-	player.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/gainz.png"));
-	//player.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/player.png"));
-	bullet.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/bullet.png"));
-	sword.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/sword.png"));
-	enemy.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/enemy.png"));
-	enemy.addBufferToMap(1, gu.loadTexture(currentDir + "/Assets/Images/enemy_left.png"));
-	enemyTarget.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/enemy_target.png"));
-	enemyHp.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/hp_bar_0.png"));
-	enemyHp.addBufferToMap(1, gu.loadTexture(currentDir + "/Assets/Images/hp_bar_1.png"));
-	enemyHp.addBufferToMap(2, gu.loadTexture(currentDir + "/Assets/Images/hp_bar_2.png"));
-	enemyHp.addBufferToMap(3, gu.loadTexture(currentDir + "/Assets/Images/hp_bar_3.png"));
-	enemySprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/SpriteSheet.png"));
-	lingling.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Actors/panda_f_base.png"));
+	alphabetSprite.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Images/alphabet.png"), alphabetSprite.getHeight(), alphabetSprite.getWidth()));
+
+	player.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Images/gainz.png"), player.getHeight(), player.getWidth()));
+	player2.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Actors/panda_f_base.png"), player2.getHeight(), player2.getWidth(), 4, 4));
+
+	bullet.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Images/bullet.png"), bullet.getHeight(), bullet.getWidth()));
+	sword.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Images/sword.png"), sword.getHeight(), sword.getWidth()));
+
+	//enemy.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/enemy.png"));
+	//enemy.addBufferToMap(1, gu.loadTexture(currentDir + "/Assets/Images/enemy_left.png"));
+	//enemyTarget.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/enemy_target.png"));
+	//enemyHp.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/hp_bar_0.png"));
+	//enemyHp.addBufferToMap(1, gu.loadTexture(currentDir + "/Assets/Images/hp_bar_1.png"));
+	//enemyHp.addBufferToMap(2, gu.loadTexture(currentDir + "/Assets/Images/hp_bar_2.png"));
+	//enemyHp.addBufferToMap(3, gu.loadTexture(currentDir + "/Assets/Images/hp_bar_3.png"));
+	//enemySprite.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/SpriteSheet.png"));
+	//lingling.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Actors/panda_f_base.png"));
 	
 	int backgroundId = 0;
 
@@ -169,23 +177,25 @@ public class Tloll
 		highlightCurrentTile(currentScene, gu, player);
 
 		// Handle attacking input and moving the direction once to the right pre frame.
-		angle = handlePlayerAttack(sword, player, enemyTarget, bullet, angle, gu, backgroundId, currentScene);
+		//angle = handlePlayerAttack(sword, player, enemyTarget, bullet, angle, gu, backgroundId, currentScene);
 		
 		// Draw caveman sprite.
 		Renderer.drawSprite(player, 0);
+
+		Renderer.drawAnimatedUnit(player2, 0);
 
 		// Print out some debug info on the screen.
 		logger.printToWindow(gu, currentDir, "Test String", 0.0f, 470.0f, false);
 		
 		// Set up keyboard controls.
-		in.checkKeyPressed(tloll.windowId, player, currentScene);
-		in.checkKeyRelease(tloll.windowId, player);
-		in.bindDebugKey(tloll.windowId, player, currentScene);
-		in.bindResetKey(tloll.windowId, enemyTarget);
+		in.checkKeyPressed(tloll.windowId, player2, currentScene);
+		in.checkKeyRelease(tloll.windowId, player2);
+		in.bindDebugKey(tloll.windowId, player2, currentScene);
+		//in.bindResetKey(tloll.windowId, enemyTarget);
 
 		isRunning = in.bindEscape(tloll.windowId);
 
-		currentScene = handlePlayerMovement(player, currentScene);
+		currentScene = handlePlayerMovement(player2, currentScene);
 
 		glfwPollEvents(); // Continuosuly polls.
 
@@ -471,7 +481,8 @@ public class Tloll
 		    player.getPosY() >= tile.getPosY())
 		    {
 			Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getDirection(), tile.getTileId(), false);
-			highlightTile.addBufferToMap(0, gu.loadTexture(currentDir + "/Assets/Images/highlight.png"));
+
+			highlightTile.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Images/highlight.png"), highlightTile.getHeight(), highlightTile.getWidth()));
 			Renderer.drawSprite(highlightTile, 0);
 		    }
 	    }
