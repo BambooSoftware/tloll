@@ -23,7 +23,9 @@ public class Unit extends Sprite {
     private boolean isAttackingRanged;
     private boolean isAttackingMelee;
     private int hitPoints;
-
+    private int colNumber;
+    private int frameSkip;
+    
     public Unit() {
         super();
         this.acceleration = 1.0f;
@@ -39,10 +41,11 @@ public class Unit extends Sprite {
         this.isAttackingMelee = false;
         this.hitPoints = 3;
         this.direction = Direction.DOWN;
+	this.colNumber = 1;
+	this.frameSkip = 10;
     }
 
-    public Unit(float posX, float posY, float width, float height, float acceleration, float speed, float speedX,
-            float speedY, Direction direction) {
+    public Unit(float posX, float posY, float width, float height, float acceleration, float speed, float speedX, float speedY, Direction direction) {
         super(posX, posY, width, height);
         this.acceleration = acceleration;
         this.speed = speed;
@@ -57,6 +60,8 @@ public class Unit extends Sprite {
         this.isAttackingMelee = false;
         this.hitPoints = 3;
         this.direction = direction;
+	this.colNumber = 1;
+	this.frameSkip = 10;
     }
 
     public float getAcceleration() {
@@ -187,4 +192,23 @@ public class Unit extends Sprite {
         this.direction = direction;
     }
 
+    public int getColNumber()
+    {
+	return colNumber;
+    }
+
+    public void setColNumber(int colNumber)
+    {
+	this.colNumber = colNumber;
+    }
+
+    public int getFrameSkip()
+    {
+	return frameSkip;
+    }
+
+    public void setFrameSkip(int frameSkip)
+    {
+	this.frameSkip = frameSkip;
+    }
 }

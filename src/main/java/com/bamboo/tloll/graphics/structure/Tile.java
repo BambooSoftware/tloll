@@ -49,25 +49,6 @@ public class Tile extends Sprite
     this.exit = exit;
     }
 
-    // TODO(map) : This is a problem because super() has to be called first.  Maybe we can handle it
-    // in the MapCreator or something but we can't calculate it on the fly in the constructor.
-    /*
-    public Tile(float width,
-		float height,
-		booolean passable,
-		int direction,
-		int tileId)
-    {
-
-	float posX = 64.0f * (int) (tileId / 8);
-	float posY = 64.0f * (tileId % 8);
-	super(posX, posY, width, height);
-	this.passable = passable;
-	this.direction = direction;
-	this.tileId = tileId;
-    }
-    */
-
     public boolean isPassable()
     {
 	return passable;
