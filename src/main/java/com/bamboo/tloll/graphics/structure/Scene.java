@@ -28,9 +28,6 @@ public class Scene {
     ImmutableList<Tile> tiles;
     ImmutableMap<Position, Boolean> blockIndex;
 
-    // TODO(map) : Temp list of tiles so we can add dynamically.
-    List<Tile> tilesTemp = new ArrayList<Tile>();
-
     private List<Unit> enemyList;
 
     public Scene() {
@@ -43,33 +40,6 @@ public class Scene {
     // 4 = Upper Right
     // 5 = Straight Left/Right
     // 6 = Straight Up/Down
-    /*public Scene(int sceneId, int typeOfScene) {
-        this.sceneId = sceneId;
-
-        switch (typeOfScene) {
-        case 1:
-            tiles = ImmutableList.copyOf(MapCreator.createSampleMapLowerLeft());
-            break;
-        case 2:
-            tiles = ImmutableList.copyOf(MapCreator.createSampleMapLowerRight());
-            break;
-        case 3:
-            tiles = ImmutableList.copyOf(MapCreator.createSampleMapUpperLeft());
-            break;
-        case 4:
-            tiles = ImmutableList.copyOf(MapCreator.createSampleMapUpperRight());
-            break;
-        case 5:
-            tiles = ImmutableList.copyOf(MapCreator.createSampleMapLeftRight());
-            break;
-        case 6:
-            tiles = ImmutableList.copyOf(MapCreator.createSampleMapTopDown());
-            break;
-        }
-    }*/
-
-    // TODO(map) : Maybe we need a class to take in a list of tiles now instead of some arbitrary
-    // number???
     public Scene(int sceneId, List<Tile> tiles, Map<Integer, Link> links) {
         this.sceneId = sceneId;
         this.tiles = ImmutableList.copyOf(tiles);

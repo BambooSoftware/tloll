@@ -1,59 +1,28 @@
 package com.bamboo.tloll;
 
+import com.bamboo.tloll.behaviors.BaseBehaviors;
+import com.bamboo.tloll.debug.Logger;
+import com.bamboo.tloll.graphics.*;
+import com.bamboo.tloll.graphics.structure.Link;
+import com.bamboo.tloll.graphics.structure.Scene;
 import com.bamboo.tloll.graphics.structure.Tile;
 import com.bamboo.tloll.graphics.structure.WorldMap;
-import com.bamboo.tloll.graphics.SpriteBuffer;
+import com.bamboo.tloll.input.Input;
+import org.lwjgl.opengl.GL;
 
-
-import org.lwjgl.opengl.*;
-import org.lwjgl.system.Platform;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.system.MemoryUtil.*;
-
-import org.lwjgl.BufferUtils;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
-import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
-
-import org.json.*;
-import java.nio.file.*;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-
-
-import com.bamboo.tloll.Constants;
-
-import com.bamboo.tloll.graphics.Unit;
-import com.bamboo.tloll.graphics.Sprite;
-import com.bamboo.tloll.graphics.Direction;
-import com.bamboo.tloll.graphics.GraphicsUtil;
-import com.bamboo.tloll.graphics.Renderer;
-import com.bamboo.tloll.graphics.MapCreator;
-import com.bamboo.tloll.graphics.structure.Tile;
-import com.bamboo.tloll.graphics.structure.Link;
-import com.bamboo.tloll.graphics.structure.Scene;
-
-import com.bamboo.tloll.input.Input;
-
-import com.bamboo.tloll.behaviors.BaseBehaviors;
-
-import com.bamboo.tloll.debug.Logger;
 
 public class Tloll
 {
 
     private long windowId;
     private static boolean isRunning = true;
-    private static int frameSkip = 2;
+    private static int frameSkip = 30;
     private static String currentDir = System.getProperty("user.dir");
 
     // Game initializer.
@@ -95,8 +64,8 @@ public class Tloll
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// Sample squares that probably won't stick around.
-    Unit player = new Unit(0.0f, 0.0f, 64, 64, 1.0f, 0.0f, 0.0f, 0.0f, Direction.DOWN);
-	Unit player2 = new Unit(0.0f, 0.0f, 32, 32, 1.0f, 0.0f, 0.0f, 0.0f, Direction.DOWN);
+	Unit player = new Unit(0.0f, 0.0f, 64, 64, 1.0f, 0.0f, 0.0f, 0.0f, Direction.DOWN);
+	Unit player2 = new Unit(100.0f, 100.0f, 32, 32, 0.5f, 0.0f, 0.0f, 0.0f, Direction.DOWN);
 
 
 	//Unit player = new Unit(0.0f, 0.0f, 68, 100, 1.0f, 0.0f, 0.0f, 0.0f);
@@ -109,7 +78,7 @@ public class Tloll
 	//Unit lingling = new Unit(100.0f, 100.0f, 32, 32, 0.0f, 0.0f, 0.0f, 0.0f);
 
 	Sprite alphabet = new Sprite(0.0f, 0.0f, 468.0f, 25.0f);
-	alphabet.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Images/alphabet.png"), alphabet.getHeight(), alphabet.getWidth()));
+	alphabet.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Images/alphabet_white.png"), alphabet.getHeight(), alphabet.getWidth()));
 
 	Sprite alphabetSprite = new Sprite(0.0f, 25.0f, 13.0f, 25.0f);
 	alphabetSprite.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Images/alphabet.png"), alphabetSprite.getHeight(), alphabetSprite.getWidth()));
@@ -133,7 +102,8 @@ public class Tloll
 	int backgroundId = 0;
 
 	// Drawing some sample scenes here.
-	List<Scene> loadedScenes = loadMapFromJson();
+	Map<Integer, Scene> loadedScenes = WorldMap.getInstance().getSceneMap();
+
 	Scene lowerLeft = loadedScenes.get(0);
 	Scene upperLeft = loadedScenes.get(1);
 	//Scene lowerLeft = new Scene(1, 1);
@@ -144,13 +114,15 @@ public class Tloll
 	//Scene straightLeftRight = new Scene(6, 6);
 	Scene currentScene = lowerLeft;
 	
-	Renderer.loadTileBuffers(lowerLeft, gu, currentDir);
-	Renderer.loadTileBuffers(upperLeft, gu, currentDir);
+	Renderer.loadTileBuffers(lowerLeft, gu);
+	Renderer.loadTileBuffers(upperLeft, gu);
 	//Renderer.loadTileBuffers(lowerRight, gu, currentDir);
 	//Renderer.loadTileBuffers(upperRight, gu, currentDir);
 	//Renderer.loadTileBuffers(straightUpDown, gu, currentDir);
 	//Renderer.loadTileBuffers(straightLeftRight, gu, currentDir);
 
+	int colNumber = 1;
+	
 	while (isRunning)
 	    {
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f );
@@ -159,22 +131,22 @@ public class Tloll
 		Renderer.drawScene(currentScene);
 		
 		/*setEnemyUnitActions(backgroundId,
-				    player,
-				    enemy,
-				    enemyTarget,
-				    enemyHp,
-				    enemySprite,
-				    lingling,
-				    lowerLeft,
-				    lowerRight,
-				    upperLeft,
-				    upperRight,
-				    straightLeftRight,
-				    straightUpDown
-				    );*/
+		  player,
+		  enemy,
+		  enemyTarget,
+		  enemyHp,
+		  enemySprite,
+		  lingling,
+		  lowerLeft,
+		  lowerRight,
+		  upperLeft,
+		  upperRight,
+		  straightLeftRight,
+		  straightUpDown
+		  );*/
 
 		// Highlight the current tile the player lives on.
-		highlightCurrentTile(currentScene, gu, player);
+		highlightCurrentTile(currentScene, gu, player2);
 
 		// Handle attacking input and moving the direction once to the right pre frame.
 		//angle = handlePlayerAttack(sword, player, enemyTarget, bullet, angle, gu, backgroundId, currentScene);
@@ -182,14 +154,25 @@ public class Tloll
 		// Draw caveman sprite.
 		Renderer.drawSprite(player, 0);
 
-		Renderer.drawAnimatedUnit(player2, 0);
+		Renderer.drawAnimatedUnit(player2, 0, player2.getColNumber());
+
 
 		// Print out some debug info on the screen.
-		logger.printToWindow(gu, currentDir, "Test String", 0.0f, 470.0f, false);
+		logger.printToWindow(gu, currentDir, "Player Pos X " + player2.getPosX(), 0.0f, 470.0f, false);
+		logger.printToWindow(gu, currentDir, "Player Pos Y " + player2.getPosY(), 0.0f, 450.0f, false);		logger.printToWindow(gu, currentDir, "Player Center Coords", 0.0f, 430.0f, false);
+		logger.printToWindow(gu, currentDir, "Player Center Coords", 0.0f, 430.0f, false);
+		logger.printToWindow(gu, currentDir, "" + player2.getCenterX() + " " + player2.getCenterY(), 0.0f, 410.0f, false);
+		logger.printToWindow(gu, currentDir, "Occupied TIle IDs", 0.0f, 390.0f, false);
+		float yPosForTileInfo = 370.0f;
+		for(Tile tile : getOccupiedTiles(player2, currentScene))
+			{
+			    logger.printToWindow(gu, currentDir, "" + tile.getTileId(), 0.0f, yPosForTileInfo, false);
+			    yPosForTileInfo -= 20.0f;
+			}
 		
 		// Set up keyboard controls.
 		in.checkKeyPressed(tloll.windowId, player2, currentScene);
-		in.checkKeyRelease(tloll.windowId, player2);
+		in.checkKeyRelease(tloll.windowId, player2, currentScene);
 		in.bindDebugKey(tloll.windowId, player2, currentScene);
 		//in.bindResetKey(tloll.windowId, enemyTarget);
 
@@ -210,46 +193,46 @@ public class Tloll
 	    }
     }
 
-	public static Scene handlePlayerMovement(Unit player, Scene currentScene) {
+    public static Scene handlePlayerMovement(Unit player, Scene currentScene) {
 
 
 
-		Link link  = getSceneLink(player, currentScene);
-		if(link != null ) {
-		    return handleSceneTransition(player, currentScene, link);
-		}
+	Link link  = getSceneLink(player, currentScene);
+	if(link != null ) {
+	    return handleSceneTransition(player, currentScene, link);
+	}
 
-		return currentScene;
+	return currentScene;
 		
 
-	}
+    }
 
     public static Scene handleSceneTransition(Unit player, Scene currentScene, Link link) {
 
-		for(Tile tile : currentScene.getTileList()) { //TODO: maybe cleanup ? 
-			if(link.getExitId()  == tile.getTileId()) {
-				player.setPosX(tile.getPosX());
-				player.setPosY(tile.getPosY());
-				player.setCenterX(tile.getPosX() + (player.getWidth() / 2));
-				player.setCenterY(tile.getPosY() + (player.getHeight() / 2));
-				player.setCurrentTileId(tile.getTileId());
-				break;
-			}
-		}
-
-		return WorldMap.getInstance().getSceneMap().get(link.getSceneId());
-		
-		//TODO: set the players position on the new scene from 
-		//link.getExitId() //tile on the above that we want to bet set on. 
-		
+	for(Tile tile : currentScene.getTileList()) { //TODO: maybe cleanup ? 
+	    if(link.getExitId()  == tile.getTileId()) {
+		player.setPosX(tile.getPosX());
+		player.setPosY(tile.getPosY());
+		player.setCenterX(tile.getPosX() + (player.getWidth() / 2));
+		player.setCenterY(tile.getPosY() + (player.getHeight() / 2));
+		player.setCurrentTileId(tile.getTileId());
+		break;
+	    }
 	}
 
+	return WorldMap.getInstance().getSceneMap().get(link.getSceneId());
+		
+	//TODO: set the players position on the new scene from 
+	//link.getExitId() //tile on the above that we want to bet set on. 
+		
+    }
 
 
-	//TODO: we should make this part of a set of suite of options maybe handlePlayerMovement
-	public static Link getSceneLink(Unit player, Scene currentScene) {
-		return currentScene.getLinks().get(player.getCurrentTileId());
-	}
+
+    //TODO: we should make this part of a set of suite of options maybe handlePlayerMovement
+    public static Link getSceneLink(Unit player, Scene currentScene) {
+	return currentScene.getLinks().get(player.getCurrentTileId());
+    }
 
     /**
      * 0 = Lower Left
@@ -470,7 +453,7 @@ public class Tloll
     }
     
     // Debug method for highlighting the current tile the player lives in.
-    // NOTE(map) : This is only based on the lower left corner of the player
+    // NOTE(map) : This covers any tiles the player can reside in.
     public static void highlightCurrentTile(Scene currentScene, GraphicsUtil gu, Unit player)
     {
 	for (Tile tile : currentScene.getTileList())
@@ -480,7 +463,37 @@ public class Tloll
 		    player.getPosY() <= (tile.getPosY() + tile.getHeight()) &&
 		    player.getPosY() >= tile.getPosY())
 		    {
-			Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getDirection(), tile.getTileId(), false);
+			Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getBufferId(), tile.getTileId(), false);
+
+			highlightTile.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Images/highlight.png"), highlightTile.getHeight(), highlightTile.getWidth()));
+			Renderer.drawSprite(highlightTile, 0);
+		    }
+		if ((player.getPosX() + player.getWidth()) <= (tile.getPosX() + tile.getWidth()) &&
+		    (player.getPosX() + player.getWidth()) >= tile.getPosX() &&
+		    player.getPosY()<= (tile.getPosY() + tile.getHeight()) &&
+		    player.getPosY() >= tile.getPosY())
+		    {
+			Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getBufferId(), tile.getTileId(), false);
+
+			highlightTile.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Images/highlight.png"), highlightTile.getHeight(), highlightTile.getWidth()));
+			Renderer.drawSprite(highlightTile, 0);
+		    }
+		if (player.getPosX() <= (tile.getPosX() + tile.getWidth()) &&
+		    player.getPosX() >= tile.getPosX() &&
+		    (player.getPosY() + player.getHeight()) <= (tile.getPosY() + tile.getHeight()) &&
+		    (player.getPosY() + player.getHeight())>= tile.getPosY())
+		    {
+			Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getBufferId(), tile.getTileId(), false);
+
+			highlightTile.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Images/highlight.png"), highlightTile.getHeight(), highlightTile.getWidth()));
+			Renderer.drawSprite(highlightTile, 0);
+		    }
+		if ((player.getPosX() + player.getWidth()) <= (tile.getPosX() + tile.getWidth()) &&
+		    (player.getPosX() + player.getWidth()) >= tile.getPosX() &&
+		    (player.getPosY() + player.getHeight()) <= (tile.getPosY() + tile.getHeight()) &&
+		    (player.getPosY() + player.getHeight())>= tile.getPosY())
+		    {
+			Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getBufferId(), tile.getTileId(), false);
 
 			highlightTile.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Images/highlight.png"), highlightTile.getHeight(), highlightTile.getWidth()));
 			Renderer.drawSprite(highlightTile, 0);
@@ -488,9 +501,60 @@ public class Tloll
 	    }
     }
 
+    public static List<Tile> getOccupiedTiles(Unit player, Scene currentScene)
+    {
+	List<Tile> occupiedTiles = new ArrayList<Tile>();
+	for (Tile tile : currentScene.getTileList())
+	    {
+		if (player.getPosX() <= (tile.getPosX() + tile.getWidth()) &&
+		    player.getPosX() >= tile.getPosX() &&
+		    player.getPosY() <= (tile.getPosY() + tile.getHeight()) &&
+		    player.getPosY() >= tile.getPosY())
+		    {
+			occupiedTiles.add(tile);
+		    }
+
+		if ((player.getPosX() + player.getWidth()) <= (tile.getPosX() + tile.getWidth()) &&
+		    (player.getPosX() + player.getWidth()) >= tile.getPosX() &&
+		    player.getPosY()<= (tile.getPosY() + tile.getHeight()) &&
+		    player.getPosY() >= tile.getPosY())
+		    {
+			if (!occupiedTiles.contains(tile))
+			    {
+				occupiedTiles.add(tile);
+			    }
+		    }
+		
+		if (player.getPosX() <= (tile.getPosX() + tile.getWidth()) &&
+		    player.getPosX() >= tile.getPosX() &&
+		    (player.getPosY() + player.getHeight()) <= (tile.getPosY() + tile.getHeight()) &&
+		    (player.getPosY() + player.getHeight())>= tile.getPosY())
+		    {
+			if (!occupiedTiles.contains(tile))
+			    {
+				occupiedTiles.add(tile);
+			    }
+		    }
+		
+		if ((player.getPosX() + player.getWidth()) <= (tile.getPosX() + tile.getWidth()) &&
+		    (player.getPosX() + player.getWidth()) >= tile.getPosX() &&
+		    (player.getPosY() + player.getHeight()) <= (tile.getPosY() + tile.getHeight()) &&
+		    (player.getPosY() + player.getHeight())>= tile.getPosY())
+		    {
+			if (!occupiedTiles.contains(tile))
+			    {
+				occupiedTiles.add(tile);
+			    }
+		    }
+		
+	    }
+
+	return occupiedTiles;
+    }
+
     public static void handleBulletAnimation(Scene currentScene, Unit player, String directionOfAttack, Unit bullet)
     {
-	System.out.println("Bullet travelling...");
+	/*System.out.println("Bullet travelling...");
 	switch (directionOfAttack)
 	    {
 	    case "right":
@@ -526,7 +590,7 @@ public class Tloll
 		bullet.setPosY(bullet.getPosY() + 10.0f);
 		break;
 	    }
-	System.out.println("Bullet Position (X,Y): " + bullet.getPosX() + "," + bullet.getPosY());
+	System.out.println("Bullet Position (X,Y): " + bullet.getPosX() + "," + bullet.getPosY());*/
     }
 
     public static void handleSwordAnimation(Scene currentScene, Unit player, String directionOfAttack, Unit sword, double angle)
@@ -622,83 +686,6 @@ public class Tloll
 		return angle;
 	    }
 
-    }
-
-    public static List<Scene> loadMapFromJson()
-    {
-		List<Scene> retScenes = new ArrayList<>();
-		List<Tile> tileList = new ArrayList<>();
-		
-			try
-			{
-			//String contents = new String(Files.readAllBytes(Paths.get("/home/michael/Desktop/VideoGame/tloll/tloll/Configs/Worlds/test_world.json")));
-			String contents = new String(Files.readAllBytes(Paths.get(currentDir+ "/Configs/Worlds/test_world.json")));
-			
-			// Grab the world object as a whole from the JSON.
-			JSONObject worldObj = new JSONObject(contents);
-			// Get the actual world within the JSON file.
-			JSONObject world = worldObj.getJSONObject("world");
-			JSONArray scenes = world.getJSONArray("scenes");
-
-			// Loop over every scene here.
-			for (int i = 0; i < scenes.length(); i++) {
-				// Grab all tiles for a given scene and loop over.
-				JSONArray tiles = scenes.getJSONObject(i).getJSONArray("tiles");
-				for (int j = 0; j < tiles.length(); j++) {
-				    int tileDirection = (i == 0) ? 5 : 11;
-				    if (tiles.getJSONObject(j).getBoolean("exit"))
-					{
-					    tileDirection = 10;
-					}
-				    
-					float posX = 64.0f * (int) (j / 8);
-					float posY = 64.0f * (j % 8);
-					Tile tile = new Tile(posX,
-								posY,
-								(float) tiles.getJSONObject(j).getInt("width"),
-								(float) tiles.getJSONObject(j).getInt("height"),
-								tiles.getJSONObject(j).getBoolean("passable"),
-								tileDirection,
-								tiles.getJSONObject(j).getInt("id"),
-								tiles.getJSONObject(j).getBoolean("exit")
-								);
-					tileList.add(tile);
-				}
-
-				JSONArray jsonLinks = scenes.getJSONObject(i).getJSONArray("links");
-				
-				Map<Integer, Link> links = new HashMap<>();
-				//TODO: squish me and make me pretty 
-				for(int k = 0; k < jsonLinks.length(); ++k) {
-					JSONObject link = jsonLinks.getJSONObject(k);
-					int newSceneId = link.getInt("newSceneId");
-					int newTileId = link.getInt("newTileId");
-					int exitTileId = link.getInt("exitTileId");
-					links.put(exitTileId, new Link(newSceneId, newTileId));
-				}
-				
-
-
-				int sceneId = scenes.getJSONObject(i).getInt("id");
-				Scene scene = new Scene(sceneId, tileList, links);
-				retScenes.add(scene);
-				WorldMap.getInstance().getSceneMap().put(sceneId, scene);
-		
-			}
-			
-			}
-		catch (IOException e)
-			{
-			e.printStackTrace();
-			}
-		catch (JSONException e)
-			{
-			e.printStackTrace();
-			}
-
-		return retScenes;
-	
-	
     }
 
 }

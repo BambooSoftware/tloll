@@ -4,6 +4,9 @@ import com.bamboo.tloll.Constants;
 
 import com.bamboo.tloll.graphics.Unit;
 
+import com.bamboo.tloll.graphics.structure.Scene;
+import com.bamboo.tloll.graphics.structure.Tile;
+
 public final class PhysicsEngine
 {
 
@@ -12,12 +15,10 @@ public final class PhysicsEngine
 	// Empty constructor.
     }
 
-    // TODO(map) : Need to clean up the message signatures here.  The deltaX and deltaY should be
-    // pulled directly from the player so only one object is being passed.
-    public static void movePlayer(Unit player, float deltaX, float deltaY)
+    public static void movePlayer(Unit player, float deltaX, float deltaY, Scene currentScene)
     {
 
-	if (!isOutOfBoundsX(player, deltaX))
+	if (!isOutOfBoundsX(player, deltaX) && isTilePassable(player, deltaX, deltaY, currentScene))
 	    {
 		player.setPosX(player.getPosX() + deltaX);
 
@@ -40,7 +41,7 @@ public final class PhysicsEngine
 		    }
 	    }
 
-	if (!isOutOfBoundsY(player, deltaY))
+	if (!isOutOfBoundsY(player, deltaY) && isTilePassable(player, deltaX, deltaY, currentScene))
 	    {
 		player.setPosY(player.getPosY() + deltaY);
 
@@ -125,5 +126,19 @@ public final class PhysicsEngine
 	return false;
     }
 
+    private static boolean isTilePassable(Unit player, float deltaX, float deltaY, Scene currentScene)
+    {
+	for (Tile tile : currentScene.getTileList())
+	    {
+		if ((player.getPosX() + deltaX) >= tile.getPosX() &&
+		    (player.getPosX() + deltaX) <= (tile.getPosX() + tile.getWidth()) &&
+		    (player.getPosY() + deltaY) >= tile.getPosY() &&
+		    (player.getPosY() + deltaY) <= (tile.getPosY() + tile.getHeight()))
+		    {
+			return tile.isPassable();
+		    }
+	    }
+	return true;
+    }
         
 }
