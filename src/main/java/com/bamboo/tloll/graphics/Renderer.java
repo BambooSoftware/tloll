@@ -1,21 +1,12 @@
 package com.bamboo.tloll.graphics;
 
-import com.bamboo.tloll.graphics.structure.Tile;
 import com.bamboo.tloll.Constants;
-
-import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL12.*;
-import static org.lwjgl.system.MemoryUtil.*;
-
-import java.nio.ByteBuffer;
-
-import java.util.List;
-
-import com.bamboo.tloll.Constants;
-
-import com.bamboo.tloll.graphics.structure.Tile;
 import com.bamboo.tloll.graphics.structure.Scene;
+import com.bamboo.tloll.graphics.structure.Tile;
+import com.bamboo.tloll.util.BufferMap;
+
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
 
 public final class Renderer {
 
@@ -226,50 +217,29 @@ public final class Renderer {
 	}
     }
 
-    public static void loadTileBuffers(Scene scene, GraphicsUtil gu, String currentDir) {
+    public static void loadTileBuffers(Scene scene, GraphicsUtil gu) {
+        //TODO: change the method for the buffers to a singleton pattern buffer map.
 
-	//TODO: refactor me more 
-
-	for (Tile tile : scene.getTileList()) {
-	    SpriteBuffer spriteBuffer = null;
-
-	    if (tile.isPassable()) {
-		if (tile.getDirection() == 10) {
-		    spriteBuffer = new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Images/stairs.png"), Constants.TILE_HEIGHT, Constants.TILE_WIDTH);
-		} else {
-		    spriteBuffer = new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/grass.PNG"), Constants.TILE_HEIGHT, Constants.TILE_WIDTH);
-		}
-	    } else {
-		if (tile.getDirection() == 1) {
-		    spriteBuffer = new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/left_water_right_grass.PNG"), Constants.TILE_HEIGHT, Constants.TILE_WIDTH);
-		} else if (tile.getDirection() == 2) {
-		    spriteBuffer = new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/top_water_bottom_grass.PNG"), Constants.TILE_HEIGHT, Constants.TILE_WIDTH);
-		} else if (tile.getDirection() == 3) {
-		    spriteBuffer = new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/left_grass_right_water.PNG"), Constants.TILE_HEIGHT, Constants.TILE_WIDTH);
-		} else if (tile.getDirection() == 4) {
-		    spriteBuffer = new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/top_grass_bottom_water.PNG"), Constants.TILE_HEIGHT, Constants.TILE_WIDTH);
-		} else if (tile.getDirection() == 5) {
-		    spriteBuffer = new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/water.PNG"), Constants.TILE_HEIGHT, Constants.TILE_WIDTH);
-		} else if (tile.getDirection() == 6) {
-		    spriteBuffer = new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/grass_bottom_left_water.PNG"), Constants.TILE_HEIGHT, Constants.TILE_WIDTH);
-		} else if (tile.getDirection() == 7) {
-		    spriteBuffer = new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/grass_top_left_water.PNG"), Constants.TILE_HEIGHT, Constants.TILE_WIDTH);
-		} else if (tile.getDirection() == 8) {
-		    spriteBuffer = new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/grass_top_right_water.PNG"), Constants.TILE_HEIGHT, Constants.TILE_WIDTH);
-		} else if (tile.getDirection() == 9) {
-		    spriteBuffer = new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/grass_bottom_right_water.PNG"), Constants.TILE_HEIGHT, Constants.TILE_WIDTH);
-		} else if (tile.getDirection() == 11) {
-		    spriteBuffer = new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Map/Tiles/Water_Grass/dirt.PNG"), Constants.TILE_HEIGHT, Constants.TILE_WIDTH);
-		}
-	    }
-
-	    if(spriteBuffer != null) { 
-		tile.addBufferToMap(0, spriteBuffer);
-	    }
-			
+        for(Tile tile: scene.getTileList()) {
+            SpriteBuffer sBuffer = BufferMap.getInstance().getSprteBuffer(tile.getBufferId(), gu);
+            tile.getBufferMap().put(0, sBuffer);
+        }
 
 
-	}
+
+
+
+        //for()  {
+
+        //}
+
+
+
+
+
+        //spriteBuffer = new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Images/stairs.png"), Constants.TILE_HEIGHT, Constants.TILE_WIDTH);
+
+
     }
 
 

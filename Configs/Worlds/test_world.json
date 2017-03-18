@@ -11,7 +11,7 @@
 			"id" : "0",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -19,7 +19,7 @@
 			"id" : "1",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -27,7 +27,7 @@
 			"id" : "2",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -35,7 +35,7 @@
 			"id" : "3",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -43,7 +43,7 @@
 			"id" : "4",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -51,7 +51,7 @@
 			"id" : "5",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -59,7 +59,7 @@
 			"id" : "6",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -67,7 +67,7 @@
 			"id" : "7",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -75,7 +75,7 @@
 			"id" : "8",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -83,7 +83,7 @@
 			"id" : "9",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -91,7 +91,7 @@
 			"id" : "10",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -99,7 +99,7 @@
 			"id" : "11",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -107,7 +107,7 @@
 			"id" : "12",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -115,7 +115,7 @@
 			"id" : "13",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -123,7 +123,7 @@
 			"id" : "14",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -131,7 +131,7 @@
 			"id" : "15",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -139,7 +139,7 @@
 			"id" : "16",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -147,7 +147,7 @@
 			"id" : "17",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -155,7 +155,7 @@
 			"id" : "18",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -163,7 +163,7 @@
 			"id" : "19",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -171,7 +171,7 @@
 			"id" : "20",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -179,7 +179,7 @@
 			"id" : "21",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -187,7 +187,7 @@
 			"id" : "22",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -195,7 +195,7 @@
 			"id" : "23",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -203,7 +203,7 @@
 			"id" : "24",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -211,7 +211,7 @@
 			"id" : "25",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -219,7 +219,7 @@
 			"id" : "26",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -227,7 +227,7 @@
 			"id" : "27",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -235,7 +235,7 @@
 			"id" : "28",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -243,7 +243,7 @@
 			"id" : "29",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -251,7 +251,7 @@
 			"id" : "30",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -259,7 +259,7 @@
 			"id" : "31",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -267,7 +267,7 @@
 			"id" : "32",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -275,7 +275,7 @@
 			"id" : "33",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -283,7 +283,7 @@
 			"id" : "34",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -291,7 +291,7 @@
 			"id" : "35",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -299,7 +299,7 @@
 			"id" : "36",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -307,7 +307,7 @@
 			"id" : "37",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -315,7 +315,7 @@
 			"id" : "38",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -323,7 +323,7 @@
 			"id" : "39",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -331,7 +331,7 @@
 			"id" : "40",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -339,7 +339,7 @@
 			"id" : "41",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -347,7 +347,7 @@
 			"id" : "42",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -355,7 +355,7 @@
 			"id" : "43",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -363,7 +363,7 @@
 			"id" : "44",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -371,7 +371,7 @@
 			"id" : "45",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -379,7 +379,7 @@
 			"id" : "46",
 			"passable" : "true",
 			"exit" : "true",
-			"bufferId" : "0",
+			"bufferId" : "stairs",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -387,7 +387,7 @@
 			"id" : "47",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -395,7 +395,7 @@
 			"id" : "48",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -403,7 +403,7 @@
 			"id" : "49",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -411,7 +411,7 @@
 			"id" : "50",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -419,7 +419,7 @@
 			"id" : "51",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -427,7 +427,7 @@
 			"id" : "52",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -435,7 +435,7 @@
 			"id" : "53",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -443,7 +443,7 @@
 			"id" : "54",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -451,7 +451,7 @@
 			"id" : "55",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -459,7 +459,7 @@
 			"id" : "56",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -467,7 +467,7 @@
 			"id" : "57",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -475,7 +475,7 @@
 			"id" : "58",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -483,7 +483,7 @@
 			"id" : "59",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -491,15 +491,15 @@
 			"id" : "60",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
 		    {
 			"id" : "61",
-			"passable" : "true",
-			"exit" : "true",
-			"bufferId" : "0",
+			"passable" : "false",
+			"exit" : "false",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -507,7 +507,7 @@
 			"id" : "62",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -515,7 +515,7 @@
 			"id" : "63",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    }
@@ -533,7 +533,7 @@
 			"id" : "0",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -541,7 +541,7 @@
 			"id" : "1",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -549,7 +549,7 @@
 			"id" : "2",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -557,7 +557,7 @@
 			"id" : "3",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -565,7 +565,7 @@
 			"id" : "4",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -573,7 +573,7 @@
 			"id" : "5",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -581,7 +581,7 @@
 			"id" : "6",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -589,7 +589,7 @@
 			"id" : "7",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -597,7 +597,7 @@
 			"id" : "8",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -605,7 +605,7 @@
 			"id" : "9",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -613,7 +613,7 @@
 			"id" : "10",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -621,7 +621,7 @@
 			"id" : "11",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -629,7 +629,7 @@
 			"id" : "12",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -637,7 +637,7 @@
 			"id" : "13",
 			"passable" : "true",
 			"exit" : "true",
-			"bufferId" : "0",
+			"bufferId" : "stairs",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -645,7 +645,7 @@
 			"id" : "14",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -653,7 +653,7 @@
 			"id" : "15",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -661,7 +661,7 @@
 			"id" : "16",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -669,7 +669,7 @@
 			"id" : "17",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -677,7 +677,7 @@
 			"id" : "18",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -685,7 +685,7 @@
 			"id" : "19",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -693,7 +693,7 @@
 			"id" : "20",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -701,7 +701,7 @@
 			"id" : "21",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -709,7 +709,7 @@
 			"id" : "22",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -717,7 +717,7 @@
 			"id" : "23",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -725,7 +725,7 @@
 			"id" : "24",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -733,7 +733,7 @@
 			"id" : "25",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -741,7 +741,7 @@
 			"id" : "26",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -749,7 +749,7 @@
 			"id" : "27",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -757,7 +757,7 @@
 			"id" : "28",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -765,7 +765,7 @@
 			"id" : "29",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -773,7 +773,7 @@
 			"id" : "30",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -781,7 +781,7 @@
 			"id" : "31",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -789,7 +789,7 @@
 			"id" : "32",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -797,7 +797,7 @@
 			"id" : "33",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -805,7 +805,7 @@
 			"id" : "34",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -813,7 +813,7 @@
 			"id" : "35",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -821,7 +821,7 @@
 			"id" : "36",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -829,7 +829,7 @@
 			"id" : "37",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -837,7 +837,7 @@
 			"id" : "38",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -845,7 +845,7 @@
 			"id" : "39",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -853,7 +853,7 @@
 			"id" : "40",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -861,7 +861,7 @@
 			"id" : "41",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -869,7 +869,7 @@
 			"id" : "42",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -877,7 +877,7 @@
 			"id" : "43",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -885,7 +885,7 @@
 			"id" : "44",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -893,7 +893,7 @@
 			"id" : "45",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -901,7 +901,7 @@
 			"id" : "46",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -909,7 +909,7 @@
 			"id" : "47",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -917,7 +917,7 @@
 			"id" : "48",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -925,7 +925,7 @@
 			"id" : "49",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -933,7 +933,7 @@
 			"id" : "50",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -941,7 +941,7 @@
 			"id" : "51",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -949,7 +949,7 @@
 			"id" : "52",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -957,7 +957,7 @@
 			"id" : "53",
 			"passable" : "true",
 			"exit" : "true",
-			"bufferId" : "0",
+			"bufferId" : "stairs",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -965,7 +965,7 @@
 			"id" : "54",
 			"passable" : "true",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "grass",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -973,7 +973,7 @@
 			"id" : "55",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -981,7 +981,7 @@
 			"id" : "56",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -989,7 +989,7 @@
 			"id" : "57",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -997,7 +997,7 @@
 			"id" : "58",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -1005,7 +1005,7 @@
 			"id" : "59",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -1013,7 +1013,7 @@
 			"id" : "60",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -1021,15 +1021,15 @@
 			"id" : "61",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
 		    {
 			"id" : "62",
-			"passable" : "true",
-			"exit" : "true",
-			"bufferId" : "0",
+			"passable" : "false",
+			"exit" : "false",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    },
@@ -1037,7 +1037,7 @@
 			"id" : "63",
 			"passable" : "false",
 			"exit" : "false",
-			"bufferId" : "0",
+			"bufferId" : "water",
 			"width" : "80",
 			"height" : "80"
 		    }

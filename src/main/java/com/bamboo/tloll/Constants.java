@@ -17,6 +17,8 @@ public final class Constants
     // NOTE(map) : The tile width is assuming 1 pixel is equal to 1 meter in game space.
     public static final int TILE_WIDTH = 80;
     public static final int TILE_HEIGHT = 80;
-    
+
+    public static final String USER_DIR = System.getProperty("user.dir");
+
 
 }

@@ -1,19 +1,22 @@
 package com.bamboo.tloll.graphics;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.system.Platform;
 
-import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.system.MemoryUtil.*;
-
-import org.lwjgl.BufferUtils;
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import javax.imageio.ImageIO;
 import java.nio.ByteBuffer;
+
+import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
+import static org.lwjgl.glfw.GLFW.glfwInit;
+import static org.lwjgl.opengl.GL11.glGenTextures;
+import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class GraphicsUtil
 {
+
+	//TODO: make this call into a singleton
 
     public GraphicsUtil()
     {

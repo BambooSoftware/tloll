@@ -1,52 +1,21 @@
 package com.bamboo.tloll;
 
+import com.bamboo.tloll.behaviors.BaseBehaviors;
+import com.bamboo.tloll.debug.Logger;
+import com.bamboo.tloll.graphics.*;
+import com.bamboo.tloll.graphics.structure.Link;
+import com.bamboo.tloll.graphics.structure.Scene;
 import com.bamboo.tloll.graphics.structure.Tile;
 import com.bamboo.tloll.graphics.structure.WorldMap;
-import com.bamboo.tloll.graphics.SpriteBuffer;
+import com.bamboo.tloll.input.Input;
+import org.lwjgl.opengl.GL;
 
-
-import org.lwjgl.opengl.*;
-import org.lwjgl.system.Platform;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.system.MemoryUtil.*;
-
-import org.lwjgl.BufferUtils;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
-import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
-
-import org.json.*;
-import java.nio.file.*;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-
-
-import com.bamboo.tloll.Constants;
-
-import com.bamboo.tloll.graphics.Unit;
-import com.bamboo.tloll.graphics.Sprite;
-import com.bamboo.tloll.graphics.Direction;
-import com.bamboo.tloll.graphics.GraphicsUtil;
-import com.bamboo.tloll.graphics.Renderer;
-import com.bamboo.tloll.graphics.MapCreator;
-import com.bamboo.tloll.graphics.structure.Tile;
-import com.bamboo.tloll.graphics.structure.Link;
-import com.bamboo.tloll.graphics.structure.Scene;
-
-import com.bamboo.tloll.input.Input;
-
-import com.bamboo.tloll.behaviors.BaseBehaviors;
-
-import com.bamboo.tloll.debug.Logger;
 
 public class Tloll
 {
@@ -133,7 +102,8 @@ public class Tloll
 	int backgroundId = 0;
 
 	// Drawing some sample scenes here.
-	List<Scene> loadedScenes = loadMapFromJson();
+	Map<Integer, Scene> loadedScenes = WorldMap.getInstance().getSceneMap();
+
 	Scene lowerLeft = loadedScenes.get(0);
 	Scene upperLeft = loadedScenes.get(1);
 	//Scene lowerLeft = new Scene(1, 1);
@@ -144,8 +114,8 @@ public class Tloll
 	//Scene straightLeftRight = new Scene(6, 6);
 	Scene currentScene = lowerLeft;
 	
-	Renderer.loadTileBuffers(lowerLeft, gu, currentDir);
-	Renderer.loadTileBuffers(upperLeft, gu, currentDir);
+	Renderer.loadTileBuffers(lowerLeft, gu);
+	Renderer.loadTileBuffers(upperLeft, gu);
 	//Renderer.loadTileBuffers(lowerRight, gu, currentDir);
 	//Renderer.loadTileBuffers(upperRight, gu, currentDir);
 	//Renderer.loadTileBuffers(straightUpDown, gu, currentDir);
@@ -493,7 +463,7 @@ public class Tloll
 		    player.getPosY() <= (tile.getPosY() + tile.getHeight()) &&
 		    player.getPosY() >= tile.getPosY())
 		    {
-			Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getDirection(), tile.getTileId(), false);
+			Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getBufferId(), tile.getTileId(), false);
 
 			highlightTile.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Images/highlight.png"), highlightTile.getHeight(), highlightTile.getWidth()));
 			Renderer.drawSprite(highlightTile, 0);
@@ -503,7 +473,7 @@ public class Tloll
 		    player.getPosY()<= (tile.getPosY() + tile.getHeight()) &&
 		    player.getPosY() >= tile.getPosY())
 		    {
-			Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getDirection(), tile.getTileId(), false);
+			Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getBufferId(), tile.getTileId(), false);
 
 			highlightTile.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Images/highlight.png"), highlightTile.getHeight(), highlightTile.getWidth()));
 			Renderer.drawSprite(highlightTile, 0);
@@ -513,7 +483,7 @@ public class Tloll
 		    (player.getPosY() + player.getHeight()) <= (tile.getPosY() + tile.getHeight()) &&
 		    (player.getPosY() + player.getHeight())>= tile.getPosY())
 		    {
-			Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getDirection(), tile.getTileId(), false);
+			Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getBufferId(), tile.getTileId(), false);
 
 			highlightTile.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Images/highlight.png"), highlightTile.getHeight(), highlightTile.getWidth()));
 			Renderer.drawSprite(highlightTile, 0);
@@ -523,7 +493,7 @@ public class Tloll
 		    (player.getPosY() + player.getHeight()) <= (tile.getPosY() + tile.getHeight()) &&
 		    (player.getPosY() + player.getHeight())>= tile.getPosY())
 		    {
-			Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getDirection(), tile.getTileId(), false);
+			Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getBufferId(), tile.getTileId(), false);
 
 			highlightTile.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(currentDir + "/Assets/Images/highlight.png"), highlightTile.getHeight(), highlightTile.getWidth()));
 			Renderer.drawSprite(highlightTile, 0);
@@ -584,7 +554,7 @@ public class Tloll
 
     public static void handleBulletAnimation(Scene currentScene, Unit player, String directionOfAttack, Unit bullet)
     {
-	System.out.println("Bullet travelling...");
+	/*System.out.println("Bullet travelling...");
 	switch (directionOfAttack)
 	    {
 	    case "right":
@@ -620,7 +590,7 @@ public class Tloll
 		bullet.setPosY(bullet.getPosY() + 10.0f);
 		break;
 	    }
-	System.out.println("Bullet Position (X,Y): " + bullet.getPosX() + "," + bullet.getPosY());
+	System.out.println("Bullet Position (X,Y): " + bullet.getPosX() + "," + bullet.getPosY());*/
     }
 
     public static void handleSwordAnimation(Scene currentScene, Unit player, String directionOfAttack, Unit sword, double angle)
@@ -716,83 +686,6 @@ public class Tloll
 		return angle;
 	    }
 
-    }
-
-    public static List<Scene> loadMapFromJson()
-    {
-	List<Scene> retScenes = new ArrayList<>();
-	List<Tile> tileList = new ArrayList<>();
-		
-	try
-	    {
-		//String contents = new String(Files.readAllBytes(Paths.get("/home/michael/Desktop/VideoGame/tloll/tloll/Configs/Worlds/test_world.json")));
-		String contents = new String(Files.readAllBytes(Paths.get(currentDir+ "/Configs/Worlds/test_world.json")));
-			
-		// Grab the world object as a whole from the JSON.
-		JSONObject worldObj = new JSONObject(contents);
-		// Get the actual world within the JSON file.
-		JSONObject world = worldObj.getJSONObject("world");
-		JSONArray scenes = world.getJSONArray("scenes");
-
-		// Loop over every scene here.
-		for (int i = 0; i < scenes.length(); i++) {
-		    // Grab all tiles for a given scene and loop over.
-		    JSONArray tiles = scenes.getJSONObject(i).getJSONArray("tiles");
-		    for (int j = 0; j < tiles.length(); j++) {
-			int tileDirection = (i == 0) ? 5 : 11;
-			if (tiles.getJSONObject(j).getBoolean("exit"))
-			    {
-				tileDirection = 10;
-			    }
-				    
-			float posX = 80.0f * (int) (j / 8);
-			float posY = 80.0f * (j % 8);
-			Tile tile = new Tile(posX,
-					     posY,
-					     (float) tiles.getJSONObject(j).getInt("width"),
-					     (float) tiles.getJSONObject(j).getInt("height"),
-					     tiles.getJSONObject(j).getBoolean("passable"),
-					     tileDirection,
-					     tiles.getJSONObject(j).getInt("id"),
-					     tiles.getJSONObject(j).getBoolean("exit")
-					     );
-			tileList.add(tile);
-		    }
-
-		    JSONArray jsonLinks = scenes.getJSONObject(i).getJSONArray("links");
-				
-		    Map<Integer, Link> links = new HashMap<>();
-		    //TODO: squish me and make me pretty 
-		    for(int k = 0; k < jsonLinks.length(); ++k) {
-			JSONObject link = jsonLinks.getJSONObject(k);
-			int newSceneId = link.getInt("newSceneId");
-			int newTileId = link.getInt("newTileId");
-			int exitTileId = link.getInt("exitTileId");
-			links.put(exitTileId, new Link(newSceneId, newTileId));
-		    }
-				
-
-
-		    int sceneId = scenes.getJSONObject(i).getInt("id");
-		    Scene scene = new Scene(sceneId, tileList, links);
-		    retScenes.add(scene);
-		    WorldMap.getInstance().getSceneMap().put(sceneId, scene);
-		    tileList.clear();
-		}
-			
-	    }
-	catch (IOException e)
-	    {
-		e.printStackTrace();
-	    }
-	catch (JSONException e)
-	    {
-		e.printStackTrace();
-	    }
-
-	return retScenes;
-	
-	
     }
 
 }
