@@ -4,6 +4,8 @@ import com.bamboo.tloll.debug.Logger;
 import com.bamboo.tloll.graphics.*;
 import com.bamboo.tloll.graphics.structure.Scene;
 import com.bamboo.tloll.input.Input;
+import com.bamboo.tloll.input.KeyboardHandler;
+import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.opengl.GL;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -18,6 +20,9 @@ public class Tloll {
 
     private Logger logger;
 
+    // We need to strongly reference callback instances.
+    private GLFWKeyCallback keyCallback;
+
     public static void main(String[] args) {
         new Tloll().run();
     }
@@ -29,6 +34,7 @@ public class Tloll {
             init();
             loop();
             glfwDestroyWindow(windowId);
+            keyCallback.free();
         } finally {
             glfwTerminate();
         }
@@ -40,6 +46,10 @@ public class Tloll {
         gu.initializeGL();
         glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
         windowId = gu.createWindow(Constants.WIDTH, Constants.HEIGHT, Constants.TITLE);
+
+
+        // Setup a key callback. It will be called every time a key is pressed, repeated or released.
+        glfwSetKeyCallback(windowId, keyCallback = new KeyboardHandler());
 
         in = new Input();
 
@@ -82,13 +92,8 @@ public class Tloll {
     }
 
     private void process() {
+        //Poll for window events. This invokes key callbacks
         glfwPollEvents();
-        //TODO: fix handle player movement/scene transition.
-
-        //TODO: update keyboard input
-        //TODO: should we put input processing on its own thread ?
-        // Setup a key callback. It will be called every time a key is pressed, repeated or released.
-        in.setupKeyListener(windowId, userHero, currentScene);
     }
 
     private void update() {
@@ -103,6 +108,16 @@ public class Tloll {
         // Print out some debug info on the screen.
         logger.displayPlayerInfo(userHero);
         logger.displayOccupiedTiles(userHero, currentScene);
+
+
+
+        //TODO: fix handle player movement/scene transition.
+
+        //TODO: update keyboard input
+        //TODO: should we put input processing on its own thread ?
+        // Setup a key callback. It will be called every time a key is pressed, repeated or released.
+        in.pollInput(windowId, userHero, currentScene);
+
     }
 
 }
