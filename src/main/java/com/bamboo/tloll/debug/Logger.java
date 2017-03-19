@@ -10,6 +10,8 @@ import com.bamboo.tloll.graphics.structure.Tile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Logger {
 
@@ -74,93 +76,43 @@ public class Logger {
 
     // Debug method for highlighting the current tile the player lives in.
     // NOTE(map) : This covers any tiles the player can reside in.
-    public static void highlightCurrentTile(Scene currentScene, Unit player) {
+    public void highlightCurrentTile(Scene currentScene, Unit player) {
         GraphicsUtil gu = GraphicsUtil.getInstance();
 
-        for (Tile tile : currentScene.getTileList()) {
-            if (player.getPosX() <= (tile.getPosX() + tile.getWidth()) &&
-                    player.getPosX() >= tile.getPosX() &&
-                    player.getPosY() <= (tile.getPosY() + tile.getHeight()) &&
-                    player.getPosY() >= tile.getPosY()) {
-                Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getBufferId(), tile.getTileId(), false);
+	List<Tile> highlightList = getOccupiedTiles(player, currentScene);
 
-                highlightTile.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(Constants.USER_DIR + "/Assets/Images/highlight.png"), highlightTile.getHeight(), highlightTile.getWidth()));
-                Renderer.drawSprite(highlightTile, 0);
-            }
-            if ((player.getPosX() + player.getWidth()) <= (tile.getPosX() + tile.getWidth()) &&
-                    (player.getPosX() + player.getWidth()) >= tile.getPosX() &&
-                    player.getPosY() <= (tile.getPosY() + tile.getHeight()) &&
-                    player.getPosY() >= tile.getPosY()) {
-                Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getBufferId(), tile.getTileId(), false);
-
-                highlightTile.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(Constants.USER_DIR + "/Assets/Images/highlight.png"), highlightTile.getHeight(), highlightTile.getWidth()));
-                Renderer.drawSprite(highlightTile, 0);
-            }
-            if (player.getPosX() <= (tile.getPosX() + tile.getWidth()) &&
-                    player.getPosX() >= tile.getPosX() &&
-                    (player.getPosY() + player.getHeight()) <= (tile.getPosY() + tile.getHeight()) &&
-                    (player.getPosY() + player.getHeight()) >= tile.getPosY()) {
-                Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getBufferId(), tile.getTileId(), false);
-
-                highlightTile.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(Constants.USER_DIR + "/Assets/Images/highlight.png"), highlightTile.getHeight(), highlightTile.getWidth()));
-                Renderer.drawSprite(highlightTile, 0);
-            }
-            if ((player.getPosX() + player.getWidth()) <= (tile.getPosX() + tile.getWidth()) &&
-                    (player.getPosX() + player.getWidth()) >= tile.getPosX() &&
-                    (player.getPosY() + player.getHeight()) <= (tile.getPosY() + tile.getHeight()) &&
-                    (player.getPosY() + player.getHeight()) >= tile.getPosY()) {
-                Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getBufferId(), tile.getTileId(), false);
-
-                highlightTile.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(Constants.USER_DIR + "/Assets/Images/highlight.png"), highlightTile.getHeight(), highlightTile.getWidth()));
-                Renderer.drawSprite(highlightTile, 0);
-            }
-        }
+	for (Tile tile : highlightList)
+	    {
+		Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getBufferId(), tile.getTileId(), false);
+		highlightTile.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(Constants.USER_DIR + "/Assets/Images/highlight.png"), highlightTile.getHeight(), highlightTile.getWidth()));
+		Renderer.drawSprite(highlightTile, 0);
+	    }
     }
 
-
-
-    //TODO: optimize me - this is not a good way but is all we have atm. This logic is used in multiple places
-    //Need to consolidate.
     private List<Tile> getOccupiedTiles(Unit player, Scene currentScene) {
-        List<Tile> occupiedTiles = new ArrayList<Tile>();
-        for (Tile tile : currentScene.getTileList()) {
-            if (player.getPosX() <= (tile.getPosX() + tile.getWidth()) &&
-                    player.getPosX() >= tile.getPosX() &&
-                    player.getPosY() <= (tile.getPosY() + tile.getHeight()) &&
-                    player.getPosY() >= tile.getPosY()) {
-                occupiedTiles.add(tile);
-            }
+        Map<Integer, Tile> occupiedTiles = new HashMap<>();
 
-            if ((player.getPosX() + player.getWidth()) <= (tile.getPosX() + tile.getWidth()) &&
-                    (player.getPosX() + player.getWidth()) >= tile.getPosX() &&
-                    player.getPosY() <= (tile.getPosY() + tile.getHeight()) &&
-                    player.getPosY() >= tile.getPosY()) {
-                if (!occupiedTiles.contains(tile)) {
-                    occupiedTiles.add(tile);
-                }
-            }
-
-            if (player.getPosX() <= (tile.getPosX() + tile.getWidth()) &&
-                    player.getPosX() >= tile.getPosX() &&
-                    (player.getPosY() + player.getHeight()) <= (tile.getPosY() + tile.getHeight()) &&
-                    (player.getPosY() + player.getHeight()) >= tile.getPosY()) {
-                if (!occupiedTiles.contains(tile)) {
-                    occupiedTiles.add(tile);
-                }
-            }
-
-            if ((player.getPosX() + player.getWidth()) <= (tile.getPosX() + tile.getWidth()) &&
-                    (player.getPosX() + player.getWidth()) >= tile.getPosX() &&
-                    (player.getPosY() + player.getHeight()) <= (tile.getPosY() + tile.getHeight()) &&
-                    (player.getPosY() + player.getHeight()) >= tile.getPosY()) {
-                if (!occupiedTiles.contains(tile)) {
-                    occupiedTiles.add(tile);
-                }
-            }
-
-        }
-
-        return occupiedTiles;
+	int playerBottomLeftX = (int) (player.getPosX() / 80);
+	int playerBottomLeftY = (int) (player.getPosY() / 80);
+	int tileId = playerBottomLeftX * 8 + playerBottomLeftY;
+	occupiedTiles.put(tileId, currentScene.getTileList().get(tileId));
+	
+	int playerBottomRightX = (int) ((player.getPosX() + player.getWidth()) / 80);
+	int playerBottomRightY = (int) (player.getPosY() / 80);
+	tileId = playerBottomRightX * 8 + playerBottomRightY;
+	occupiedTiles.put(tileId, currentScene.getTileList().get(tileId));
+	
+	int playerUpperLeftX = (int) (player.getPosX() / 80);
+	int playerUpperLeftY = (int) ((player.getPosY() + player.getHeight()) / 80);
+	tileId = playerUpperLeftX * 8 + playerUpperLeftY;
+	occupiedTiles.put(tileId, currentScene.getTileList().get(tileId));
+	
+	int playerUpperRightX = (int) ((player.getPosX() + player.getWidth()) / 80);
+	int playerUpperRightY = (int) ((player.getPosY() + player.getHeight()) / 80);
+	tileId = playerUpperRightX * 8 + playerUpperRightY;
+	occupiedTiles.put(tileId, currentScene.getTileList().get(tileId));
+	
+        return new ArrayList<>(occupiedTiles.values());
     }
 
     public void printToWindow(GraphicsUtil gu, String message, float posX, float posY, boolean leftToRight) {
