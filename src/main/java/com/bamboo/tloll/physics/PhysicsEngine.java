@@ -64,10 +64,7 @@ public final class PhysicsEngine
 		    }
 
 	    }
-	
-	System.out.println("Player X: " + player.getPosX());
-	System.out.println("Player Y: " + player.getPosY());
-	System.out.println("Center coords: " + player.getCenterX() + "," + player.getCenterY());
+
     }
 
     // Bind the player to the X dimension of the board.

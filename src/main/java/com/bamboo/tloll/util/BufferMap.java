@@ -65,17 +65,13 @@ public final class BufferMap {
         return ImmutableMap.copyOf(idToSpriteBufferMap);
     }
 
-    //TODO: make the GU call into a singleton
-    public SpriteBuffer getSprteBuffer(String id, GraphicsUtil gu) {
+    public SpriteBuffer getSpriteBuffer(String id) {
+        GraphicsUtil gu = GraphicsUtil.getInstance();
         if(idToSpriteBufferMap.get(id) == null) {
             SpriteBuffer sBuffer = new SpriteBuffer(gu.loadTexture(Constants.USER_DIR + idToPathBufferMap.get(id)), Constants.TILE_HEIGHT, Constants.TILE_WIDTH);
             idToSpriteBufferMap.put(id, sBuffer);
         }
 
-        return idToSpriteBufferMap.get(id);
-    }
-
-    private SpriteBuffer getSprteBuffer(String id) {
         return idToSpriteBufferMap.get(id);
     }
 
