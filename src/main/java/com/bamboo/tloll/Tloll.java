@@ -1,5 +1,7 @@
 package com.bamboo.tloll;
 
+import com.bamboo.tloll.graphics.structure.WorldMap;
+
 import com.bamboo.tloll.debug.Logger;
 import com.bamboo.tloll.graphics.*;
 import com.bamboo.tloll.input.Input;
@@ -74,7 +76,10 @@ public class Tloll {
         userHero = new Unit(100.0f, 100.0f, 32, 32, 0.5f, 0.0f, 0.0f, 0.0f, Direction.DOWN);
         userHero.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(Constants.USER_DIR + "/Assets/Actors/panda_f_base.png"), userHero.getHeight(), userHero.getWidth(), 4, 4));
 
-        //currentScene = Renderer.loadTileBuffers(); //This does the initial loading and kicks back the first scene
+	// NOTE(map) : We have this here because it was causing problems having int in drawCurrentScene
+	// as it reset the current scene to scene 0 every time.  Maybe move this elswhere???
+	WorldMap.getInstance().setCurrentScene(Renderer.loadTileBuffers());
+	
     }
 
     private void loop() {
@@ -108,14 +113,12 @@ public class Tloll {
         logger.displayPlayerInfo(userHero);
         logger.displayOccupiedTiles(userHero);
 
-
-
-        //TODO: fix handle player movement/scene transition.
-
         //TODO: update keyboard input
         //TODO: should we put input processing on its own thread ?
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
         in.pollInput(windowId, userHero);
+
+	SceneTransition.checkForTransition(userHero);
 
     }
 

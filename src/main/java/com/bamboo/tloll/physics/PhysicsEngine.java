@@ -17,7 +17,7 @@ public final class PhysicsEngine {
 
         if (!isOutOfBoundsX(player, deltaX) && isTilePassable(player, deltaX, deltaY, currentScene)) {
             player.setPosX(player.getPosX() + deltaX);
-
+	    player.setCenterX(player.getCenterX() + deltaX);
             if (moveInTileX(player, deltaX)) {
                 player.setRelativeTileX(player.getRelativeTileX() + deltaX);
             } else {
@@ -33,7 +33,7 @@ public final class PhysicsEngine {
 
         if (!isOutOfBoundsY(player, deltaY) && isTilePassable(player, deltaX, deltaY, currentScene)) {
             player.setPosY(player.getPosY() + deltaY);
-
+	    player.setCenterY(player.getCenterY() + deltaY);
             if (moveInTileY(player, deltaY)) {
                 player.setRelativeTileY(player.getRelativeTileY() + deltaY);
             } else {
@@ -61,7 +61,6 @@ public final class PhysicsEngine {
         }
         player.setOutOfBoundsRight(false);
         player.setOutOfBoundsLeft(false);
-        player.setCenterX(player.getCenterX() + deltaX);
         return false;
     }
 
@@ -76,7 +75,6 @@ public final class PhysicsEngine {
         }
         player.setOutOfBoundsUp(false);
         player.setOutOfBoundsDown(false);
-        player.setCenterY(player.getCenterY() + deltaY);
         return false;
     }
 

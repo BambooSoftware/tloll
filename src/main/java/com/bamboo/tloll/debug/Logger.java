@@ -90,7 +90,7 @@ public class Logger {
 	    }
     }
 
-    private List<Tile> getOccupiedTiles(Unit player) {
+    public List<Tile> getOccupiedTiles(Unit player) {
 	WorldMap wm = WorldMap.getInstance();
 	
 	Map<Integer, Tile> occupiedTiles = new HashMap<>();

@@ -211,8 +211,7 @@ public final class Renderer {
     }
 
     public static void drawCurrentScene() {
-	WorldMap.getInstance().setCurrentScene(loadTileBuffers());
-        for (Tile tile : WorldMap.getInstance().getCurrentScene().getTileList()) {
+	for (Tile tile : WorldMap.getInstance().getCurrentScene().getTileList()) {
             drawSprite(tile, 0);
         }
     }
