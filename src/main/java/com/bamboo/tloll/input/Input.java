@@ -20,7 +20,7 @@ public class Input {
      * The slick callback wont wory because its too laggy with the difference between key press and key repeat.
      * Functionally useless.
      */
-    List<Character> inputList = new ArrayList<>();
+    List<Integer> inputList = new ArrayList<>();
 
     public void pollInput(long windowId, Unit player) {
         handleKeyPresses(windowId, player);
@@ -36,52 +36,52 @@ public class Input {
 
     private void handleKeyW(Unit player) {
         if (KeyboardHandler.isKeyDown(GLFW_KEY_W)) {
-            registerSimultaneousKeyInput('W');
+            registerSimultaneousKeyInput(GLFW_KEY_W);
             keyPressW(player);
         } else {
             keyReleaseW(player);
-            unregisterSimultaneousKeyInput('W');
+            unregisterSimultaneousKeyInput(GLFW_KEY_W);
         }
     }
 
     private void handleKeyS(Unit player) {
         if (KeyboardHandler.isKeyDown(GLFW_KEY_S)) {
-            registerSimultaneousKeyInput('S');
+            registerSimultaneousKeyInput(GLFW_KEY_S);
             keyPressS(player);
         } else {
             keyReleaseS(player);
-            unregisterSimultaneousKeyInput('S');
+            unregisterSimultaneousKeyInput(GLFW_KEY_S);
         }
     }
 
     private void handleKeyA(Unit player) {
         if (KeyboardHandler.isKeyDown(GLFW_KEY_A)) {
-            registerSimultaneousKeyInput('A');
+            registerSimultaneousKeyInput(GLFW_KEY_A);
             keyPressA(player);
         } else {
             keyReleaseA(player);
-            unregisterSimultaneousKeyInput('A');
+            unregisterSimultaneousKeyInput(GLFW_KEY_A);
         }
     }
 
     private void handleKeyD(Unit player) {
         if (KeyboardHandler.isKeyDown(GLFW_KEY_D)) {
-            registerSimultaneousKeyInput('D');
+            registerSimultaneousKeyInput(GLFW_KEY_D);
             keyPressD(player);
         } else {
             keyReleaseD(player);
-            unregisterSimultaneousKeyInput('D');
+            unregisterSimultaneousKeyInput(GLFW_KEY_D);
         }
     }
 
-    private void registerSimultaneousKeyInput(Character c) {
-        if (!inputList.contains(c)) {
-            inputList.add(c);
+    private void registerSimultaneousKeyInput(Integer i) {
+        if (!inputList.contains(i)) {
+            inputList.add(i);
         }
     }
 
-    private void unregisterSimultaneousKeyInput(Character c) {
-        inputList.remove(c);
+    private void unregisterSimultaneousKeyInput(Integer i) {
+        inputList.remove(i);
     }
 
 
