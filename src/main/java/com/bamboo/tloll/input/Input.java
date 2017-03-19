@@ -35,59 +35,61 @@ public class Input {
     }
 
     private void handleKeyW(Unit player) {
-        if(KeyboardHandler.isKeyDown(GLFW_KEY_W)) {
-	    if (inputList.indexOf('W') == -1)
-		inputList.add('W');
-	    keyPressW(player);
+        if (KeyboardHandler.isKeyDown(GLFW_KEY_W)) {
+            registerSimultaneousKeyInput('W');
+            keyPressW(player);
         } else {
-	    keyReleaseW(player);
-	    if (inputList.indexOf('W') != -1)
-		inputList.remove(inputList.indexOf('W'));
+            keyReleaseW(player);
+            unregisterSimultaneousKeyInput('W');
         }
     }
 
     private void handleKeyS(Unit player) {
-        if(KeyboardHandler.isKeyDown(GLFW_KEY_S)) {
-	    if (inputList.indexOf('S') == -1)
-		inputList.add('S');
+        if (KeyboardHandler.isKeyDown(GLFW_KEY_S)) {
+            registerSimultaneousKeyInput('S');
             keyPressS(player);
         } else {
             keyReleaseS(player);
-	    if (inputList.indexOf('S') != -1)
-		inputList.remove(inputList.indexOf('S'));
+            unregisterSimultaneousKeyInput('S');
         }
     }
 
     private void handleKeyA(Unit player) {
-        if(KeyboardHandler.isKeyDown(GLFW_KEY_A)) {
-	    if (inputList.indexOf('A') == -1)
-		inputList.add('A');
-	    keyPressA(player);
+        if (KeyboardHandler.isKeyDown(GLFW_KEY_A)) {
+            registerSimultaneousKeyInput('A');
+            keyPressA(player);
         } else {
             keyReleaseA(player);
-	    if (inputList.indexOf('A') != -1)
-		inputList.remove(inputList.indexOf('A'));
+            unregisterSimultaneousKeyInput('A');
         }
     }
 
     private void handleKeyD(Unit player) {
-        if(KeyboardHandler.isKeyDown(GLFW_KEY_D)) {
-	    if (inputList.indexOf('D') == -1)
-		inputList.add('D');
+        if (KeyboardHandler.isKeyDown(GLFW_KEY_D)) {
+            registerSimultaneousKeyInput('D');
             keyPressD(player);
         } else {
             keyReleaseD(player);
-	    if (inputList.indexOf('D') != -1)
-		inputList.remove(inputList.indexOf('D'));
+            unregisterSimultaneousKeyInput('D');
         }
+    }
+
+    private void registerSimultaneousKeyInput(Character c) {
+        if (!inputList.contains(c)) {
+            inputList.add(c);
+        }
+    }
+
+    private void unregisterSimultaneousKeyInput(Character c) {
+        inputList.remove(c);
     }
 
 
     private void keyPressW(Unit player) {
-	System.out.println("Speed Y : " + (Constants.MAX_SPEED_Y * (1.0F / inputList.size())));
+        System.out.println("Speed Y : " + (Constants.MAX_SPEED_Y * (1.0F / inputList.size())));
         player.setSpeedY(player.getSpeedY() + player.getAcceleration());
         if (player.getSpeedY() > (Constants.MAX_SPEED_Y * (1.0F / inputList.size()))) {
-	    player.setSpeedY(Constants.MAX_SPEED_Y * (1.0F / inputList.size()));
+            player.setSpeedY(Constants.MAX_SPEED_Y * (1.0F / inputList.size()));
         }
         PhysicsEngine.movePlayer(player, player.getSpeedX(), player.getSpeedY());
         player.setDirection(Direction.UP);
@@ -163,7 +165,6 @@ public class Input {
     }
 
 
-
     private void keyPressD(Unit player) {
         player.setSpeedX(player.getSpeedX() + player.getAcceleration());
         if (player.getSpeedX() > (Constants.MAX_SPEED_X * (1.0F / inputList.size()))) {
@@ -192,7 +193,7 @@ public class Input {
 
 
     private void keyPressEscape(long windowId) {
-        if(KeyboardHandler.isKeyDown(GLFW_KEY_ESCAPE)) {
+        if (KeyboardHandler.isKeyDown(GLFW_KEY_ESCAPE)) {
             glfwSetWindowShouldClose(windowId, true);
         }
     }
