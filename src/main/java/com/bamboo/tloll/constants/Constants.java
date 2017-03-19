@@ -1,4 +1,4 @@
-package com.bamboo.tloll;
+package com.bamboo.tloll.constants;
 
 public final class Constants
 {
@@ -19,6 +19,14 @@ public final class Constants
     public static final int TILE_HEIGHT = 80;
 
     public static final String USER_DIR = System.getProperty("user.dir");
+
+    // NOTE(map) : These speeds are based on average human running speed in m/s.  This also assumes
+    // that 1 pixel is equivalent to 1 meter game space.
+    //TODO: maybe these should be heroUnit attributes?
+    public static final float MAX_SPEED_X = 7.0f;
+    public static final float MIN_SPEED_X = -7.0f;
+    public static final float MAX_SPEED_Y = 7.0f;
+    public static final float MIN_SPEED_Y = -7.0f;
 
 
 }

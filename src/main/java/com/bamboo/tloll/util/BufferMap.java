@@ -1,6 +1,7 @@
 package com.bamboo.tloll.util;
 
-import com.bamboo.tloll.Constants;
+import com.bamboo.tloll.constants.Constants;
+import com.bamboo.tloll.constants.JsonConstants;
 import com.bamboo.tloll.graphics.GraphicsUtil;
 import com.bamboo.tloll.graphics.SpriteBuffer;
 import com.google.common.collect.ImmutableMap;
@@ -37,22 +38,17 @@ public final class BufferMap {
 
         Map<String, String> bufferMap = new HashMap<>();
 
-        //TODO replace me with try with resources. Also see what needs to be closed for the exception on file load.
         try  {
-            String contents = new String(Files.readAllBytes(Paths.get(Constants.USER_DIR+ "/Configs/Buffers/buffer_map.json")));
+            byte[] contents = Files.readAllBytes(Paths.get(Constants.USER_DIR + JsonConstants.BUFFER_MAP_PATH));
+            JSONObject jsonObject = new JSONObject(new String(contents));
 
-            // Grab the world object as a whole from the JSON.
-            JSONObject jsonObject = new JSONObject(contents);
-
-            // Get the actual world within the JSON file.
-            JSONArray bufferMapConfig = jsonObject.getJSONArray("bufferMap");
+            JSONArray bufferMapConfig = jsonObject.getJSONArray(JsonConstants.BUFFER_MAP);
             for(int i = 0; i < bufferMapConfig.length(); ++i ) {
                 JSONObject bufferItem = bufferMapConfig.getJSONObject(i);
-                String id = bufferItem.getString("id");
-                String path = bufferItem.getString("path");
+                String id = bufferItem.getString(JsonConstants.ID);
+                String path = bufferItem.getString(JsonConstants.PATH);
                 bufferMap.put(id, path);
             }
-
         }  catch (IOException e)  {
             e.printStackTrace();
         }  catch (JSONException e)  {
@@ -65,17 +61,13 @@ public final class BufferMap {
         return ImmutableMap.copyOf(idToSpriteBufferMap);
     }
 
-    //TODO: make the GU call into a singleton
-    public SpriteBuffer getSprteBuffer(String id, GraphicsUtil gu) {
+    public SpriteBuffer getSpriteBuffer(String id) {
+        GraphicsUtil gu = GraphicsUtil.getInstance();
         if(idToSpriteBufferMap.get(id) == null) {
             SpriteBuffer sBuffer = new SpriteBuffer(gu.loadTexture(Constants.USER_DIR + idToPathBufferMap.get(id)), Constants.TILE_HEIGHT, Constants.TILE_WIDTH);
             idToSpriteBufferMap.put(id, sBuffer);
         }
 
-        return idToSpriteBufferMap.get(id);
-    }
-
-    private SpriteBuffer getSprteBuffer(String id) {
         return idToSpriteBufferMap.get(id);
     }
 
