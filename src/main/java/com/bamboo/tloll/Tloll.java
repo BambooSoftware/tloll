@@ -2,7 +2,6 @@ package com.bamboo.tloll;
 
 import com.bamboo.tloll.debug.Logger;
 import com.bamboo.tloll.graphics.*;
-import com.bamboo.tloll.graphics.structure.WorldMap;
 import com.bamboo.tloll.input.Input;
 import com.bamboo.tloll.input.KeyboardHandler;
 import org.lwjgl.glfw.GLFWKeyCallback;

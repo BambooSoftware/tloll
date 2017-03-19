@@ -10,6 +10,7 @@ import static org.lwjgl.glfw.GLFW.*;
 public class Input {
 
     //TODO: need to fix vector math - diag movement is really really fast
+    //TODO: Also direct movement may be better served inside the player. tbd.
 
     /*
      * The slick callback wont wory because its too laggy with the difference between key press and key repeat.
