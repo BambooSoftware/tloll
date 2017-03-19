@@ -72,7 +72,7 @@ public class Tloll {
         //TODO: May be able to further refactor stuff below but unsure atm so just keeping them!
 
         // Sample squares that probably won't stick around.
-        userHero = new Unit(100.0f, 100.0f, 32, 32, 0.5f, 0.0f, 0.0f, 0.0f, Direction.DOWN);
+        userHero = new Unit(100.0f, 100.0f, 32, 32, 2.0f, 0.0f, 0.0f, 0.0f, Direction.DOWN);
         userHero.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(Constants.USER_DIR + "/Assets/Actors/panda_f_base.png"), userHero.getHeight(), userHero.getWidth(), 4, 4));
 
         currentScene = Renderer.loadTileBuffers(); //This does the initial loading and kicks back the first scene
