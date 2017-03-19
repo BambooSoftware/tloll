@@ -25,8 +25,7 @@ public final class Renderer {
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (int) unit.getWidth(), (int) unit.getHeight(), 0, GL_RGBA,
-                GL_UNSIGNED_BYTE, unit.getBufferMap().get(bufferId).getByteBuffer());
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (int) unit.getWidth(), (int) unit.getHeight(), 0, GL_RGBA,GL_UNSIGNED_BYTE, unit.getBufferMap().get(bufferId).getByteBuffer());
         glBegin(GL_QUADS);
         glTexCoord2f(0.0f, 1.0f);
         glVertex3f(unit.getPosX(), unit.getPosY(), 0.0f);
@@ -211,8 +210,9 @@ public final class Renderer {
         }
     }
 
-    public static void drawScene(Scene scene) {
-        for (Tile tile : scene.getTileList()) {
+    public static void drawCurrentScene() {
+	WorldMap.getInstance().setCurrentScene(loadTileBuffers());
+        for (Tile tile : WorldMap.getInstance().getCurrentScene().getTileList()) {
             drawSprite(tile, 0);
         }
     }

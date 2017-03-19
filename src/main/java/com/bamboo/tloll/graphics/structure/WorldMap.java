@@ -5,6 +5,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.bamboo.tloll.graphics.Renderer;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -17,6 +19,7 @@ public class WorldMap {
 
     private static WorldMap instance;
     private Map<Integer, Scene> sceneMap;
+    private Scene currentScene;
 
     public static WorldMap getInstance() {
         if (instance == null) {
@@ -27,12 +30,22 @@ public class WorldMap {
 
     private WorldMap() {
         sceneMap = loadMapFromJson();
+	currentScene = sceneMap.get(0);
     }
 
     public Map<Integer, Scene> getSceneMap() {
         return sceneMap;
     }
 
+    public Scene getCurrentScene()
+    {
+	return currentScene;
+    }
+
+    public void setCurrentScene(Scene currentScene)
+    {
+	this.currentScene = currentScene;
+    }
 
     private Map<Integer, Scene> loadMapFromJson() {
         Map<Integer, Scene> sceneMap = new HashMap<>();
