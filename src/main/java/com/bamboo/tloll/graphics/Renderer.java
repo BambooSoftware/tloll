@@ -1,6 +1,6 @@
 package com.bamboo.tloll.graphics;
 
-import com.bamboo.tloll.Constants;
+import com.bamboo.tloll.constants.Constants;
 import com.bamboo.tloll.graphics.structure.Scene;
 import com.bamboo.tloll.graphics.structure.Tile;
 import com.bamboo.tloll.graphics.structure.WorldMap;

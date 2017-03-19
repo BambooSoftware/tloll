@@ -1,11 +1,10 @@
 package com.bamboo.tloll.debug;
 
-import com.bamboo.tloll.Constants;
+import com.bamboo.tloll.constants.Constants;
 import com.bamboo.tloll.graphics.GraphicsUtil;
 import com.bamboo.tloll.graphics.Renderer;
 import com.bamboo.tloll.graphics.SpriteBuffer;
 import com.bamboo.tloll.graphics.Unit;
-import com.bamboo.tloll.graphics.structure.Scene;
 import com.bamboo.tloll.graphics.structure.Tile;
 import com.bamboo.tloll.graphics.structure.WorldMap;
 

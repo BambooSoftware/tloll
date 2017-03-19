@@ -15,8 +15,6 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class GraphicsUtil {
 
-    //TODO: make this call into a singleton
-
     private static GraphicsUtil _instance;
 
     public static GraphicsUtil getInstance() {

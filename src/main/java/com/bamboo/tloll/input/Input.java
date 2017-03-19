@@ -1,6 +1,6 @@
 package com.bamboo.tloll.input;
 
-import com.bamboo.tloll.Constants;
+import com.bamboo.tloll.constants.Constants;
 import com.bamboo.tloll.graphics.Direction;
 import com.bamboo.tloll.graphics.Unit;
 import com.bamboo.tloll.physics.PhysicsEngine;

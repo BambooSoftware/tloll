@@ -1,9 +1,9 @@
 package com.bamboo.tloll;
 
-import com.bamboo.tloll.graphics.structure.WorldMap;
-
+import com.bamboo.tloll.constants.Constants;
 import com.bamboo.tloll.debug.Logger;
 import com.bamboo.tloll.graphics.*;
+import com.bamboo.tloll.graphics.structure.WorldMap;
 import com.bamboo.tloll.input.Input;
 import com.bamboo.tloll.input.KeyboardHandler;
 import org.lwjgl.glfw.GLFWKeyCallback;
@@ -41,7 +41,6 @@ public class Tloll {
     }
 
     private void init() {
-        //TODO
         GraphicsUtil gu = GraphicsUtil.getInstance();
         gu.initializeGL();
         glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
@@ -71,7 +70,6 @@ public class Tloll {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         //TODO: May be able to further refactor stuff below but unsure atm so just keeping them!
-
         // Sample squares that probably won't stick around.
         userHero = new Unit(100.0f, 100.0f, 32, 32, 0.5f, 0.0f, 0.0f, 0.0f, Direction.DOWN);
         userHero.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(Constants.USER_DIR + "/Assets/Actors/panda_f_base.png"), userHero.getHeight(), userHero.getWidth(), 4, 4));
@@ -113,13 +111,10 @@ public class Tloll {
         logger.displayPlayerInfo(userHero);
         logger.displayOccupiedTiles(userHero);
 
-        //TODO: update keyboard input
         //TODO: should we put input processing on its own thread ?
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
         in.pollInput(windowId, userHero);
-
-	SceneTransition.checkForTransition(userHero);
-
+    	SceneTransition.checkForTransition(userHero);
     }
 
 }
