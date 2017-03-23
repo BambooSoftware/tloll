@@ -223,6 +223,7 @@ public class Unit extends Sprite {
         int numberOfSInputs  = getNumberOfSimultaneousInputs();
 
         //TODO: abstract away the speed calculation to be generic ?
+        //TODO: also load max speeds on a per player basis
         setSpeedY(getSpeedY() + getAcceleration());
         if (getSpeedY() > (Constants.MAX_SPEED_Y * (1.0F / numberOfSInputs))) {
             setSpeedY(Constants.MAX_SPEED_Y * (1.0F / numberOfSInputs));
