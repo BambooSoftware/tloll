@@ -12,7 +12,10 @@ public final class PhysicsEngine {
         // Empty constructor.
     }
 
-    public static void movePlayer(Unit player, float deltaX, float deltaY) {
+    public static void movePlayer(Unit player) {
+
+        float deltaX = player.getSpeedX();
+        float deltaY = player.getSpeedY();
         Scene currentScene = WorldMap.getInstance().getCurrentScene();
 
         if (!isOutOfBoundsX(player, deltaX) && isTilePassable(player, deltaX, deltaY, currentScene)) {
