@@ -5,9 +5,6 @@ import com.bamboo.tloll.graphics.Direction;
 import com.bamboo.tloll.graphics.Unit;
 import com.bamboo.tloll.physics.PhysicsEngine;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import static org.lwjgl.glfw.GLFW.*;
 
 public class Input {
@@ -17,11 +14,9 @@ public class Input {
     //TODO: Also direct movement may be better served inside the player. tbd.
 
     /*
-     * The slick callback wont wory because its too laggy with the difference between key press and key repeat.
+     * The slick callback wont work because its too laggy with the difference between key press and key repeat.
      * Functionally useless.
      */
-    List<Integer> inputList = new ArrayList<>();
-
     public void pollInput(long windowId, Unit player) {
         handleKeyPresses(windowId, player);
     }
@@ -36,60 +31,44 @@ public class Input {
 
     private void handleKeyW(Unit player) {
         if (KeyboardHandler.isKeyDown(GLFW_KEY_W)) {
-            registerSimultaneousKeyInput(GLFW_KEY_W);
             keyPressW(player);
         } else {
             keyReleaseW(player);
-            unregisterSimultaneousKeyInput(GLFW_KEY_W);
         }
     }
 
     private void handleKeyS(Unit player) {
         if (KeyboardHandler.isKeyDown(GLFW_KEY_S)) {
-            registerSimultaneousKeyInput(GLFW_KEY_S);
             keyPressS(player);
         } else {
             keyReleaseS(player);
-            unregisterSimultaneousKeyInput(GLFW_KEY_S);
         }
     }
 
     private void handleKeyA(Unit player) {
         if (KeyboardHandler.isKeyDown(GLFW_KEY_A)) {
-            registerSimultaneousKeyInput(GLFW_KEY_A);
             keyPressA(player);
         } else {
             keyReleaseA(player);
-            unregisterSimultaneousKeyInput(GLFW_KEY_A);
         }
     }
 
     private void handleKeyD(Unit player) {
         if (KeyboardHandler.isKeyDown(GLFW_KEY_D)) {
-            registerSimultaneousKeyInput(GLFW_KEY_D);
             keyPressD(player);
         } else {
             keyReleaseD(player);
-            unregisterSimultaneousKeyInput(GLFW_KEY_D);
         }
     }
-
-    private void registerSimultaneousKeyInput(Integer i) {
-        if (!inputList.contains(i)) {
-            inputList.add(i);
-        }
-    }
-
-    private void unregisterSimultaneousKeyInput(Integer i) {
-        inputList.remove(i);
-    }
-
 
     private void keyPressW(Unit player) {
-        System.out.println("Speed Y : " + (Constants.MAX_SPEED_Y * (1.0F / inputList.size())));
+
+        int numberOfSInputs  = getNumberOfSimultaneousInputs();
+
+        System.out.println("Speed Y : " + (Constants.MAX_SPEED_Y * (1.0F / numberOfSInputs)));
         player.setSpeedY(player.getSpeedY() + player.getAcceleration());
-        if (player.getSpeedY() > (Constants.MAX_SPEED_Y * (1.0F / inputList.size()))) {
-            player.setSpeedY(Constants.MAX_SPEED_Y * (1.0F / inputList.size()));
+        if (player.getSpeedY() > (Constants.MAX_SPEED_Y * (1.0F / numberOfSInputs))) {
+            player.setSpeedY(Constants.MAX_SPEED_Y * (1.0F / numberOfSInputs));
         }
         PhysicsEngine.movePlayer(player, player.getSpeedX(), player.getSpeedY());
         player.setDirection(Direction.UP);
@@ -113,9 +92,12 @@ public class Input {
 
     private void keyPressS(Unit player) {
 
+        int numberOfSInputs  = getNumberOfSimultaneousInputs();
+
+
         player.setSpeedY(player.getSpeedY() - player.getAcceleration());
-        if (player.getSpeedY() < (Constants.MIN_SPEED_Y * (1.0F / inputList.size()))) {
-            player.setSpeedY(Constants.MIN_SPEED_Y * (1.0F / inputList.size()));
+        if (player.getSpeedY() < (Constants.MIN_SPEED_Y * (1.0F / numberOfSInputs))) {
+            player.setSpeedY(Constants.MIN_SPEED_Y * (1.0F / numberOfSInputs));
         }
         PhysicsEngine.movePlayer(player, player.getSpeedX(), player.getSpeedY());
         player.setDirection(Direction.DOWN);
@@ -139,9 +121,13 @@ public class Input {
     }
 
     private void keyPressA(Unit player) {
+
+        int numberOfSInputs  = getNumberOfSimultaneousInputs();
+
+
         player.setSpeedX(player.getSpeedX() - player.getAcceleration());
-        if (player.getSpeedX() < (Constants.MIN_SPEED_X * (1.0F / inputList.size()))) {
-            player.setSpeedX(Constants.MIN_SPEED_X * (1.0F / inputList.size()));
+        if (player.getSpeedX() < (Constants.MIN_SPEED_X * (1.0F / numberOfSInputs))) {
+            player.setSpeedX(Constants.MIN_SPEED_X * (1.0F / numberOfSInputs));
         }
         PhysicsEngine.movePlayer(player, player.getSpeedX(), player.getSpeedY());
         player.setDirection(Direction.LEFT);
@@ -166,9 +152,13 @@ public class Input {
 
 
     private void keyPressD(Unit player) {
+
+        int numberOfSInputs  = getNumberOfSimultaneousInputs();
+
+
         player.setSpeedX(player.getSpeedX() + player.getAcceleration());
-        if (player.getSpeedX() > (Constants.MAX_SPEED_X * (1.0F / inputList.size()))) {
-            player.setSpeedX(Constants.MAX_SPEED_X * (1.0F / inputList.size()));
+        if (player.getSpeedX() > (Constants.MAX_SPEED_X * (1.0F / numberOfSInputs))) {
+            player.setSpeedX(Constants.MAX_SPEED_X * (1.0F / numberOfSInputs));
         }
         PhysicsEngine.movePlayer(player, player.getSpeedX(), player.getSpeedY());
         player.setDirection(Direction.RIGHT);
@@ -196,6 +186,17 @@ public class Input {
         if (KeyboardHandler.isKeyDown(GLFW_KEY_ESCAPE)) {
             glfwSetWindowShouldClose(windowId, true);
         }
+    }
+
+    //TODO: when the movement is refactored out perhaps we can have the players "input" choices be on a list.
+    //TODO: that would help facilitate this to be more configurable in the future.
+    private int getNumberOfSimultaneousInputs() {
+        return  asInt(KeyboardHandler.isKeyDown(GLFW_KEY_W)) + asInt(KeyboardHandler.isKeyDown(GLFW_KEY_S)) +
+                asInt(KeyboardHandler.isKeyDown(GLFW_KEY_A)) + asInt(KeyboardHandler.isKeyDown(GLFW_KEY_D));
+    }
+
+    private int asInt(boolean b) {
+        return b ? 1 : 0;
     }
 
 }
