@@ -9,4 +9,8 @@ public final class Utilities {
         return Math.round(src);
     }
 
+    public static int asInt(boolean b) {
+        return b ? 1 : 0;
+    }
+
 }
