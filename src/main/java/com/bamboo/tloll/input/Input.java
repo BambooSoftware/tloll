@@ -65,7 +65,6 @@ public class Input {
 
         int numberOfSInputs  = getNumberOfSimultaneousInputs();
 
-        System.out.println("Speed Y : " + (Constants.MAX_SPEED_Y * (1.0F / numberOfSInputs)));
         player.setSpeedY(player.getSpeedY() + player.getAcceleration());
         if (player.getSpeedY() > (Constants.MAX_SPEED_Y * (1.0F / numberOfSInputs))) {
             player.setSpeedY(Constants.MAX_SPEED_Y * (1.0F / numberOfSInputs));
