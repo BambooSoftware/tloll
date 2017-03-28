@@ -194,9 +194,9 @@ public class Unit extends Sprite {
         //TODO: abstract away the speed calculation to be generic ?
         //TODO: also load max speeds on a per player basis
 	setUnitVector(getUnitVector().add(v3));
-	if (getUnitVector().getYComponent() > (Constants.MAX_SPEED_X * (1.0F / numberOfSInputs)))
+	if (getUnitVector().getYComponent() > (Constants.MAX_PLAYER_SPEED_UP * (1.0F / numberOfSInputs)))
 	    {
-		getUnitVector().setYComponent(Constants.MAX_SPEED_X * (1.0F / numberOfSInputs));
+		getUnitVector().setYComponent(Constants.MAX_PLAYER_SPEED_UP * (1.0F / numberOfSInputs));
 	    }
         PhysicsEngine.movePlayer(this);
         setDirection(Direction.UP);
@@ -220,9 +220,9 @@ public class Unit extends Sprite {
         int numberOfSInputs  = getNumberOfSimultaneousInputs();
 
 	setUnitVector(getUnitVector().add(v3));
-	if (getUnitVector().getYComponent() < (Constants.MIN_SPEED_X * (1.0F / numberOfSInputs)))
+	if (getUnitVector().getYComponent() < (Constants.MAX_PLAYER_SPEED_DOWN * (1.0F / numberOfSInputs)))
 	    {
-		getUnitVector().setYComponent(Constants.MIN_SPEED_X * (1.0F / numberOfSInputs));
+		getUnitVector().setYComponent(Constants.MAX_PLAYER_SPEED_DOWN * (1.0F / numberOfSInputs));
 	    }
         PhysicsEngine.movePlayer(this);
         setDirection(Direction.DOWN);
@@ -246,9 +246,9 @@ public class Unit extends Sprite {
         int numberOfSInputs  = getNumberOfSimultaneousInputs();
 
 	setUnitVector(getUnitVector().add(v3));
-	if (getUnitVector().getXComponent() < (Constants.MIN_SPEED_X * (1.0F / numberOfSInputs)))
+	if (getUnitVector().getXComponent() < (Constants.MAX_PLAYER_SPEED_LEFT * (1.0F / numberOfSInputs)))
 	    {
-		getUnitVector().setXComponent(Constants.MIN_SPEED_X * (1.0F / numberOfSInputs));
+		getUnitVector().setXComponent(Constants.MAX_PLAYER_SPEED_LEFT * (1.0F / numberOfSInputs));
 	    }
         PhysicsEngine.movePlayer(this);
         setDirection(Direction.LEFT);
@@ -272,9 +272,9 @@ public class Unit extends Sprite {
         int numberOfSInputs  = getNumberOfSimultaneousInputs();
 
 	setUnitVector(getUnitVector().add(v3));
-	if (getUnitVector().getXComponent() > (Constants.MAX_SPEED_X * (1.0F / numberOfSInputs)))
+	if (getUnitVector().getXComponent() > (Constants.MAX_PLAYER_SPEED_RIGHT * (1.0F / numberOfSInputs)))
 	    {
-		getUnitVector().setXComponent(Constants.MAX_SPEED_X * (1.0F / numberOfSInputs));
+		getUnitVector().setXComponent(Constants.MAX_PLAYER_SPEED_RIGHT * (1.0F / numberOfSInputs));
 	    }
         PhysicsEngine.movePlayer(this);
         setDirection(Direction.RIGHT);

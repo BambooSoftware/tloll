@@ -23,10 +23,10 @@ public final class Constants
     // NOTE(map) : These speeds are based on average human running speed in m/s.  This also assumes
     // that 1 pixel is equivalent to 1 meter game space.
     //TODO: maybe these should be heroUnit attributes?
-    public static final float MAX_SPEED_X = 7.0f;
-    public static final float MIN_SPEED_X = -7.0f;
-    public static final float MAX_SPEED_Y = 7.0f;
-    public static final float MIN_SPEED_Y = -7.0f;
+    public static final float MAX_PLAYER_SPEED_RIGHT = 7.0f;
+    public static final float MAX_PLAYER_SPEED_LEFT = -7.0f;
+    public static final float MAX_PLAYER_SPEED_UP = 7.0f;
+    public static final float MAX_PLAYER_SPEED_DOWN = -7.0f;
 
 
 }
