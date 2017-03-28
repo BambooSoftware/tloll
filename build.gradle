@@ -1,70 +1,73 @@
-import org.gradle.internal.os.OperatingSystem
-
-//https://github.com/badlogic/lwjgl3-maven-gradle
-//https://github.com/LWJGL/lwjgl3
 apply plugin: 'java'
 apply plugin: 'application'
 
 mainClassName = 'com.bamboo.tloll.Tloll'
 
-allprojects {
-	    sourceCompatibility = 1.8
-	    targetCompatibility = 1.8
-}
+import org.gradle.internal.os.OperatingSystem
 
 switch ( OperatingSystem.current() ) {
-       case OperatingSystem.WINDOWS:
-       	    applicationDefaultJvmArgs = ["-Djava.library.path=Dependencies/native_win32"]
-	           break
-       case OperatingSystem.LINUX:
-              applicationDefaultJvmArgs = ["-Djava.library.path=Dependencies/native_linux"]
-	             break
-       case OperatingSystem.MAC_OS:
-              applicationDefaultJvmArgs = ["-Djava.library.path=Dependencies/native_mac", "-XstartOnFirstThread"]
-	             break
+	case OperatingSystem.WINDOWS:
+		project.ext.lwjglNatives = "natives-windows"
+		break
+	case OperatingSystem.LINUX:
+		project.ext.lwjglNatives = "natives-linux"
+	break
+	case OperatingSystem.MAC_OS:
+		project.ext.lwjglNatives = "natives-macos"
+		break
 }
 
-// Add these properties to your Gradle script
-project.ext.lwjglVersion = "3.0.1-SNAPSHOT"
+project.ext.lwjglVersion = "3.1.1"
 
 repositories {
-// Add this repository to your Gradle script
-   maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-   mavenCentral()
+	mavenCentral()
 }
 
 dependencies {
+	compile "org.lwjgl:lwjgl:${lwjglVersion}"
+	compile "org.lwjgl:lwjgl-assimp:${lwjglVersion}"
+	compile "org.lwjgl:lwjgl-bgfx:${lwjglVersion}"
+	compile "org.lwjgl:lwjgl-egl:${lwjglVersion}"
+	compile "org.lwjgl:lwjgl-glfw:${lwjglVersion}"
+	compile "org.lwjgl:lwjgl-jawt:${lwjglVersion}"
+	compile "org.lwjgl:lwjgl-jemalloc:${lwjglVersion}"
+	compile "org.lwjgl:lwjgl-lmdb:${lwjglVersion}"
+	compile "org.lwjgl:lwjgl-nanovg:${lwjglVersion}"
+	compile "org.lwjgl:lwjgl-nfd:${lwjglVersion}"
+	compile "org.lwjgl:lwjgl-nuklear:${lwjglVersion}"
+	compile "org.lwjgl:lwjgl-openal:${lwjglVersion}"
+	compile "org.lwjgl:lwjgl-opencl:${lwjglVersion}"
+	compile "org.lwjgl:lwjgl-opengl:${lwjglVersion}"
+	compile "org.lwjgl:lwjgl-opengles:${lwjglVersion}"
+	compile "org.lwjgl:lwjgl-ovr:${lwjglVersion}"
+	compile "org.lwjgl:lwjgl-par:${lwjglVersion}"
+	compile "org.lwjgl:lwjgl-sse:${lwjglVersion}"
+	compile "org.lwjgl:lwjgl-stb:${lwjglVersion}"
+	compile "org.lwjgl:lwjgl-tinyfd:${lwjglVersion}"
+	compile "org.lwjgl:lwjgl-vulkan:${lwjglVersion}"
+	compile "org.lwjgl:lwjgl-xxhash:${lwjglVersion}"
+	runtime "org.lwjgl:lwjgl:${lwjglVersion}:${lwjglNatives}"
+	runtime "org.lwjgl:lwjgl-assimp:${lwjglVersion}:${lwjglNatives}"
+	runtime "org.lwjgl:lwjgl-bgfx:${lwjglVersion}:${lwjglNatives}"
+	runtime "org.lwjgl:lwjgl-glfw:${lwjglVersion}:${lwjglNatives}"
+	runtime "org.lwjgl:lwjgl-jemalloc:${lwjglVersion}:${lwjglNatives}"
+	runtime "org.lwjgl:lwjgl-lmdb:${lwjglVersion}:${lwjglNatives}"
+	runtime "org.lwjgl:lwjgl-nanovg:${lwjglVersion}:${lwjglNatives}"
+	runtime "org.lwjgl:lwjgl-nfd:${lwjglVersion}:${lwjglNatives}"
+	runtime "org.lwjgl:lwjgl-nuklear:${lwjglVersion}:${lwjglNatives}"
+	runtime "org.lwjgl:lwjgl-openal:${lwjglVersion}:${lwjglNatives}"
+	runtime "org.lwjgl:lwjgl-opengl:${lwjglVersion}:${lwjglNatives}"
+	runtime "org.lwjgl:lwjgl-opengles:${lwjglVersion}:${lwjglNatives}"
+	runtime "org.lwjgl:lwjgl-par:${lwjglVersion}:${lwjglNatives}"
+	runtime "org.lwjgl:lwjgl-sse:${lwjglVersion}:${lwjglNatives}"
+	runtime "org.lwjgl:lwjgl-stb:${lwjglVersion}:${lwjglNatives}"
+	runtime "org.lwjgl:lwjgl-tinyfd:${lwjglVersion}:${lwjglNatives}"
+	runtime "org.lwjgl:lwjgl-xxhash:${lwjglVersion}:${lwjglNatives}"
 
-// LWJGL dependencies START
-   compile "org.lwjgl:lwjgl:${lwjglVersion}"
-   compile "org.lwjgl:lwjgl-egl:${lwjglVersion}"
-   compile "org.lwjgl:lwjgl-glfw:${lwjglVersion}"
-   compile "org.lwjgl:lwjgl-jawt:${lwjglVersion}"
-   compile "org.lwjgl:lwjgl-jemalloc:${lwjglVersion}"
-   compile "org.lwjgl:lwjgl-lmdb:${lwjglVersion}"
-   compile "org.lwjgl:lwjgl-nanovg:${lwjglVersion}"
-   compile "org.lwjgl:lwjgl-nfd:${lwjglVersion}"
-   compile "org.lwjgl:lwjgl-nuklear:${lwjglVersion}"
-   compile "org.lwjgl:lwjgl-openal:${lwjglVersion}"
-   compile "org.lwjgl:lwjgl-opencl:${lwjglVersion}"
-   compile "org.lwjgl:lwjgl-opengl:${lwjglVersion}"
-   compile "org.lwjgl:lwjgl-opengles:${lwjglVersion}"
-   compile "org.lwjgl:lwjgl-ovr:${lwjglVersion}"
-   compile "org.lwjgl:lwjgl-par:${lwjglVersion}"
-   compile "org.lwjgl:lwjgl-sse:${lwjglVersion}"
-   compile "org.lwjgl:lwjgl-stb:${lwjglVersion}"
-   compile "org.lwjgl:lwjgl-tinyfd:${lwjglVersion}"
-   compile "org.lwjgl:lwjgl-vulkan:${lwjglVersion}"
-   compile "org.lwjgl:lwjgl-xxhash:${lwjglVersion}"
+   	compile group: 'com.google.guava', name: 'guava', version: '20.0'
+   	compile group: 'org.json', name: 'json', version: '20090211'
 
-   compile group: 'com.google.guava', name: 'guava', version: '20.0'
-   compile group: 'org.jgrapht', name: 'jgrapht-core', version: '1.0.0'
-   compile group: 'org.json', name: 'json', version: '20090211'
-
-
-   //On linux he thinks he needs test libs. Feel free to up this to a newer
-   testCompile "junit:junit:4.13-SNAPSHOT"
-
-   // Needed if compiling through command line.
-   compile fileTree(dir: 'Dependencies/jar', include: '*.jar')
+   	runtime group: 'com.google.guava', name: 'guava', version: '20.0'
+   	runtime group: 'org.json', name: 'json', version: '20090211'
 }
+
