@@ -8,14 +8,16 @@ import com.bamboo.tloll.graphics.structure.WorldMap;
 
 public final class PhysicsEngine {
 
+    // TODO(map) : Make me a singleton???
     public PhysicsEngine() {
         // Empty constructor.
     }
 
-    public static void movePlayer(Unit player) {
+    // TODO(map) : We won't need to pass in a Vector3 here because it's stored in the user now.
+    public static void movePlayer(Unit player, Vector3 v3) {
 
-        float deltaX = player.getSpeedX();
-        float deltaY = player.getSpeedY();
+        float deltaX = v3.getXComponent();
+        float deltaY = v3.getYComponent();
         Scene currentScene = WorldMap.getInstance().getCurrentScene();
 
         if (!isOutOfBoundsX(player, deltaX) && isTilePassable(player, deltaX, deltaY, currentScene)) {

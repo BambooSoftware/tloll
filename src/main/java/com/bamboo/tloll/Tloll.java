@@ -12,6 +12,8 @@ import org.lwjgl.opengl.GL;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
+import com.bamboo.tloll.physics.Vector3;
+
 public class Tloll {
 
     private long windowId;
@@ -71,7 +73,7 @@ public class Tloll {
 
         //TODO: May be able to further refactor stuff below but unsure atm so just keeping them!
         // Sample squares that probably won't stick around.
-        userHero = new Unit(100.0f, 100.0f, 32, 32, 0.5f, 0.0f, 0.0f, 0.0f, Direction.DOWN);
+        userHero = new Unit(100.0f, 100.0f, 32, 32, 0.5f, new Vector3(0.0f, 0.0f, 0.0f), Direction.DOWN);
         userHero.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(Constants.USER_DIR + "/Assets/Actors/panda_f_base.png"), userHero.getHeight(), userHero.getWidth(), 4, 4));
 
         // NOTE(map) : We have this here because it was causing problems having int in drawCurrentScene
