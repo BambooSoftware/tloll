@@ -32,7 +32,9 @@ public class GraphicsUtil {
 
         System.err.println("Forcing toolkit");
         // init AWT before glfwInit
-        if (Platform.get() == Platform.MACOSX) java.awt.Toolkit.getDefaultToolkit();
+        if (Platform.get() == Platform.MACOSX) {
+            java.awt.Toolkit.getDefaultToolkit();
+        }
 
         if (!glfwInit()) {
             System.err.println("Error initializing GLFW");
