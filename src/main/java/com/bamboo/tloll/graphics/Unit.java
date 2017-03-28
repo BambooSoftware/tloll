@@ -18,19 +18,9 @@ public class Unit extends Sprite {
     //TODO: then we can iterate over the list of inputs by player. Think input.java#pollInput doing something like a for
     //TODO: over each player and each player can handle their input mapping
 
-    // TODO(map) : Vector3 needs to be handled in the following mannner:
-    // Player speed represented as a Vector3 object.
-    // If movement is to be applied, we will add a new vector to the current vector.
-    // The sum of these vectors will be stored as the player's new speed up to a certain cap.
-    // If the cap is reached and another vector in the same direction is added that will be ignored.
-
-    // TODO(map) : Fix checking for facing left, right, up, or down based on Vector values.
-
     private Direction direction;
     private float acceleration;
     private Vector3 unitVector;
-    private boolean right;
-    private boolean up;
     private boolean outOfBoundsLeft;
     private boolean outOfBoundsRight;
     private boolean outOfBoundsUp;
@@ -48,7 +38,6 @@ public class Unit extends Sprite {
         super();
         this.acceleration = 1.0f;
 	this.unitVector = new Vector3(0.0f, 0.0f, 0.0f);
-        this.right = false;
         this.outOfBoundsLeft = false;
         this.outOfBoundsRight = false;
         this.outOfBoundsUp = false;
@@ -65,7 +54,6 @@ public class Unit extends Sprite {
         super(posX, posY, width, height);
         this.acceleration = acceleration;
         this.unitVector = v3;
-        this.right = false;
         this.outOfBoundsLeft = false;
         this.outOfBoundsRight = false;
         this.outOfBoundsUp = false;
@@ -94,14 +82,6 @@ public class Unit extends Sprite {
     public void setUnitVector(Vector3 unitVector)
     {
 	this.unitVector = unitVector;
-    }
-    
-    public boolean getRight() {
-        return right;
-    }
-
-    public void setRight(boolean right) {
-        this.right = right;
     }
 
     public boolean getOutOfBoundsLeft() {
@@ -218,7 +198,7 @@ public class Unit extends Sprite {
 	    {
 		getUnitVector().setYComponent(Constants.MAX_SPEED_X * (1.0F / numberOfSInputs));
 	    }
-        PhysicsEngine.movePlayer(this, getUnitVector());
+        PhysicsEngine.movePlayer(this);
         setDirection(Direction.UP);
         calculateFrameSkip();
     }
@@ -232,7 +212,7 @@ public class Unit extends Sprite {
 		}
 	    setUnitVector(unitReducedVector);
 	    // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
-	    PhysicsEngine.movePlayer(this, getUnitVector());
+	    PhysicsEngine.movePlayer(this);
         }
     }
 	
@@ -244,7 +224,7 @@ public class Unit extends Sprite {
 	    {
 		getUnitVector().setYComponent(Constants.MIN_SPEED_X * (1.0F / numberOfSInputs));
 	    }
-        PhysicsEngine.movePlayer(this, getUnitVector());
+        PhysicsEngine.movePlayer(this);
         setDirection(Direction.DOWN);
         calculateFrameSkip();
     }
@@ -258,7 +238,7 @@ public class Unit extends Sprite {
 		}
 	    setUnitVector(unitReducedVector);
 	    // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
-	    PhysicsEngine.movePlayer(this, getUnitVector());
+	    PhysicsEngine.movePlayer(this);
         }
     }
 
@@ -270,7 +250,7 @@ public class Unit extends Sprite {
 	    {
 		getUnitVector().setXComponent(Constants.MIN_SPEED_X * (1.0F / numberOfSInputs));
 	    }
-        PhysicsEngine.movePlayer(this, getUnitVector());
+        PhysicsEngine.movePlayer(this);
         setDirection(Direction.LEFT);
         calculateFrameSkip();
     }
@@ -284,7 +264,7 @@ public class Unit extends Sprite {
 		}
             setUnitVector(unitReducedVector);
 	    // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
-	    PhysicsEngine.movePlayer(this, getUnitVector());
+	    PhysicsEngine.movePlayer(this);
         }
     }
 
@@ -296,7 +276,7 @@ public class Unit extends Sprite {
 	    {
 		getUnitVector().setXComponent(Constants.MAX_SPEED_X * (1.0F / numberOfSInputs));
 	    }
-        PhysicsEngine.movePlayer(this, getUnitVector());
+        PhysicsEngine.movePlayer(this);
         setDirection(Direction.RIGHT);
         calculateFrameSkip();
     }
@@ -310,7 +290,7 @@ public class Unit extends Sprite {
 		}
             setUnitVector(unitReducedVector);
 	    // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
-	    PhysicsEngine.movePlayer(this, getUnitVector());
+	    PhysicsEngine.movePlayer(this);
         }
     }
 

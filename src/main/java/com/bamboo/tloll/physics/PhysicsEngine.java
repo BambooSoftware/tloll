@@ -13,11 +13,10 @@ public final class PhysicsEngine {
         // Empty constructor.
     }
 
-    // TODO(map) : We won't need to pass in a Vector3 here because it's stored in the user now.
-    public static void movePlayer(Unit player, Vector3 v3) {
+    public static void movePlayer(Unit player) {
 
-        float deltaX = v3.getXComponent();
-        float deltaY = v3.getYComponent();
+        float deltaX = player.getUnitVector().getXComponent();
+        float deltaY = player.getUnitVector().getYComponent();
         Scene currentScene = WorldMap.getInstance().getCurrentScene();
 
         if (!isOutOfBoundsX(player, deltaX) && isTilePassable(player, deltaX, deltaY, currentScene)) {

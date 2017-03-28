@@ -70,6 +70,6 @@ public class Vector3
 	return new Vector3(this.xComponent * -1, this.yComponent * -1, this.zComponent * -1);
     }
 
-    // TODO(map) : We may need more math here but I'm not sure yet.
+    // NOTE(map) : We may need more math here but I'm not sure yet.
     
 }
