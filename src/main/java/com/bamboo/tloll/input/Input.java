@@ -1,6 +1,7 @@
 package com.bamboo.tloll.input;
 
 import com.bamboo.tloll.graphics.Unit;
+import com.bamboo.tloll.physics.Vector3;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -26,35 +27,37 @@ public class Input {
         keyPressToggleWorld();
     }
 
+    // TODO(map) : Can we find a way to make these methods a single method where we can pass a vector3 object that
+    // is the sum of all the values in the different directions????
     private void handleKeyW(Unit player) {
         if (KeyboardHandler.isKeyDown(GLFW_KEY_W)) {
-            player.moveUpStart();
+            player.moveUpStart(new Vector3(0.0f, 1.0f, 0.0f));
         } else {
-            player.moveUpStop();
+            player.moveUpStop(new Vector3(0.0f, -1.0f, 0.0f));
         }
     }
 
     private void handleKeyS(Unit player) {
         if (KeyboardHandler.isKeyDown(GLFW_KEY_S)) {
-            player.moveDownStart();
+            player.moveDownStart(new Vector3(0.0f, -1.0f, 0.0f));
         } else {
-            player.moveDownStop();
+            player.moveDownStop(new Vector3(0.0f, 1.0f, 0.0f));
         }
     }
 
     private void handleKeyA(Unit player) {
         if (KeyboardHandler.isKeyDown(GLFW_KEY_A)) {
-            player.moveLeftStart();
+            player.moveLeftStart(new Vector3(-1.0f, 0.0f, 0.0f));
         } else {
-            player.moveLeftStop();
+            player.moveLeftStop(new Vector3(1.0f, 0.0f, 0.0f));
         }
     }
 
     private void handleKeyD(Unit player) {
         if (KeyboardHandler.isKeyDown(GLFW_KEY_D)) {
-            player.moveRightStart();
+            player.moveRightStart(new Vector3(1.0f, 0.0f, 0.0f));
         } else {
-            player.moveRightStop();
+            player.moveRightStop(new Vector3(-1.0f, 0.0f, 0.0f));
         }
     }
 

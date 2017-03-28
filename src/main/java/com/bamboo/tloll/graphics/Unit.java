@@ -3,6 +3,7 @@ package com.bamboo.tloll.graphics;
 import com.bamboo.tloll.constants.Constants;
 import com.bamboo.tloll.input.KeyboardHandler;
 import com.bamboo.tloll.physics.PhysicsEngine;
+import com.bamboo.tloll.physics.Vector3;
 
 import static com.bamboo.tloll.util.Utilities.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -19,11 +20,7 @@ public class Unit extends Sprite {
 
     private Direction direction;
     private float acceleration;
-    private float speed;
-    private float speedX;
-    private float speedY;
-    private boolean right;
-    private boolean up;
+    private Vector3 unitVector;
     private boolean outOfBoundsLeft;
     private boolean outOfBoundsRight;
     private boolean outOfBoundsUp;
@@ -40,10 +37,7 @@ public class Unit extends Sprite {
     public Unit() {
         super();
         this.acceleration = 1.0f;
-        this.speed = 0.0f;
-        this.speedX = 0.0f;
-        this.speedY = 0.0f;
-        this.right = false;
+	this.unitVector = new Vector3(0.0f, 0.0f, 0.0f);
         this.outOfBoundsLeft = false;
         this.outOfBoundsRight = false;
         this.outOfBoundsUp = false;
@@ -56,13 +50,10 @@ public class Unit extends Sprite {
         this.frameSkip = 10;
     }
 
-    public Unit(float posX, float posY, float width, float height, float acceleration, float speed, float speedX, float speedY, Direction direction) {
+    public Unit(float posX, float posY, float width, float height, float acceleration, Vector3 v3, Direction direction) {
         super(posX, posY, width, height);
         this.acceleration = acceleration;
-        this.speed = speed;
-        this.speedX = speedX;
-        this.speedY = speedY;
-        this.right = false;
+        this.unitVector = v3;
         this.outOfBoundsLeft = false;
         this.outOfBoundsRight = false;
         this.outOfBoundsUp = false;
@@ -83,36 +74,14 @@ public class Unit extends Sprite {
         this.acceleration = acceleration;
     }
 
-    public float getSpeed() {
-        return this.speed;
+    public Vector3 getUnitVector()
+    {
+	return this.unitVector;
     }
 
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
-
-    public float getSpeedX() {
-        return this.speedX;
-    }
-
-    public void setSpeedX(float speedX) {
-        this.speedX = speedX;
-    }
-
-    public float getSpeedY() {
-        return this.speedY;
-    }
-
-    public void setSpeedY(float speedY) {
-        this.speedY = speedY;
-    }
-
-    public boolean getRight() {
-        return right;
-    }
-
-    public void setRight(boolean right) {
-        this.right = right;
+    public void setUnitVector(Vector3 unitVector)
+    {
+	this.unitVector = unitVector;
     }
 
     public boolean getOutOfBoundsLeft() {
@@ -219,91 +188,109 @@ public class Unit extends Sprite {
         this.frameSkip = frameSkip;
     }
 
-    public void moveUpStart() {
+    public void moveUpStart(Vector3 v3) {
         int numberOfSInputs  = getNumberOfSimultaneousInputs();
 
         //TODO: abstract away the speed calculation to be generic ?
         //TODO: also load max speeds on a per player basis
-        setSpeedY(getSpeedY() + getAcceleration());
-        if (getSpeedY() > (Constants.MAX_SPEED_Y * (1.0F / numberOfSInputs))) {
-            setSpeedY(Constants.MAX_SPEED_Y * (1.0F / numberOfSInputs));
-        }
+	setUnitVector(getUnitVector().add(v3));
+	if (getUnitVector().getYComponent() > (Constants.MAX_PLAYER_SPEED_UP * (1.0F / numberOfSInputs)))
+	    {
+		getUnitVector().setYComponent(Constants.MAX_PLAYER_SPEED_UP * (1.0F / numberOfSInputs));
+	    }
         PhysicsEngine.movePlayer(this);
         setDirection(Direction.UP);
         calculateFrameSkip();
     }
 
-    /**
-     * This means we want to stop moving up and start to slow down.
-     */
-    public void moveUpStop() {
-        if (getSpeedY() > 0.0f) {
-            float playerReducedSpeed = getSpeedX() - getAcceleration();
-            setSpeedY((playerReducedSpeed < 0) ? 0.0f : playerReducedSpeed);
+    public void moveUpStop(Vector3 v3) {
+	if (getUnitVector().getYComponent() > 0.0f) {
+	    Vector3 unitReducedVector = getUnitVector().add(v3);
+	    if (unitReducedVector.getYComponent() < 0.0f)
+		{
+		    unitReducedVector.setYComponent(0.0f);
+		}
+	    setUnitVector(unitReducedVector);
+	    // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
+	    PhysicsEngine.movePlayer(this);
         }
     }
-
-    public void moveDownStart() {
-
+	
+    public void moveDownStart(Vector3 v3) {
         int numberOfSInputs  = getNumberOfSimultaneousInputs();
 
-
-        setSpeedY(getSpeedY() - getAcceleration());
-        if (getSpeedY() < (Constants.MIN_SPEED_Y * (1.0F / numberOfSInputs))) {
-            setSpeedY(Constants.MIN_SPEED_Y * (1.0F / numberOfSInputs));
-        }
+	setUnitVector(getUnitVector().add(v3));
+	if (getUnitVector().getYComponent() < (Constants.MAX_PLAYER_SPEED_DOWN * (1.0F / numberOfSInputs)))
+	    {
+		getUnitVector().setYComponent(Constants.MAX_PLAYER_SPEED_DOWN * (1.0F / numberOfSInputs));
+	    }
         PhysicsEngine.movePlayer(this);
         setDirection(Direction.DOWN);
         calculateFrameSkip();
-
     }
 
-    public void moveDownStop() {
-        if (getSpeedY() < 0.0f) {
-            float playerReducedSpeed = getSpeedX() + getAcceleration();
-            setSpeedY((playerReducedSpeed > 0) ? 0.0f : playerReducedSpeed);
+    public void moveDownStop(Vector3 v3) {
+        if (getUnitVector().getYComponent() < 0.0f) {
+	    Vector3 unitReducedVector = getUnitVector().add(v3);
+	    if (unitReducedVector.getYComponent() > 0)
+		{
+		    unitReducedVector.setYComponent(0.0f);
+		}
+	    setUnitVector(unitReducedVector);
+	    // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
+	    PhysicsEngine.movePlayer(this);
         }
     }
 
-    public void moveLeftStart() {
-
+    public void moveLeftStart(Vector3 v3) {
         int numberOfSInputs  = getNumberOfSimultaneousInputs();
 
-        setSpeedX(getSpeedX() - getAcceleration());
-        if (getSpeedX() < (Constants.MIN_SPEED_X * (1.0F / numberOfSInputs))) {
-            setSpeedX(Constants.MIN_SPEED_X * (1.0F / numberOfSInputs));
-        }
+	setUnitVector(getUnitVector().add(v3));
+	if (getUnitVector().getXComponent() < (Constants.MAX_PLAYER_SPEED_LEFT * (1.0F / numberOfSInputs)))
+	    {
+		getUnitVector().setXComponent(Constants.MAX_PLAYER_SPEED_LEFT * (1.0F / numberOfSInputs));
+	    }
         PhysicsEngine.movePlayer(this);
         setDirection(Direction.LEFT);
         calculateFrameSkip();
-
     }
 
-    public void moveLeftStop() {
-        if (getSpeedX() < 0.0f) {
-            float playerReducedSpeed = getSpeedX() + getAcceleration();
-            setSpeedX((playerReducedSpeed > 0) ? 0.0f : playerReducedSpeed);
+    public void moveLeftStop(Vector3 v3) {
+        if (getUnitVector().getXComponent() < 0.0f) {
+	    Vector3 unitReducedVector = getUnitVector().add(v3);
+	    if (unitReducedVector.getXComponent() > 0)
+		{
+		    unitReducedVector.setXComponent(0.0f);
+		}
+            setUnitVector(unitReducedVector);
+	    // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
+	    PhysicsEngine.movePlayer(this);
         }
     }
 
-    public void moveRightStart() {
-
+    public void moveRightStart(Vector3 v3) {
         int numberOfSInputs  = getNumberOfSimultaneousInputs();
 
-
-        setSpeedX(getSpeedX() + getAcceleration());
-        if (getSpeedX() > (Constants.MAX_SPEED_X * (1.0F / numberOfSInputs))) {
-            setSpeedX(Constants.MAX_SPEED_X * (1.0F / numberOfSInputs));
-        }
+	setUnitVector(getUnitVector().add(v3));
+	if (getUnitVector().getXComponent() > (Constants.MAX_PLAYER_SPEED_RIGHT * (1.0F / numberOfSInputs)))
+	    {
+		getUnitVector().setXComponent(Constants.MAX_PLAYER_SPEED_RIGHT * (1.0F / numberOfSInputs));
+	    }
         PhysicsEngine.movePlayer(this);
         setDirection(Direction.RIGHT);
         calculateFrameSkip();
     }
 
-    public void moveRightStop() {
-        if (getSpeedX() > 0.0f) {
-            float playerReducedSpeed = getSpeedX() - getAcceleration();
-            setSpeedX((playerReducedSpeed < 0) ? 0.0f : playerReducedSpeed);
+    public void moveRightStop(Vector3 v3) {
+        if (getUnitVector().getXComponent() > 0.0f) {
+            Vector3 unitReducedVector = getUnitVector().add(v3);
+	    if (unitReducedVector.getXComponent() < 0)
+		{
+		    unitReducedVector.setXComponent(0.0f);
+		}
+            setUnitVector(unitReducedVector);
+	    // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
+	    PhysicsEngine.movePlayer(this);
         }
     }
 
