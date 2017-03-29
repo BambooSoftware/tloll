@@ -26,6 +26,7 @@ public class JsonConstants {
     public static final String WORLD = "world";
     public static final String SCENES = "scenes";
     public static final String ACCELERATION = "acceleration";
+    public static final String MAX_SPEED = "maxSpeed";
 
     public static final String NEW_SCENE_ID = "newSceneId";
     public static final String NEW_TILE_ID = "newTileId";

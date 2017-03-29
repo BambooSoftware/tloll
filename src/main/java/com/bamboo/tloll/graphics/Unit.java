@@ -1,6 +1,5 @@
 package com.bamboo.tloll.graphics;
 
-import com.bamboo.tloll.constants.Constants;
 import com.bamboo.tloll.debug.Logger;
 import com.bamboo.tloll.physics.PhysicsEngine;
 import com.bamboo.tloll.physics.Vector3;
@@ -17,6 +16,7 @@ public class Unit extends Sprite {
 
     private Direction direction;
     private float acceleration;
+    private float maxSpeed;
     private Vector3 unitVector;
     private boolean outOfBoundsLeft;
     private boolean outOfBoundsRight;
@@ -29,7 +29,6 @@ public class Unit extends Sprite {
     private boolean isAttackingMelee;
     private int hitPoints;
     private int colNumber;
-    private int frameSkip;
 
     private boolean debug;
 
@@ -46,11 +45,10 @@ public class Unit extends Sprite {
         this.hitPoints = 3;
         this.direction = Direction.DOWN;
         this.colNumber = 1;
-        this.frameSkip = 10;
         this.debug = false;
     }
 
-    public Unit(float posX, float posY, float width, float height, float acceleration, Vector3 v3, Direction direction) {
+    public Unit(float posX, float posY, float width, float height, float acceleration, Vector3 v3, Direction direction, float maxSpeed) {
         super(posX, posY, width, height);
         this.acceleration = acceleration;
         this.unitVector = v3;
@@ -63,8 +61,8 @@ public class Unit extends Sprite {
         this.hitPoints = 3;
         this.direction = direction;
         this.colNumber = 1;
-        this.frameSkip = 10;
         this.debug = false;
+        this.maxSpeed = maxSpeed;
     }
 
     public float getAcceleration() {
@@ -179,14 +177,6 @@ public class Unit extends Sprite {
         this.colNumber = colNumber;
     }
 
-    public int getFrameSkip() {
-        return frameSkip;
-    }
-
-    public void setFrameSkip(int frameSkip) {
-        this.frameSkip = frameSkip;
-    }
-
     public boolean isDebug() {
         return debug;
     }
@@ -198,11 +188,10 @@ public class Unit extends Sprite {
     public void moveUpStart(Vector3 v3, int numberOfSInputs) {
 
         //TODO: abstract away the speed calculation to be generic ?
-        //TODO: also load max speeds on a per player basis
         setUnitVector(getUnitVector().add(v3));
 
-        if (getUnitVector().getYComponent() > (Constants.MAX_PLAYER_SPEED_UP * (1.0F / numberOfSInputs))) {
-            getUnitVector().setYComponent(Constants.MAX_PLAYER_SPEED_UP * (1.0F / numberOfSInputs));
+        if (getUnitVector().getYComponent() > (getMaxSpeedUp() * (1.0F / numberOfSInputs))) {
+            getUnitVector().setYComponent(getMaxSpeedUp() * (1.0F / numberOfSInputs));
         }
         PhysicsEngine.movePlayer(this);
         setDirection(Direction.UP);
@@ -222,8 +211,8 @@ public class Unit extends Sprite {
 
     public void moveDownStart(Vector3 v3, int numberOfSInputs) {
         setUnitVector(getUnitVector().add(v3));
-        if (getUnitVector().getYComponent() < (Constants.MAX_PLAYER_SPEED_DOWN * (1.0F / numberOfSInputs))) {
-            getUnitVector().setYComponent(Constants.MAX_PLAYER_SPEED_DOWN * (1.0F / numberOfSInputs));
+        if (getUnitVector().getYComponent() < (getMaxSpeedDown() * (1.0F / numberOfSInputs))) {
+            getUnitVector().setYComponent(getMaxSpeedDown() * (1.0F / numberOfSInputs));
         }
         PhysicsEngine.movePlayer(this);
         setDirection(Direction.DOWN);
@@ -243,8 +232,8 @@ public class Unit extends Sprite {
 
     public void moveLeftStart(Vector3 v3, int numberOfSInputs) {
         setUnitVector(getUnitVector().add(v3));
-        if (getUnitVector().getXComponent() < (Constants.MAX_PLAYER_SPEED_LEFT * (1.0F / numberOfSInputs))) {
-            getUnitVector().setXComponent(Constants.MAX_PLAYER_SPEED_LEFT * (1.0F / numberOfSInputs));
+        if (getUnitVector().getXComponent() < (getMaxSpeedLeft() * (1.0F / numberOfSInputs))) {
+            getUnitVector().setXComponent(getMaxSpeedLeft() * (1.0F / numberOfSInputs));
         }
         PhysicsEngine.movePlayer(this);
         setDirection(Direction.LEFT);
@@ -264,8 +253,8 @@ public class Unit extends Sprite {
 
     public void moveRightStart(Vector3 v3, int numberOfSInputs) {
         setUnitVector(getUnitVector().add(v3));
-        if (getUnitVector().getXComponent() > (Constants.MAX_PLAYER_SPEED_RIGHT * (1.0F / numberOfSInputs))) {
-            getUnitVector().setXComponent(Constants.MAX_PLAYER_SPEED_RIGHT * (1.0F / numberOfSInputs));
+        if (getUnitVector().getXComponent() > (getMaxSpeedRight() * (1.0F / numberOfSInputs))) {
+            getUnitVector().setXComponent(getMaxSpeedRight() * (1.0F / numberOfSInputs));
         }
         PhysicsEngine.movePlayer(this);
         setDirection(Direction.RIGHT);
@@ -293,7 +282,7 @@ public class Unit extends Sprite {
     }
 
     /**
-     * Highlight the current tile the player lives on.
+     * Highlight the current tile the player lives on.F
      */
     private void highlightUnit() {
         Logger.getInstance().highlightCurrentTile(this);
@@ -305,6 +294,22 @@ public class Unit extends Sprite {
     private void debugUnit() {
         Logger.getInstance().displayPlayerInfo(this);
         Logger.getInstance().displayOccupiedTiles(this);
+    }
+
+    private float getMaxSpeedUp() {
+        return this.maxSpeed;
+    }
+
+    private float getMaxSpeedDown() {
+        return this.maxSpeed * -1.0f;
+    }
+
+    private float getMaxSpeedLeft() {
+        return this.maxSpeed * -1.0f;
+    }
+
+    private float getMaxSpeedRight() {
+        return this.maxSpeed;
     }
 
 }
