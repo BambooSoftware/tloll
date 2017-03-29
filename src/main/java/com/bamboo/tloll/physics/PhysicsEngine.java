@@ -6,14 +6,23 @@ import com.bamboo.tloll.graphics.structure.Scene;
 import com.bamboo.tloll.graphics.structure.Tile;
 import com.bamboo.tloll.graphics.structure.WorldMap;
 
-public final class PhysicsEngine {
+public class PhysicsEngine {
+
+
+    private static PhysicsEngine _instance;
 
     // TODO(map) : Make me a singleton???
-    public PhysicsEngine() {
-        // Empty constructor.
+    private PhysicsEngine() {
     }
 
-    public static void movePlayer(Unit player) {
+    public static PhysicsEngine getInstance() {
+        if(_instance == null) {
+            _instance = new PhysicsEngine();
+        }
+        return _instance;
+    }
+
+    public void movePlayer(Unit player) {
 
         float deltaX = player.getUnitVector().getXComponent();
         float deltaY = player.getUnitVector().getYComponent();
@@ -55,7 +64,7 @@ public final class PhysicsEngine {
     }
 
     // Bind the player to the X dimension of the board.
-    public static boolean isOutOfBoundsX(Unit player, float deltaX) {
+    public boolean isOutOfBoundsX(Unit player, float deltaX) {
         if (player.getCenterX() + player.getWidth() / 2 + deltaX > Constants.WIDTH) {
             player.setOutOfBoundsRight(true);
             return true;
@@ -69,7 +78,7 @@ public final class PhysicsEngine {
     }
 
     // Bind the player to the Y dimension of the board.
-    public static boolean isOutOfBoundsY(Unit player, float deltaY) {
+    public boolean isOutOfBoundsY(Unit player, float deltaY) {
         if (player.getCenterY() + player.getHeight() / 4 + deltaY > Constants.HEIGHT) {
             player.setOutOfBoundsUp(true);
             return true;
@@ -82,21 +91,21 @@ public final class PhysicsEngine {
         return false;
     }
 
-    public static boolean moveInTileX(Unit player, float deltaX) {
+    public boolean moveInTileX(Unit player, float deltaX) {
         if (player.getRelativeTileX() + deltaX < 64.0 && player.getRelativeTileX() + deltaX > 0.0) {
             return true;
         }
         return false;
     }
 
-    public static boolean moveInTileY(Unit player, float deltaY) {
+    public boolean moveInTileY(Unit player, float deltaY) {
         if (player.getRelativeTileY() + deltaY < 64.0 && player.getRelativeTileY() + deltaY > 0.0) {
             return true;
         }
         return false;
     }
 
-    private static boolean isTilePassable(Unit player, float deltaX, float deltaY, Scene currentScene) {
+    private boolean isTilePassable(Unit player, float deltaX, float deltaY, Scene currentScene) {
         for (Tile tile : currentScene.getTileList()) {
             if ((player.getPosX() + deltaX) >= tile.getPosX() &&
                     (player.getPosX() + deltaX) <= (tile.getPosX() + tile.getWidth()) &&

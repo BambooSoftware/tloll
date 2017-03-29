@@ -193,7 +193,7 @@ public class Unit extends Sprite {
         if (getUnitVector().getYComponent() > (getMaxSpeedUp() * (1.0F / numberOfSInputs))) {
             getUnitVector().setYComponent(getMaxSpeedUp() * (1.0F / numberOfSInputs));
         }
-        PhysicsEngine.movePlayer(this);
+        PhysicsEngine.getInstance().movePlayer(this);
         setDirection(Direction.UP);
     }
 
@@ -205,7 +205,7 @@ public class Unit extends Sprite {
             }
             setUnitVector(unitReducedVector);
             // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
-            PhysicsEngine.movePlayer(this);
+            PhysicsEngine.getInstance().movePlayer(this);
         }
     }
 
@@ -214,7 +214,7 @@ public class Unit extends Sprite {
         if (getUnitVector().getYComponent() < (getMaxSpeedDown() * (1.0F / numberOfSInputs))) {
             getUnitVector().setYComponent(getMaxSpeedDown() * (1.0F / numberOfSInputs));
         }
-        PhysicsEngine.movePlayer(this);
+        PhysicsEngine.getInstance().movePlayer(this);
         setDirection(Direction.DOWN);
     }
 
@@ -226,7 +226,7 @@ public class Unit extends Sprite {
             }
             setUnitVector(unitReducedVector);
             // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
-            PhysicsEngine.movePlayer(this);
+            PhysicsEngine.getInstance().movePlayer(this);
         }
     }
 
@@ -235,7 +235,7 @@ public class Unit extends Sprite {
         if (getUnitVector().getXComponent() < (getMaxSpeedLeft() * (1.0F / numberOfSInputs))) {
             getUnitVector().setXComponent(getMaxSpeedLeft() * (1.0F / numberOfSInputs));
         }
-        PhysicsEngine.movePlayer(this);
+        PhysicsEngine.getInstance().movePlayer(this);
         setDirection(Direction.LEFT);
     }
 
@@ -247,7 +247,7 @@ public class Unit extends Sprite {
             }
             setUnitVector(unitReducedVector);
             // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
-            PhysicsEngine.movePlayer(this);
+            PhysicsEngine.getInstance().movePlayer(this);
         }
     }
 
@@ -256,7 +256,7 @@ public class Unit extends Sprite {
         if (getUnitVector().getXComponent() > (getMaxSpeedRight() * (1.0F / numberOfSInputs))) {
             getUnitVector().setXComponent(getMaxSpeedRight() * (1.0F / numberOfSInputs));
         }
-        PhysicsEngine.movePlayer(this);
+        PhysicsEngine.getInstance().movePlayer(this);
         setDirection(Direction.RIGHT);
     }
 
@@ -268,7 +268,7 @@ public class Unit extends Sprite {
             }
             setUnitVector(unitReducedVector);
             // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
-            PhysicsEngine.movePlayer(this);
+            PhysicsEngine.getInstance().movePlayer(this);
         }
     }
 
