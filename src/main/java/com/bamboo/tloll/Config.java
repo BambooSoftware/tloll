@@ -145,10 +145,11 @@ public class Config {
                 int height = player.getInt(JsonConstants.HEIGHT);
                 int width = player.getInt(JsonConstants.WIDTH);
                 float acceleration = Double.valueOf(player.getDouble(JsonConstants.ACCELERATION)).floatValue();
+                float maxSpeed = Double.valueOf(player.getDouble(JsonConstants.MAX_SPEED)).floatValue();
                 boolean debug = player.getBoolean(JsonConstants.DEBUG);
 
                 //TODO: We probably should figure out a better span position than 100,100
-                Unit unit = new Unit(100.0f, 100.0f, height, width, acceleration, new Vector3(), Direction.DOWN);
+                Unit unit = new Unit(100.0f, 100.0f, height, width, acceleration, new Vector3(), Direction.DOWN, maxSpeed);
                 unit.setDebug(debug);
 
                 JSONObject spriteBufferJson = player.getJSONObject(JsonConstants.SPRITE_BUFFER);
