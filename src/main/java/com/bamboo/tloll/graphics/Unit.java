@@ -1,11 +1,12 @@
 package com.bamboo.tloll.graphics;
 
 import com.bamboo.tloll.constants.Constants;
+import com.bamboo.tloll.debug.Logger;
 import com.bamboo.tloll.input.KeyboardHandler;
 import com.bamboo.tloll.physics.PhysicsEngine;
 import com.bamboo.tloll.physics.Vector3;
 
-import static com.bamboo.tloll.util.Utilities.*;
+import static com.bamboo.tloll.util.Utilities.asInt;
 import static org.lwjgl.glfw.GLFW.*;
 
 /**
@@ -34,10 +35,12 @@ public class Unit extends Sprite {
     private int colNumber;
     private int frameSkip;
 
+    private boolean debug;
+
     public Unit() {
         super();
         this.acceleration = 1.0f;
-	this.unitVector = new Vector3(0.0f, 0.0f, 0.0f);
+        this.unitVector = new Vector3(0.0f, 0.0f, 0.0f);
         this.outOfBoundsLeft = false;
         this.outOfBoundsRight = false;
         this.outOfBoundsUp = false;
@@ -48,6 +51,7 @@ public class Unit extends Sprite {
         this.direction = Direction.DOWN;
         this.colNumber = 1;
         this.frameSkip = 10;
+        this.debug = false;
     }
 
     public Unit(float posX, float posY, float width, float height, float acceleration, Vector3 v3, Direction direction) {
@@ -64,6 +68,7 @@ public class Unit extends Sprite {
         this.direction = direction;
         this.colNumber = 1;
         this.frameSkip = 10;
+        this.debug = false;
     }
 
     public float getAcceleration() {
@@ -74,14 +79,12 @@ public class Unit extends Sprite {
         this.acceleration = acceleration;
     }
 
-    public Vector3 getUnitVector()
-    {
-	return this.unitVector;
+    public Vector3 getUnitVector() {
+        return this.unitVector;
     }
 
-    public void setUnitVector(Vector3 unitVector)
-    {
-	this.unitVector = unitVector;
+    public void setUnitVector(Vector3 unitVector) {
+        this.unitVector = unitVector;
     }
 
     public boolean getOutOfBoundsLeft() {
@@ -188,42 +191,47 @@ public class Unit extends Sprite {
         this.frameSkip = frameSkip;
     }
 
+    public boolean isDebug() {
+        return debug;
+    }
+
+    public void setDebug(boolean debug) {
+        this.debug = debug;
+    }
+
     public void moveUpStart(Vector3 v3) {
-        int numberOfSInputs  = getNumberOfSimultaneousInputs();
+        int numberOfSInputs = getNumberOfSimultaneousInputs();
 
         //TODO: abstract away the speed calculation to be generic ?
         //TODO: also load max speeds on a per player basis
-	setUnitVector(getUnitVector().add(v3));
-	if (getUnitVector().getYComponent() > (Constants.MAX_PLAYER_SPEED_UP * (1.0F / numberOfSInputs)))
-	    {
-		getUnitVector().setYComponent(Constants.MAX_PLAYER_SPEED_UP * (1.0F / numberOfSInputs));
-	    }
+        setUnitVector(getUnitVector().add(v3));
+        if (getUnitVector().getYComponent() > (Constants.MAX_PLAYER_SPEED_UP * (1.0F / numberOfSInputs))) {
+            getUnitVector().setYComponent(Constants.MAX_PLAYER_SPEED_UP * (1.0F / numberOfSInputs));
+        }
         PhysicsEngine.movePlayer(this);
         setDirection(Direction.UP);
         calculateFrameSkip();
     }
 
     public void moveUpStop(Vector3 v3) {
-	if (getUnitVector().getYComponent() > 0.0f) {
-	    Vector3 unitReducedVector = getUnitVector().add(v3);
-	    if (unitReducedVector.getYComponent() < 0.0f)
-		{
-		    unitReducedVector.setYComponent(0.0f);
-		}
-	    setUnitVector(unitReducedVector);
-	    // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
-	    PhysicsEngine.movePlayer(this);
+        if (getUnitVector().getYComponent() > 0.0f) {
+            Vector3 unitReducedVector = getUnitVector().add(v3);
+            if (unitReducedVector.getYComponent() < 0.0f) {
+                unitReducedVector.setYComponent(0.0f);
+            }
+            setUnitVector(unitReducedVector);
+            // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
+            PhysicsEngine.movePlayer(this);
         }
     }
-	
-    public void moveDownStart(Vector3 v3) {
-        int numberOfSInputs  = getNumberOfSimultaneousInputs();
 
-	setUnitVector(getUnitVector().add(v3));
-	if (getUnitVector().getYComponent() < (Constants.MAX_PLAYER_SPEED_DOWN * (1.0F / numberOfSInputs)))
-	    {
-		getUnitVector().setYComponent(Constants.MAX_PLAYER_SPEED_DOWN * (1.0F / numberOfSInputs));
-	    }
+    public void moveDownStart(Vector3 v3) {
+        int numberOfSInputs = getNumberOfSimultaneousInputs();
+
+        setUnitVector(getUnitVector().add(v3));
+        if (getUnitVector().getYComponent() < (Constants.MAX_PLAYER_SPEED_DOWN * (1.0F / numberOfSInputs))) {
+            getUnitVector().setYComponent(Constants.MAX_PLAYER_SPEED_DOWN * (1.0F / numberOfSInputs));
+        }
         PhysicsEngine.movePlayer(this);
         setDirection(Direction.DOWN);
         calculateFrameSkip();
@@ -231,25 +239,23 @@ public class Unit extends Sprite {
 
     public void moveDownStop(Vector3 v3) {
         if (getUnitVector().getYComponent() < 0.0f) {
-	    Vector3 unitReducedVector = getUnitVector().add(v3);
-	    if (unitReducedVector.getYComponent() > 0)
-		{
-		    unitReducedVector.setYComponent(0.0f);
-		}
-	    setUnitVector(unitReducedVector);
-	    // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
-	    PhysicsEngine.movePlayer(this);
+            Vector3 unitReducedVector = getUnitVector().add(v3);
+            if (unitReducedVector.getYComponent() > 0) {
+                unitReducedVector.setYComponent(0.0f);
+            }
+            setUnitVector(unitReducedVector);
+            // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
+            PhysicsEngine.movePlayer(this);
         }
     }
 
     public void moveLeftStart(Vector3 v3) {
-        int numberOfSInputs  = getNumberOfSimultaneousInputs();
+        int numberOfSInputs = getNumberOfSimultaneousInputs();
 
-	setUnitVector(getUnitVector().add(v3));
-	if (getUnitVector().getXComponent() < (Constants.MAX_PLAYER_SPEED_LEFT * (1.0F / numberOfSInputs)))
-	    {
-		getUnitVector().setXComponent(Constants.MAX_PLAYER_SPEED_LEFT * (1.0F / numberOfSInputs));
-	    }
+        setUnitVector(getUnitVector().add(v3));
+        if (getUnitVector().getXComponent() < (Constants.MAX_PLAYER_SPEED_LEFT * (1.0F / numberOfSInputs))) {
+            getUnitVector().setXComponent(Constants.MAX_PLAYER_SPEED_LEFT * (1.0F / numberOfSInputs));
+        }
         PhysicsEngine.movePlayer(this);
         setDirection(Direction.LEFT);
         calculateFrameSkip();
@@ -257,25 +263,23 @@ public class Unit extends Sprite {
 
     public void moveLeftStop(Vector3 v3) {
         if (getUnitVector().getXComponent() < 0.0f) {
-	    Vector3 unitReducedVector = getUnitVector().add(v3);
-	    if (unitReducedVector.getXComponent() > 0)
-		{
-		    unitReducedVector.setXComponent(0.0f);
-		}
+            Vector3 unitReducedVector = getUnitVector().add(v3);
+            if (unitReducedVector.getXComponent() > 0) {
+                unitReducedVector.setXComponent(0.0f);
+            }
             setUnitVector(unitReducedVector);
-	    // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
-	    PhysicsEngine.movePlayer(this);
+            // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
+            PhysicsEngine.movePlayer(this);
         }
     }
 
     public void moveRightStart(Vector3 v3) {
-        int numberOfSInputs  = getNumberOfSimultaneousInputs();
+        int numberOfSInputs = getNumberOfSimultaneousInputs();
 
-	setUnitVector(getUnitVector().add(v3));
-	if (getUnitVector().getXComponent() > (Constants.MAX_PLAYER_SPEED_RIGHT * (1.0F / numberOfSInputs)))
-	    {
-		getUnitVector().setXComponent(Constants.MAX_PLAYER_SPEED_RIGHT * (1.0F / numberOfSInputs));
-	    }
+        setUnitVector(getUnitVector().add(v3));
+        if (getUnitVector().getXComponent() > (Constants.MAX_PLAYER_SPEED_RIGHT * (1.0F / numberOfSInputs))) {
+            getUnitVector().setXComponent(Constants.MAX_PLAYER_SPEED_RIGHT * (1.0F / numberOfSInputs));
+        }
         PhysicsEngine.movePlayer(this);
         setDirection(Direction.RIGHT);
         calculateFrameSkip();
@@ -284,13 +288,12 @@ public class Unit extends Sprite {
     public void moveRightStop(Vector3 v3) {
         if (getUnitVector().getXComponent() > 0.0f) {
             Vector3 unitReducedVector = getUnitVector().add(v3);
-	    if (unitReducedVector.getXComponent() < 0)
-		{
-		    unitReducedVector.setXComponent(0.0f);
-		}
+            if (unitReducedVector.getXComponent() < 0) {
+                unitReducedVector.setXComponent(0.0f);
+            }
             setUnitVector(unitReducedVector);
-	    // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
-	    PhysicsEngine.movePlayer(this);
+            // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
+            PhysicsEngine.movePlayer(this);
         }
     }
 
@@ -311,8 +314,34 @@ public class Unit extends Sprite {
     //TODO: when the movement is refactored out perhaps we can have the players "input" choices be on a list.
     //TODO: that would help facilitate this to be more configurable in the future.
     private int getNumberOfSimultaneousInputs() {
-        return  asInt(KeyboardHandler.isKeyDown(GLFW_KEY_W)) + asInt(KeyboardHandler.isKeyDown(GLFW_KEY_S)) +
+        return asInt(KeyboardHandler.isKeyDown(GLFW_KEY_W)) + asInt(KeyboardHandler.isKeyDown(GLFW_KEY_S)) +
                 asInt(KeyboardHandler.isKeyDown(GLFW_KEY_A)) + asInt(KeyboardHandler.isKeyDown(GLFW_KEY_D));
+
+        //TODO: move me out
+    }
+
+    public void draw() {
+        Renderer.drawAnimatedUnit(this, 0, this.getColNumber());
+
+        if(debug) {
+            highlightUnit();
+            debugUnit();
+        }
+    }
+
+    /**
+     * Highlight the current tile the player lives on.
+     */
+    private void highlightUnit() {
+        Logger.getInstance().highlightCurrentTile(this);
+    }
+
+    /**
+     * Print out some debug info on the screen.
+     */
+    private void debugUnit() {
+        Logger.getInstance().displayPlayerInfo(this);
+        Logger.getInstance().displayOccupiedTiles(this);
     }
 
 }
