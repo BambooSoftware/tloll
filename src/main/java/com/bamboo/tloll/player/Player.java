@@ -18,7 +18,6 @@ public class Player {
     // TODO(map) : The player stands still on diagonal against a wall.  Should slide instead.
 
 
-    boolean debug = false;
     Unit unit;
     Controls controls;
 
@@ -29,12 +28,6 @@ public class Player {
     public Player(Unit unit, Controls controls) {
         this.unit = unit;
         this.controls = controls;
-    }
-
-    public Player(Unit unit, Controls controls, boolean debug ) {
-        this.unit = unit;
-        this.controls = controls;
-        this.debug = debug;
     }
 
     public Unit getUnit() {
@@ -53,10 +46,6 @@ public class Player {
         this.controls = controls;
     }
 
-    public boolean isDebug() {
-        return debug;
-    }
-
     public void processMovement() {
         //Since we have the controls and the player we can go ahead and trigger movement here.
         processUp();
@@ -69,7 +58,7 @@ public class Player {
 
     private void processUp() {
         if (KeyboardHandler.isKeyDown(controls.getUp())) {
-            unit.moveUpStart(new Vector3(0.0f, 1.0f, 0.0f));
+            unit.moveUpStart(new Vector3(0.0f, 1.0f, 0.0f), getNumberOfSimultaneousInputs());
         } else {
             unit.moveUpStop(new Vector3(0.0f, -1.0f, 0.0f));
         }
@@ -77,7 +66,7 @@ public class Player {
 
     private void processDown() {
         if (KeyboardHandler.isKeyDown(controls.getDown())) {
-            unit.moveDownStart(new Vector3(0.0f, -1.0f, 0.0f));
+            unit.moveDownStart(new Vector3(0.0f, -1.0f, 0.0f), getNumberOfSimultaneousInputs());
         } else {
             unit.moveDownStop(new Vector3(0.0f, 1.0f, 0.0f));
         }
@@ -85,7 +74,7 @@ public class Player {
 
     private void processLeft() {
         if (KeyboardHandler.isKeyDown(controls.getLeft())) {
-            unit.moveLeftStart(new Vector3(-1.0f, 0.0f, 0.0f));
+            unit.moveLeftStart(new Vector3(-1.0f, 0.0f, 0.0f), getNumberOfSimultaneousInputs());
         } else {
             unit.moveLeftStop(new Vector3(1.0f, 0.0f, 0.0f));
         }
@@ -93,7 +82,7 @@ public class Player {
 
     private void processRight() {
         if (KeyboardHandler.isKeyDown(controls.getRight())) {
-            unit.moveRightStart(new Vector3(1.0f, 0.0f, 0.0f));
+            unit.moveRightStart(new Vector3(1.0f, 0.0f, 0.0f), getNumberOfSimultaneousInputs());
         } else {
             unit.moveRightStop(new Vector3(-1.0f, 0.0f, 0.0f));
         }

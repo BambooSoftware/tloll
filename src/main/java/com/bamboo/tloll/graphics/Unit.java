@@ -2,12 +2,8 @@ package com.bamboo.tloll.graphics;
 
 import com.bamboo.tloll.constants.Constants;
 import com.bamboo.tloll.debug.Logger;
-import com.bamboo.tloll.input.KeyboardHandler;
 import com.bamboo.tloll.physics.PhysicsEngine;
 import com.bamboo.tloll.physics.Vector3;
-
-import static com.bamboo.tloll.util.Utilities.asInt;
-import static org.lwjgl.glfw.GLFW.*;
 
 /**
  * Class to represent all heroes, enemies, pets, etc.
@@ -199,8 +195,7 @@ public class Unit extends Sprite {
         this.debug = debug;
     }
 
-    public void moveUpStart(Vector3 v3) {
-        int numberOfSInputs = getNumberOfSimultaneousInputs();
+    public void moveUpStart(Vector3 v3, int numberOfSInputs) {
 
         //TODO: abstract away the speed calculation to be generic ?
         //TODO: also load max speeds on a per player basis
@@ -225,9 +220,7 @@ public class Unit extends Sprite {
         }
     }
 
-    public void moveDownStart(Vector3 v3) {
-        int numberOfSInputs = getNumberOfSimultaneousInputs();
-
+    public void moveDownStart(Vector3 v3, int numberOfSInputs) {
         setUnitVector(getUnitVector().add(v3));
         if (getUnitVector().getYComponent() < (Constants.MAX_PLAYER_SPEED_DOWN * (1.0F / numberOfSInputs))) {
             getUnitVector().setYComponent(Constants.MAX_PLAYER_SPEED_DOWN * (1.0F / numberOfSInputs));
@@ -248,9 +241,7 @@ public class Unit extends Sprite {
         }
     }
 
-    public void moveLeftStart(Vector3 v3) {
-        int numberOfSInputs = getNumberOfSimultaneousInputs();
-
+    public void moveLeftStart(Vector3 v3, int numberOfSInputs) {
         setUnitVector(getUnitVector().add(v3));
         if (getUnitVector().getXComponent() < (Constants.MAX_PLAYER_SPEED_LEFT * (1.0F / numberOfSInputs))) {
             getUnitVector().setXComponent(Constants.MAX_PLAYER_SPEED_LEFT * (1.0F / numberOfSInputs));
@@ -271,9 +262,7 @@ public class Unit extends Sprite {
         }
     }
 
-    public void moveRightStart(Vector3 v3) {
-        int numberOfSInputs = getNumberOfSimultaneousInputs();
-
+    public void moveRightStart(Vector3 v3, int numberOfSInputs) {
         setUnitVector(getUnitVector().add(v3));
         if (getUnitVector().getXComponent() > (Constants.MAX_PLAYER_SPEED_RIGHT * (1.0F / numberOfSInputs))) {
             getUnitVector().setXComponent(Constants.MAX_PLAYER_SPEED_RIGHT * (1.0F / numberOfSInputs));
@@ -292,15 +281,6 @@ public class Unit extends Sprite {
             // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
             PhysicsEngine.movePlayer(this);
         }
-    }
-
-    //TODO: when the movement is refactored out perhaps we can have the players "input" choices be on a list.
-    //TODO: that would help facilitate this to be more configurable in the future.
-    private int getNumberOfSimultaneousInputs() {
-        return asInt(KeyboardHandler.isKeyDown(GLFW_KEY_W)) + asInt(KeyboardHandler.isKeyDown(GLFW_KEY_S)) +
-                asInt(KeyboardHandler.isKeyDown(GLFW_KEY_A)) + asInt(KeyboardHandler.isKeyDown(GLFW_KEY_D));
-
-        //TODO: move me out
     }
 
     public void draw() {
