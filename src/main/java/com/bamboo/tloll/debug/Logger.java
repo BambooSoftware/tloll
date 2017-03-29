@@ -15,38 +15,16 @@ import java.util.HashMap;
 
 public class Logger {
 
-    String filePath = "";
-    String level = "";
+    private static Logger _instance;
 
-    public Logger() {
-        this.level = "INFO";
-    }
-
-    public Logger(String level) {
-        this.level = level;
-    }
-
-    public Logger(String level, String filePath) {
-        this.level = level;
-        this.filePath = filePath;
-    }
-
-    public void writeToFile() {
-        // Method that will write out to a file if we ever needed it.
-    }
-
-    public void printDebugInfo(String message) {
-        switch (this.level) {
-            case "INFO":
-                System.out.println("INFO: " + message);
-                break;
-            case "DEBUG":
-                System.out.println("DEBUG: " + message);
-                break;
-            case "ERROR":
-                System.out.println("ERROR: " + message);
-                break;
+    public static Logger getInstance() {
+        if (_instance == null) {
+            _instance = new Logger();
         }
+        return _instance;
+    }
+
+    private Logger() {
     }
 
     public void displayPlayerInfo(Unit player) {
@@ -64,7 +42,7 @@ public class Logger {
 
     public void displayOccupiedTiles(Unit player) {
         GraphicsUtil gu = GraphicsUtil.getInstance();
-	
+
         float yPosForTileInfo = 370.0f;
         for (Tile tile : getOccupiedTiles(player)) {
             printToWindow(gu, "" + tile.getTileId(), 0.0f, yPosForTileInfo, false);
@@ -79,41 +57,42 @@ public class Logger {
     public void highlightCurrentTile(Unit player) {
         GraphicsUtil gu = GraphicsUtil.getInstance();
 
-	List<Tile> highlightList = getOccupiedTiles(player);
+        List<Tile> highlightList = getOccupiedTiles(player);
 
-	for (Tile tile : highlightList)
-	    {
-		Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getBufferId(), tile.getTileId(), false);
-		highlightTile.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(Constants.USER_DIR + "/Assets/Images/highlight.png"), highlightTile.getHeight(), highlightTile.getWidth()));
-		Renderer.drawSprite(highlightTile, 0);
-	    }
+        for (Tile tile : highlightList) {
+            Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getBufferId(), tile.getTileId(), false);
+            highlightTile.addBufferToMap(0, new SpriteBuffer(gu.loadTexture(Constants.USER_DIR + "/Assets/Images/highlight.png"), highlightTile.getHeight(), highlightTile.getWidth()));
+            Renderer.drawSprite(highlightTile, 0);
+        }
     }
 
+    //TODO: refactor me out somewhere else. This is very important for the scene transition. It shouldn't live in the
+    //TODO: logger. We have responsibilities intertwined. I think the unit is the lileky target
     public List<Tile> getOccupiedTiles(Unit player) {
-	WorldMap wm = WorldMap.getInstance();
-	
-	Map<Integer, Tile> occupiedTiles = new HashMap<>();
+        WorldMap wm = WorldMap.getInstance();
 
-	int playerBottomLeftX = (int) (player.getPosX() / 80);
-	int playerBottomLeftY = (int) (player.getPosY() / 80);
-	int tileId = playerBottomLeftX * 8 + playerBottomLeftY;
-	occupiedTiles.put(tileId, wm.getCurrentScene().getTileList().get(tileId));
-	
-	int playerBottomRightX = (int) ((player.getPosX() + player.getWidth()) / 80);
-	int playerBottomRightY = (int) (player.getPosY() / 80);
-	tileId = playerBottomRightX * 8 + playerBottomRightY;
-	occupiedTiles.put(tileId, wm.getCurrentScene().getTileList().get(tileId));
-	
-	int playerUpperLeftX = (int) (player.getPosX() / 80);
-	int playerUpperLeftY = (int) ((player.getPosY() + player.getHeight()) / 80);
-	tileId = playerUpperLeftX * 8 + playerUpperLeftY;
-	occupiedTiles.put(tileId, wm.getCurrentScene().getTileList().get(tileId));
-	
-	int playerUpperRightX = (int) ((player.getPosX() + player.getWidth()) / 80);
-	int playerUpperRightY = (int) ((player.getPosY() + player.getHeight()) / 80);
-	tileId = playerUpperRightX * 8 + playerUpperRightY;
-	occupiedTiles.put(tileId, wm.getCurrentScene().getTileList().get(tileId));
-	
+        Map<Integer, Tile> occupiedTiles = new HashMap<>();
+
+        int playerBottomLeftX = (int) (player.getPosX() / 80);
+        int playerBottomLeftY = (int) (player.getPosY() / 80);
+        int tileId = playerBottomLeftX * 8 + playerBottomLeftY;
+        occupiedTiles.put(tileId, wm.getCurrentScene().getTileList().get(tileId));
+
+        int playerBottomRightX = (int) ((player.getPosX() + player.getWidth()) / 80);
+        int playerBottomRightY = (int) (player.getPosY() / 80);
+        tileId = playerBottomRightX * 8 + playerBottomRightY;
+        occupiedTiles.put(tileId, wm.getCurrentScene().getTileList().get(tileId));
+
+        int playerUpperLeftX = (int) (player.getPosX() / 80);
+        int playerUpperLeftY = (int) ((player.getPosY() + player.getHeight()) / 80);
+        tileId = playerUpperLeftX * 8 + playerUpperLeftY;
+        occupiedTiles.put(tileId, wm.getCurrentScene().getTileList().get(tileId));
+
+        int playerUpperRightX = (int) ((player.getPosX() + player.getWidth()) / 80);
+        int playerUpperRightY = (int) ((player.getPosY() + player.getHeight()) / 80);
+        tileId = playerUpperRightX * 8 + playerUpperRightY;
+        occupiedTiles.put(tileId, wm.getCurrentScene().getTileList().get(tileId));
+
         return new ArrayList<>(occupiedTiles.values());
     }
 

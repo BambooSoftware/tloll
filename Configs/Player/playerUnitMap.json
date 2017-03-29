@@ -1,0 +1,6 @@
+{
+  "playerUnitMap" : [
+    { "playerId" : "1", "unitId" : "lingLing"},
+    { "playerId" : "2", "unitId" : "gainz"}
+  ]
+}

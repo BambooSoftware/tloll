@@ -1,0 +1,34 @@
+{
+  "units": [
+    {
+      "id": "lingLing",
+      "name": "Ling Ling",
+      "maxSpeed": "7",
+      "spriteBuffer": {
+        "id": "0",
+        "path": "/Assets/Actors/panda_f_base.png",
+        "spriteSheetRows": "4",
+        "spriteSheetCols": "4"
+      },
+      "height": "32",
+      "width": "32", 
+      "acceleration": "0.5",
+      "debug": "true"
+    },
+    {
+      "id": "gainz",
+      "name": "Gainz",
+      "maxSpeed": "5",
+      "spriteBuffer": {
+        "id": "0",
+        "path": "/Assets/Images/gainz.png",
+        "spriteSheetRows": "1",
+        "spriteSheetCols": "1"
+      },
+      "height": "64",
+      "width": "64",
+      "acceleration": "0.5",
+      "debug": "false"
+    }
+  ]
+}
