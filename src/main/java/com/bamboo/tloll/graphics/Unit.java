@@ -205,12 +205,12 @@ public class Unit extends Sprite {
         //TODO: abstract away the speed calculation to be generic ?
         //TODO: also load max speeds on a per player basis
         setUnitVector(getUnitVector().add(v3));
+
         if (getUnitVector().getYComponent() > (Constants.MAX_PLAYER_SPEED_UP * (1.0F / numberOfSInputs))) {
             getUnitVector().setYComponent(Constants.MAX_PLAYER_SPEED_UP * (1.0F / numberOfSInputs));
         }
         PhysicsEngine.movePlayer(this);
         setDirection(Direction.UP);
-        calculateFrameSkip();
     }
 
     public void moveUpStop(Vector3 v3) {
@@ -234,7 +234,6 @@ public class Unit extends Sprite {
         }
         PhysicsEngine.movePlayer(this);
         setDirection(Direction.DOWN);
-        calculateFrameSkip();
     }
 
     public void moveDownStop(Vector3 v3) {
@@ -258,7 +257,6 @@ public class Unit extends Sprite {
         }
         PhysicsEngine.movePlayer(this);
         setDirection(Direction.LEFT);
-        calculateFrameSkip();
     }
 
     public void moveLeftStop(Vector3 v3) {
@@ -282,7 +280,6 @@ public class Unit extends Sprite {
         }
         PhysicsEngine.movePlayer(this);
         setDirection(Direction.RIGHT);
-        calculateFrameSkip();
     }
 
     public void moveRightStop(Vector3 v3) {
@@ -297,20 +294,6 @@ public class Unit extends Sprite {
         }
     }
 
-    //Puts a hard frame skip on the character
-    //remove when we add FPS limit
-    @Deprecated
-    private void calculateFrameSkip() {
-        if (getFrameSkip() < 0) {
-            setColNumber(getColNumber() + 1);
-            if (getColNumber() > 4) {
-                setColNumber(1);
-            }
-        } else {
-            setFrameSkip(getFrameSkip() - 1);
-        }
-    }
-
     //TODO: when the movement is refactored out perhaps we can have the players "input" choices be on a list.
     //TODO: that would help facilitate this to be more configurable in the future.
     private int getNumberOfSimultaneousInputs() {
@@ -321,12 +304,12 @@ public class Unit extends Sprite {
     }
 
     public void draw() {
-        Renderer.drawAnimatedUnit(this, 0, this.getColNumber());
-
         if(debug) {
             highlightUnit();
             debugUnit();
         }
+
+        Renderer.drawAnimatedUnit(this, 0, this.getColNumber());
     }
 
     /**
