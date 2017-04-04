@@ -3,6 +3,7 @@ package com.bamboo.tloll.collision;
 import com.bamboo.tloll.graphics.Unit;
 import com.bamboo.tloll.graphics.structure.Tile;
 import com.bamboo.tloll.graphics.structure.WorldMap;
+import com.bamboo.tloll.constants.Constants;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -35,23 +36,23 @@ public class CollisionDetector
 
         Map<Integer, Tile> occupiedTiles = new HashMap<>();
 
-        int playerBottomLeftX = (int) ((player.getPosX() + deltaX) / 80);
-        int playerBottomLeftY = (int) ((player.getPosY() + deltaY) / 80);
+        int playerBottomLeftX = (int) ((player.getPosX() + deltaX) / Constants.TILE_WIDTH);
+        int playerBottomLeftY = (int) ((player.getPosY() + deltaY) / Constants.TILE_HEIGHT);
         int tileId = playerBottomLeftX * 8 + playerBottomLeftY;
         occupiedTiles.put(tileId, wm.getCurrentScene().getTileList().get(tileId));
 
-        int playerBottomRightX = (int) ((player.getPosX() + player.getWidth() + deltaX) / 80);
-        int playerBottomRightY = (int) ((player.getPosY() + deltaY) / 80);
+        int playerBottomRightX = (int) ((player.getPosX() + player.getWidth() + deltaX) / Constants.TILE_WIDTH);
+        int playerBottomRightY = (int) ((player.getPosY() + deltaY) / Constants.TILE_HEIGHT);
         tileId = playerBottomRightX * 8 + playerBottomRightY;
         occupiedTiles.put(tileId, wm.getCurrentScene().getTileList().get(tileId));
 
-        int playerUpperLeftX = (int) ((player.getPosX() + deltaX) / 80);
-        int playerUpperLeftY = (int) ((player.getPosY() + player.getHeight() + deltaY) / 80);
+        int playerUpperLeftX = (int) ((player.getPosX() + deltaX) / Constants.TILE_WIDTH);
+        int playerUpperLeftY = (int) ((player.getPosY() + player.getHeight() + deltaY) / Constants.TILE_HEIGHT);
         tileId = playerUpperLeftX * 8 + playerUpperLeftY;
         occupiedTiles.put(tileId, wm.getCurrentScene().getTileList().get(tileId));
 
-        int playerUpperRightX = (int) ((player.getPosX() + player.getWidth() + deltaX) / 80);
-        int playerUpperRightY = (int) ((player.getPosY() + player.getHeight() + deltaY) / 80);
+        int playerUpperRightX = (int) ((player.getPosX() + player.getWidth() + deltaX) / Constants.TILE_WIDTH);
+        int playerUpperRightY = (int) ((player.getPosY() + player.getHeight() + deltaY) / Constants.TILE_HEIGHT);
         tileId = playerUpperRightX * 8 + playerUpperRightY;
         occupiedTiles.put(tileId, wm.getCurrentScene().getTileList().get(tileId));
 
