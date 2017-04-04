@@ -16,6 +16,7 @@ import java.util.HashMap;
 public class Logger {
 
     private static Logger _instance;
+    private long fpsLastTime;
 
     public static Logger getInstance() {
         if (_instance == null) {
@@ -25,6 +26,7 @@ public class Logger {
     }
 
     private Logger() {
+        fpsLastTime = 0l;
     }
 
     public void displayPlayerInfo(Unit player) {
@@ -49,6 +51,19 @@ public class Logger {
             yPosForTileInfo -= 20.0f;
         }
 
+    }
+
+    public void calculateAndDisplayFps() {
+        long newTime = System.currentTimeMillis();
+        long delta = newTime- fpsLastTime;
+        fpsLastTime = newTime;
+        long fps = 1000/delta;
+        displayFps(fps);
+    }
+
+    private void displayFps(long fps) {
+        GraphicsUtil gu = GraphicsUtil.getInstance();
+        printToWindow(gu, "FPS: " + fps, 0.0f, 320.0f, false);
     }
 
 
