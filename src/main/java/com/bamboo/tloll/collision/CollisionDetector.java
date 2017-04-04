@@ -26,31 +26,7 @@ public class CollisionDetector
     
     public List<Tile> getOccupiedTiles(Unit player)
     {
-        WorldMap wm = WorldMap.getInstance();
-
-        Map<Integer, Tile> occupiedTiles = new HashMap<>();
-
-        int playerBottomLeftX = (int) (player.getPosX() / 80);
-        int playerBottomLeftY = (int) (player.getPosY() / 80);
-        int tileId = playerBottomLeftX * 8 + playerBottomLeftY;
-        occupiedTiles.put(tileId, wm.getCurrentScene().getTileList().get(tileId));
-
-        int playerBottomRightX = (int) ((player.getPosX() + player.getWidth()) / 80);
-        int playerBottomRightY = (int) (player.getPosY() / 80);
-        tileId = playerBottomRightX * 8 + playerBottomRightY;
-        occupiedTiles.put(tileId, wm.getCurrentScene().getTileList().get(tileId));
-
-        int playerUpperLeftX = (int) (player.getPosX() / 80);
-        int playerUpperLeftY = (int) ((player.getPosY() + player.getHeight()) / 80);
-        tileId = playerUpperLeftX * 8 + playerUpperLeftY;
-        occupiedTiles.put(tileId, wm.getCurrentScene().getTileList().get(tileId));
-
-        int playerUpperRightX = (int) ((player.getPosX() + player.getWidth()) / 80);
-        int playerUpperRightY = (int) ((player.getPosY() + player.getHeight()) / 80);
-        tileId = playerUpperRightX * 8 + playerUpperRightY;
-        occupiedTiles.put(tileId, wm.getCurrentScene().getTileList().get(tileId));
-
-        return new ArrayList<>(occupiedTiles.values());
+	return getOccupiedTiles(player, 0.0f, 0.0f);
     }
 
     public List<Tile> getOccupiedTiles(Unit player, float deltaX, float deltaY)
