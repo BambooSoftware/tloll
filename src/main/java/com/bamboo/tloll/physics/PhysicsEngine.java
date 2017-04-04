@@ -6,6 +6,8 @@ import com.bamboo.tloll.graphics.structure.Scene;
 import com.bamboo.tloll.graphics.structure.Tile;
 import com.bamboo.tloll.graphics.structure.WorldMap;
 
+import com.bamboo.tloll.collision.CollisionDetector;
+
 public class PhysicsEngine {
 
 
@@ -28,7 +30,7 @@ public class PhysicsEngine {
         float deltaY = player.getUnitVector().getYComponent();
         Scene currentScene = WorldMap.getInstance().getCurrentScene();
 
-        if (!isOutOfBoundsX(player, deltaX) && isTilePassable(player, deltaX, deltaY, currentScene)) {
+        if (!isOutOfBoundsX(player, deltaX) && CollisionDetector.getInstance().isTilePassableX(player, deltaX)) {
             player.setPosX(player.getPosX() + deltaX);
 	    player.setCenterX(player.getCenterX() + deltaX);
             if (moveInTileX(player, deltaX)) {
@@ -44,7 +46,7 @@ public class PhysicsEngine {
             }
         }
 
-        if (!isOutOfBoundsY(player, deltaY) && isTilePassable(player, deltaX, deltaY, currentScene)) {
+        if (!isOutOfBoundsY(player, deltaY) && CollisionDetector.getInstance().isTilePassableY(player, deltaY)) {
             player.setPosY(player.getPosY() + deltaY);
 	    player.setCenterY(player.getCenterY() + deltaY);
             if (moveInTileY(player, deltaY)) {
@@ -92,29 +94,17 @@ public class PhysicsEngine {
     }
 
     public boolean moveInTileX(Unit player, float deltaX) {
-        if (player.getRelativeTileX() + deltaX < 64.0 && player.getRelativeTileX() + deltaX > 0.0) {
+        if (player.getRelativeTileX() + deltaX < Constants.TILE_WIDTH && player.getRelativeTileX() + deltaX > 0.0) {
             return true;
         }
         return false;
     }
 
     public boolean moveInTileY(Unit player, float deltaY) {
-        if (player.getRelativeTileY() + deltaY < 64.0 && player.getRelativeTileY() + deltaY > 0.0) {
+        if (player.getRelativeTileY() + deltaY < Constants.TILE_HEIGHT && player.getRelativeTileY() + deltaY > 0.0) {
             return true;
         }
         return false;
-    }
-
-    private boolean isTilePassable(Unit player, float deltaX, float deltaY, Scene currentScene) {
-        for (Tile tile : currentScene.getTileList()) {
-            if ((player.getPosX() + deltaX) >= tile.getPosX() &&
-                    (player.getPosX() + deltaX) <= (tile.getPosX() + tile.getWidth()) &&
-                    (player.getPosY() + deltaY) >= tile.getPosY() &&
-                    (player.getPosY() + deltaY) <= (tile.getPosY() + tile.getHeight())) {
-                return tile.isPassable();
-            }
-        }
-        return true;
     }
 
 }

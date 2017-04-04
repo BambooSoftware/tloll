@@ -8,6 +8,8 @@ import com.bamboo.tloll.graphics.Unit;
 import com.bamboo.tloll.graphics.structure.Tile;
 import com.bamboo.tloll.graphics.structure.WorldMap;
 
+import com.bamboo.tloll.collision.CollisionDetector;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +48,7 @@ public class Logger {
         GraphicsUtil gu = GraphicsUtil.getInstance();
 
         float yPosForTileInfo = 370.0f;
-        for (Tile tile : getOccupiedTiles(player)) {
+        for (Tile tile : CollisionDetector.getInstance().getOccupiedTiles(player)) {
             printToWindow(gu, "" + tile.getTileId(), 0.0f, yPosForTileInfo, false);
             yPosForTileInfo -= 20.0f;
         }
@@ -72,7 +74,7 @@ public class Logger {
     public void highlightCurrentTile(Unit player) {
         GraphicsUtil gu = GraphicsUtil.getInstance();
 
-        List<Tile> highlightList = getOccupiedTiles(player);
+        List<Tile> highlightList = CollisionDetector.getInstance().getOccupiedTiles(player);
 
         for (Tile tile : highlightList) {
             Tile highlightTile = new Tile(tile.getPosX(), tile.getPosY(), tile.getWidth(), tile.getHeight(), tile.isPassable(), tile.getBufferId(), tile.getTileId(), false);
@@ -81,36 +83,7 @@ public class Logger {
         }
     }
 
-    //TODO: refactor me out somewhere else. This is very important for the scene transition. It shouldn't live in the
-    //TODO: logger. We have responsibilities intertwined. I think the unit is the lileky target
-    public List<Tile> getOccupiedTiles(Unit player) {
-        WorldMap wm = WorldMap.getInstance();
-
-        Map<Integer, Tile> occupiedTiles = new HashMap<>();
-
-        int playerBottomLeftX = (int) (player.getPosX() / 80);
-        int playerBottomLeftY = (int) (player.getPosY() / 80);
-        int tileId = playerBottomLeftX * 8 + playerBottomLeftY;
-        occupiedTiles.put(tileId, wm.getCurrentScene().getTileList().get(tileId));
-
-        int playerBottomRightX = (int) ((player.getPosX() + player.getWidth()) / 80);
-        int playerBottomRightY = (int) (player.getPosY() / 80);
-        tileId = playerBottomRightX * 8 + playerBottomRightY;
-        occupiedTiles.put(tileId, wm.getCurrentScene().getTileList().get(tileId));
-
-        int playerUpperLeftX = (int) (player.getPosX() / 80);
-        int playerUpperLeftY = (int) ((player.getPosY() + player.getHeight()) / 80);
-        tileId = playerUpperLeftX * 8 + playerUpperLeftY;
-        occupiedTiles.put(tileId, wm.getCurrentScene().getTileList().get(tileId));
-
-        int playerUpperRightX = (int) ((player.getPosX() + player.getWidth()) / 80);
-        int playerUpperRightY = (int) ((player.getPosY() + player.getHeight()) / 80);
-        tileId = playerUpperRightX * 8 + playerUpperRightY;
-        occupiedTiles.put(tileId, wm.getCurrentScene().getTileList().get(tileId));
-
-        return new ArrayList<>(occupiedTiles.values());
-    }
-
+    
     public void printToWindow(GraphicsUtil gu, String message, float posX, float posY, boolean leftToRight) {
         Renderer.drawString(gu, Constants.USER_DIR, posX, posY, message, leftToRight);
     }

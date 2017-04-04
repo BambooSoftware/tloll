@@ -7,6 +7,7 @@ import com.bamboo.tloll.graphics.structure.Scene;
 import com.bamboo.tloll.graphics.structure.Link;
 
 import com.bamboo.tloll.debug.Logger;
+import com.bamboo.tloll.collision.CollisionDetector;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public final class SceneTransition {
 
     public static void checkForTransition(Unit player) {
         // We will check the list of occupied tiles for any stairs.
-        List<Tile> occupiedTiles = Logger.getInstance().getOccupiedTiles(player);
+        List<Tile> occupiedTiles = CollisionDetector.getInstance().getOccupiedTiles(player);
         for (Tile tile : occupiedTiles) {
             if (tile.getBufferId().equals("stairs")) {
                 System.out.println("We are going to transition");
