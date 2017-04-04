@@ -1,6 +1,7 @@
 package com.bamboo.tloll;
 
 import com.bamboo.tloll.constants.Constants;
+import com.bamboo.tloll.debug.Logger;
 import com.bamboo.tloll.graphics.GraphicsUtil;
 import com.bamboo.tloll.graphics.Renderer;
 import com.bamboo.tloll.graphics.structure.WorldMap;
@@ -94,6 +95,8 @@ public class Tloll {
         }
 
         Input.getInstance().poll();
+        Logger.getInstance().calculateAndDisplayFps();
+
     }
 
 }
