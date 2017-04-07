@@ -28,5 +28,7 @@ public final class Constants
     public static final float MAX_PLAYER_SPEED_UP = 7.0f;
     public static final float MAX_PLAYER_SPEED_DOWN = -7.0f;
 
-
+    public static final String ALPHABET_ID = "alphabet";
+    public static final int ALPHABET_WIDTH = 468;
+    public static final int ALPHABET_HEIGHT = 25;
 }
