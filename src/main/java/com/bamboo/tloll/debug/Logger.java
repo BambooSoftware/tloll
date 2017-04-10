@@ -21,7 +21,7 @@ public class Logger {
     private static Logger _instance;
     private long fpsLastTime;
 
-    private Sprite alphabetSprite;
+    private Map<Character, Sprite> alphabetSprites;
 
     public static Logger getInstance() {
         if (_instance == null) {
@@ -32,17 +32,15 @@ public class Logger {
 
     private Logger() {
         fpsLastTime = 0l;
-	alphabetSprite = null;
+	alphabetSprites = new HashMap<Character, Sprite>();
     }
 
     public void displayPlayerInfo(Unit player) {
         printToWindow("Player Pos X " + player.getPosX(), 0.0f, 470.0f);
         printToWindow("Player Pos Y " + player.getPosY(), 0.0f, 450.0f);
         printToWindow("Player Center Coords", 0.0f, 430.0f);
-        printToWindow("Player Center Coords", 0.0f, 430.0f);
         printToWindow("" + player.getCenterX() + " " + player.getCenterY(), 0.0f, 410.0f);
         printToWindow("Occupied TIle IDs", 0.0f, 390.0f);
-
     }
 
     public void displayOccupiedTiles(Unit player) {
@@ -66,7 +64,7 @@ public class Logger {
 
     private void displayFps(long fps) {
         GraphicsUtil gu = GraphicsUtil.getInstance();
-        printToWindow("FPS: " + fps, 0.0f, 320.0f);
+        printToWindow("FPS " + fps, 0.0f, 320.0f);
     }
 
 
@@ -89,13 +87,12 @@ public class Logger {
         Renderer.drawString(posX, posY, message);
     }
 
-
-    public void setAlphabetSprite(Sprite alphabetSprite)
+    public void setAlphabetSprites(Map<Character, Sprite> alphabetSprites)
     {
-	this.alphabetSprite = alphabetSprite;
+	this.alphabetSprites = alphabetSprites;
     }
-    public Sprite getAlphabetSprite()
+    public Map<Character, Sprite> getAlphabetSprites()
     {
-        return alphabetSprite;
+        return alphabetSprites;
     }
 }

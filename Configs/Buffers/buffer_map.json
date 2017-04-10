@@ -12,6 +12,6 @@
       { "id" : "grass_top_right_water",     "path" : "/Assets/Map/Tiles/Water_Grass/grass_top_right_water.PNG"},
       { "id" : "grass_bottom_right_water",  "path" : "/Assets/Map/Tiles/Water_Grass/grass_bottom_right_water.PNG"},
 	{ "id" : "dirt",                      "path" : "/Assets/Map/Tiles/Water_Grass/dirt.PNG"},
-	{ "id" : "alphabet",                      "path" : "/Assets/Images/alphabet_white.png"}
+	{ "id" : "alphabet_base",                      "path" : "/Assets/Alphabet/"}
     ]
 }

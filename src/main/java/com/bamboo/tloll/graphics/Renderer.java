@@ -9,6 +9,7 @@ import com.bamboo.tloll.util.BufferMap;
 import com.bamboo.tloll.debug.Logger;
 
 import java.util.Map;
+import java.util.HashMap;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
@@ -121,22 +122,14 @@ public final class Renderer {
 	    if (characters[i] == '.') {
 		characters[i] = ' ';
 	    }
-	    if (characters[i] == 'f') {
-		characters[i] = 'F';
-	    }
-
-	    int numRepOfChar = characters[i] - 'A';
-	    if (numRepOfChar < -7 && numRepOfChar > -19) {
-		int number = Character.getNumericValue(characters[i]);
-		if (number == 0)
-		    number = 10;
-		numRepOfChar = 'Z' - 'A' + number;
-	    }
-	    float xMin = (1.0f / 36.0f) * (numRepOfChar * 1);
-	    float xMax = (1.0f / 36.0f) * ((numRepOfChar + 1) * 1);
-	    float yMin = 0.0f;
-	    float yMax = 1.0f;
-
+	    // TODO(map) : This will become an else if to further optimize once we have all the sprites
+	    // available for every character.  Until then, the '.' becomes a ' ' which should become
+	    // a 's' character.
+	    if (characters[i] == ' ')
+		{
+		    characters[i] = 's';
+		}
+	
 	    // Doing the actual rendering here.
 	    glBindTexture(GL_TEXTURE_2D, 0);
 	    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -145,15 +138,15 @@ public final class Renderer {
 	    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Constants.ALPHABET_WIDTH, Constants.ALPHABET_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, Logger.getInstance().getAlphabetSprite().getBufferMap().get(0).getByteBuffer());
+	    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, Logger.getInstance().getAlphabetSprites().get(characters[i]).getBufferMap().get(0).getByteBuffer());
 	    glBegin(GL_QUADS);
-	    glTexCoord2f(xMin, yMax);
+	    glTexCoord2f(0.0f, 1.0f);
 	    glVertex3f(sprite.getPosX(), sprite.getPosY(), 0.0f);
-	    glTexCoord2f(xMax, yMax);
+	    glTexCoord2f(1.0f, 1.0f);
 	    glVertex3f(sprite.getPosX() + sprite.getWidth(), sprite.getPosY(), 0.0f);
-	    glTexCoord2f(xMax, yMin);
+	    glTexCoord2f(1.0f, 0.0f);
 	    glVertex3f(sprite.getPosX() + sprite.getWidth(), sprite.getPosY() + sprite.getHeight(), 0.0f);
-	    glTexCoord2f(xMin, yMin);
+	    glTexCoord2f(0.0f, 0.0f);
 	    glVertex3f(sprite.getPosX(), sprite.getPosY() + sprite.getHeight(), 0.0f);
 	    glEnd();
 	    sprite.setPosX(sprite.getPosX() - sprite.getWidth());
@@ -184,12 +177,31 @@ public final class Renderer {
         }
     }
 
-    public static Sprite loadAlphabetSprite()
+    public static Map<Character, Sprite> loadAlphabetSprites()
     {
-	SpriteBuffer spriteBuffer = BufferMap.getInstance().getSpriteBuffer(Constants.ALPHABET_ID, Constants.ALPHABET_WIDTH, Constants.ALPHABET_HEIGHT);
+	Map<Character, Sprite> alphabetSprites = new HashMap<Character, Sprite>();
+	for (char i = 'A'; i <= 'Z'; ++i)
+	    {
+		SpriteBuffer spriteBuffer = BufferMap.getInstance().getSpriteBuffer(Constants.ALPHABET_BASE, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, i);
+		Sprite alphabetSprite = new Sprite();
+		alphabetSprite.getBufferMap().put(0, spriteBuffer);
+		alphabetSprites.put(i, alphabetSprite);
+	    }
+	
+	for (char i = '0'; i <= '9'; ++i)
+	    {
+		SpriteBuffer spriteBuffer = BufferMap.getInstance().getSpriteBuffer(Constants.ALPHABET_BASE, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, i);
+		Sprite alphabetSprite = new Sprite();
+		alphabetSprite.getBufferMap().put(0, spriteBuffer);
+		alphabetSprites.put(i, alphabetSprite);
+	    }
+	
+	SpriteBuffer spriteBuffer = BufferMap.getInstance().getSpriteBuffer(Constants.ALPHABET_BASE, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, 's');
 	Sprite alphabetSprite = new Sprite();
 	alphabetSprite.getBufferMap().put(0, spriteBuffer);
-	return alphabetSprite;
+	alphabetSprites.put('s', alphabetSprite);
+
+	return alphabetSprites;
     }
 
 

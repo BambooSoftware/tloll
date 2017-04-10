@@ -60,7 +60,7 @@ public class Tloll {
         // NOTE(map) : We have this here because it was causing problems having int in drawCurrentScene
         // as it reset the current scene to scene 0 every time.  Maybe move this elswhere???
         WorldMap.getInstance().setCurrentScene(Renderer.loadTileBuffers());
-	Logger.getInstance().setAlphabetSprite(Renderer.loadAlphabetSprite());
+	Logger.getInstance().setAlphabetSprites(Renderer.loadAlphabetSprites());
     }
 
     private void loop() {
