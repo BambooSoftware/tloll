@@ -3,7 +3,7 @@
     {
       "id": "lingLing",
       "name": "Ling Ling",
-      "maxSpeed": "7",
+      "maxSpeed": "20",
       "spriteBuffer": {
         "id": "0",
         "path": "/Assets/Actors/panda_f_base.png",

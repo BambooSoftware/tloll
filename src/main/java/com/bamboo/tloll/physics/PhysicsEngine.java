@@ -1,19 +1,13 @@
 package com.bamboo.tloll.physics;
 
+import com.bamboo.tloll.collision.CollisionDetector;
 import com.bamboo.tloll.constants.Constants;
 import com.bamboo.tloll.graphics.Unit;
-import com.bamboo.tloll.graphics.structure.Scene;
-import com.bamboo.tloll.graphics.structure.Tile;
-import com.bamboo.tloll.graphics.structure.WorldMap;
-
-import com.bamboo.tloll.collision.CollisionDetector;
 
 public class PhysicsEngine {
 
-
     private static PhysicsEngine _instance;
 
-    // TODO(map) : Make me a singleton???
     private PhysicsEngine() {
     }
 
@@ -26,13 +20,14 @@ public class PhysicsEngine {
 
     public void movePlayer(Unit player) {
 
-        float deltaX = player.getUnitVector().getXComponent();
-        float deltaY = player.getUnitVector().getYComponent();
-        Scene currentScene = WorldMap.getInstance().getCurrentScene();
+        Vector3 movement = normalizeMovement(player);
+
+        float deltaX = movement.getXComponent();
+        float deltaY = movement.getYComponent();
 
         if (!isOutOfBoundsX(player, deltaX) && CollisionDetector.getInstance().isTilePassableX(player, deltaX)) {
             player.setPosX(player.getPosX() + deltaX);
-	    player.setCenterX(player.getCenterX() + deltaX);
+	        player.setCenterX(player.getCenterX() + deltaX);
             if (moveInTileX(player, deltaX)) {
                 player.setRelativeTileX(player.getRelativeTileX() + deltaX);
             } else {
@@ -105,6 +100,20 @@ public class PhysicsEngine {
             return true;
         }
         return false;
+    }
+
+    private Vector3 normalizeMovement(Unit unit) {
+        long currentTime = System.currentTimeMillis();
+        long deltaTime  =  currentTime - unit.getLastMoved();
+        unit.setLastMoved(currentTime);
+
+        float secondsPerFrame = (float) deltaTime/1000.0f;
+        float movementValue = unit.getMaxSpeed() * secondsPerFrame;
+
+        float  deltaX = unit.getUnitVector().getXComponent() * movementValue;
+        float deltaY = unit.getUnitVector().getYComponent() * movementValue;
+
+        return new Vector3(deltaX, deltaY, 0.0f);
     }
 
 }

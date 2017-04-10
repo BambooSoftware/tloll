@@ -32,6 +32,8 @@ public class Unit extends Sprite {
 
     private boolean debug;
 
+    private long lastMoved;
+
     public Unit() {
         super();
         this.acceleration = 1.0f;
@@ -46,6 +48,7 @@ public class Unit extends Sprite {
         this.direction = Direction.DOWN;
         this.colNumber = 1;
         this.debug = false;
+        this.lastMoved = 0;
     }
 
     public Unit(float posX, float posY, float width, float height, float acceleration, Vector3 v3, Direction direction, float maxSpeed) {
@@ -63,6 +66,7 @@ public class Unit extends Sprite {
         this.colNumber = 1;
         this.debug = false;
         this.maxSpeed = maxSpeed;
+        this.lastMoved = 0;
     }
 
     public float getAcceleration() {
@@ -185,13 +189,13 @@ public class Unit extends Sprite {
         this.debug = debug;
     }
 
-    public void moveUpStart(Vector3 v3, int numberOfSInputs) {
+    public void moveUpStart(Vector3 v3) {
 
         //TODO: abstract away the speed calculation to be generic ?
         setUnitVector(getUnitVector().add(v3));
 
-        if (getUnitVector().getYComponent() > (getMaxSpeedUp() * (1.0F / numberOfSInputs))) {
-            getUnitVector().setYComponent(getMaxSpeedUp() * (1.0F / numberOfSInputs));
+        if (getUnitVector().getYComponent() > (getMaxSpeedUp())) {
+            getUnitVector().setYComponent(getMaxSpeedUp());
         }
         PhysicsEngine.getInstance().movePlayer(this);
         setDirection(Direction.UP);
@@ -209,10 +213,10 @@ public class Unit extends Sprite {
         }
     }
 
-    public void moveDownStart(Vector3 v3, int numberOfSInputs) {
+    public void moveDownStart(Vector3 v3) {
         setUnitVector(getUnitVector().add(v3));
-        if (getUnitVector().getYComponent() < (getMaxSpeedDown() * (1.0F / numberOfSInputs))) {
-            getUnitVector().setYComponent(getMaxSpeedDown() * (1.0F / numberOfSInputs));
+        if (getUnitVector().getYComponent() < (getMaxSpeedDown())) {
+            getUnitVector().setYComponent(getMaxSpeedDown());
         }
         PhysicsEngine.getInstance().movePlayer(this);
         setDirection(Direction.DOWN);
@@ -230,10 +234,10 @@ public class Unit extends Sprite {
         }
     }
 
-    public void moveLeftStart(Vector3 v3, int numberOfSInputs) {
+    public void moveLeftStart(Vector3 v3) {
         setUnitVector(getUnitVector().add(v3));
-        if (getUnitVector().getXComponent() < (getMaxSpeedLeft() * (1.0F / numberOfSInputs))) {
-            getUnitVector().setXComponent(getMaxSpeedLeft() * (1.0F / numberOfSInputs));
+        if (getUnitVector().getXComponent() < (getMaxSpeedLeft())) {
+            getUnitVector().setXComponent(getMaxSpeedLeft());
         }
         PhysicsEngine.getInstance().movePlayer(this);
         setDirection(Direction.LEFT);
@@ -251,10 +255,10 @@ public class Unit extends Sprite {
         }
     }
 
-    public void moveRightStart(Vector3 v3, int numberOfSInputs) {
+    public void moveRightStart(Vector3 v3) {
         setUnitVector(getUnitVector().add(v3));
-        if (getUnitVector().getXComponent() > (getMaxSpeedRight() * (1.0F / numberOfSInputs))) {
-            getUnitVector().setXComponent(getMaxSpeedRight() * (1.0F / numberOfSInputs));
+        if (getUnitVector().getXComponent() > (getMaxSpeedRight())) {
+            getUnitVector().setXComponent(getMaxSpeedRight());
         }
         PhysicsEngine.getInstance().movePlayer(this);
         setDirection(Direction.RIGHT);
@@ -311,5 +315,18 @@ public class Unit extends Sprite {
     private float getMaxSpeedRight() {
         return this.maxSpeed;
     }
+
+    public long getLastMoved() {
+        return lastMoved;
+    }
+
+    public void setLastMoved(long lastMoved) {
+        this.lastMoved = lastMoved;
+    }
+
+    public float getMaxSpeed() {
+        return maxSpeed;
+    }
+
 
 }
