@@ -32,6 +32,8 @@ public class Unit extends Sprite {
 
     private boolean debug;
 
+    private long lastMoved;
+
     public Unit() {
         super();
         this.acceleration = 1.0f;
@@ -46,6 +48,7 @@ public class Unit extends Sprite {
         this.direction = Direction.DOWN;
         this.colNumber = 1;
         this.debug = false;
+        this.lastMoved = 0;
     }
 
     public Unit(float posX, float posY, float width, float height, float acceleration, Vector3 v3, Direction direction, float maxSpeed) {
@@ -63,6 +66,7 @@ public class Unit extends Sprite {
         this.colNumber = 1;
         this.debug = false;
         this.maxSpeed = maxSpeed;
+        this.lastMoved = 0;
     }
 
     public float getAcceleration() {
@@ -311,5 +315,18 @@ public class Unit extends Sprite {
     private float getMaxSpeedRight() {
         return this.maxSpeed;
     }
+
+    public long getLastMoved() {
+        return lastMoved;
+    }
+
+    public void setLastMoved(long lastMoved) {
+        this.lastMoved = lastMoved;
+    }
+
+    public float getMaxSpeed() {
+        return maxSpeed;
+    }
+
 
 }
