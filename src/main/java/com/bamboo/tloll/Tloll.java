@@ -44,7 +44,7 @@ public class Tloll {
         glfwSetKeyCallback(Config.getInstance().getWindowId(), keyCallback = new KeyboardHandler());
 
         glfwMakeContextCurrent(Config.getInstance().getWindowId());
-        glfwSwapInterval(1); //This is V-SYNC Enabled - 1 Disabled - 0
+        glfwSwapInterval(0); //This is V-SYNC Enabled - 1 Disabled - 0
         glfwShowWindow(Config.getInstance().getWindowId());
 
         GL.createCapabilities(); // Creates bindings for OpenGL to be used.

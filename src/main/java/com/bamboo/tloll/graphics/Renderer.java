@@ -130,6 +130,10 @@ public final class Renderer {
 		{
 		    characters[i] = 'c';
 		}
+	    else if (characters[i] == '-')
+		{
+		    characters[i] = 'n';
+		}
 	
 	    // Doing the actual rendering here.
 	    glBindTexture(GL_TEXTURE_2D, 0);
@@ -211,6 +215,11 @@ public final class Renderer {
 	Sprite periodSprite = new Sprite();
 	periodSprite.getBufferMap().put(0, periodSBuffer);
 	alphabetSprites.put('p', periodSprite);
+
+	SpriteBuffer negativeSBuffer = BufferMap.getInstance().getSpriteBuffer(Constants.ALPHABET_BASE, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, 'n');
+	Sprite negativeSprite = new Sprite();
+	negativeSprite.getBufferMap().put(0, negativeSBuffer);
+	alphabetSprites.put('n', negativeSprite);
 
 	return alphabetSprites;
     }
