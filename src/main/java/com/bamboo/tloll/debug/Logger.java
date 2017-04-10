@@ -7,6 +7,7 @@ import com.bamboo.tloll.graphics.SpriteBuffer;
 import com.bamboo.tloll.graphics.Unit;
 import com.bamboo.tloll.graphics.structure.Tile;
 import com.bamboo.tloll.graphics.structure.WorldMap;
+import com.bamboo.tloll.graphics.Sprite;
 
 import com.bamboo.tloll.collision.CollisionDetector;
 
@@ -20,6 +21,9 @@ public class Logger {
     private static Logger _instance;
     private long fpsLastTime;
 
+    // NOTE(map) : This will get moved out eventually once we decide a good place for text rendering.
+    private Map<Character, Sprite> alphabetSprites;
+
     public static Logger getInstance() {
         if (_instance == null) {
             _instance = new Logger();
@@ -29,19 +33,15 @@ public class Logger {
 
     private Logger() {
         fpsLastTime = 0l;
+	alphabetSprites = new HashMap<Character, Sprite>();
     }
 
     public void displayPlayerInfo(Unit player) {
-        GraphicsUtil gu = GraphicsUtil.getInstance();
-
-
-        printToWindow(gu, "Player Pos X " + player.getPosX(), 0.0f, 470.0f, false);
-        printToWindow(gu, "Player Pos Y " + player.getPosY(), 0.0f, 450.0f, false);
-        printToWindow(gu, "Player Center Coords", 0.0f, 430.0f, false);
-        printToWindow(gu, "Player Center Coords", 0.0f, 430.0f, false);
-        printToWindow(gu, "" + player.getCenterX() + " " + player.getCenterY(), 0.0f, 410.0f, false);
-        printToWindow(gu, "Occupied TIle IDs", 0.0f, 390.0f, false);
-
+        printToWindow("Player Pos X " + player.getPosX(), 0.0f, 470.0f);
+        printToWindow("Player Pos Y " + player.getPosY(), 0.0f, 450.0f);
+        printToWindow("Player Center Coords", 0.0f, 430.0f);
+        printToWindow("" + player.getCenterX() + " " + player.getCenterY(), 0.0f, 410.0f);
+        printToWindow("Occupied TIle IDs", 0.0f, 390.0f);
     }
 
     public void displayOccupiedTiles(Unit player) {
@@ -49,7 +49,7 @@ public class Logger {
 
         float yPosForTileInfo = 370.0f;
         for (Tile tile : CollisionDetector.getInstance().getOccupiedTiles(player)) {
-            printToWindow(gu, "" + tile.getTileId(), 0.0f, yPosForTileInfo, false);
+            printToWindow("" + tile.getTileId(), 0.0f, yPosForTileInfo);
             yPosForTileInfo -= 20.0f;
         }
 
@@ -65,7 +65,7 @@ public class Logger {
 
     private void displayFps(long fps) {
         GraphicsUtil gu = GraphicsUtil.getInstance();
-        printToWindow(gu, "FPS: " + fps, 0.0f, 320.0f, false);
+        printToWindow("FPS: " + fps, 0.0f, 320.0f);
     }
 
 
@@ -84,8 +84,16 @@ public class Logger {
     }
 
     
-    public void printToWindow(GraphicsUtil gu, String message, float posX, float posY, boolean leftToRight) {
-        Renderer.drawString(gu, Constants.USER_DIR, posX, posY, message, leftToRight);
+    public void printToWindow(String message, float posX, float posY) {
+        Renderer.drawString(posX, posY, message);
     }
 
+    public void setAlphabetSprites(Map<Character, Sprite> alphabetSprites)
+    {
+	this.alphabetSprites = alphabetSprites;
+    }
+    public Map<Character, Sprite> getAlphabetSprites()
+    {
+        return alphabetSprites;
+    }
 }
