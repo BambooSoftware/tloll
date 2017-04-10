@@ -21,6 +21,7 @@ public class Logger {
     private static Logger _instance;
     private long fpsLastTime;
 
+    // NOTE(map) : This will get moved out eventually once we decide a good place for text rendering.
     private Map<Character, Sprite> alphabetSprites;
 
     public static Logger getInstance() {
@@ -64,7 +65,7 @@ public class Logger {
 
     private void displayFps(long fps) {
         GraphicsUtil gu = GraphicsUtil.getInstance();
-        printToWindow("FPS " + fps, 0.0f, 320.0f);
+        printToWindow("FPS: " + fps, 0.0f, 320.0f);
     }
 
 

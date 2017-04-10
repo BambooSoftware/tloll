@@ -120,14 +120,15 @@ public final class Renderer {
 	for (int i = characters.length - 1; i > -1; i--) {
 	    // Setting up the parameters for getting the correct letter from the alphabet.
 	    if (characters[i] == '.') {
-		characters[i] = ' ';
+		characters[i] = 'p';
 	    }
-	    // TODO(map) : This will become an else if to further optimize once we have all the sprites
-	    // available for every character.  Until then, the '.' becomes a ' ' which should become
-	    // a 's' character.
-	    if (characters[i] == ' ')
+	    else if (characters[i] == ' ')
 		{
 		    characters[i] = 's';
+		}
+	    else if (characters[i] == ':')
+		{
+		    characters[i] = 'c';
 		}
 	
 	    // Doing the actual rendering here.
@@ -196,10 +197,20 @@ public final class Renderer {
 		alphabetSprites.put(i, alphabetSprite);
 	    }
 	
-	SpriteBuffer spriteBuffer = BufferMap.getInstance().getSpriteBuffer(Constants.ALPHABET_BASE, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, 's');
-	Sprite alphabetSprite = new Sprite();
-	alphabetSprite.getBufferMap().put(0, spriteBuffer);
-	alphabetSprites.put('s', alphabetSprite);
+	SpriteBuffer spaceSBuffer = BufferMap.getInstance().getSpriteBuffer(Constants.ALPHABET_BASE, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, 's');
+	Sprite spaceSprite = new Sprite();
+        spaceSprite.getBufferMap().put(0, spaceSBuffer);
+	alphabetSprites.put('s', spaceSprite);
+
+	SpriteBuffer colonSBuffer = BufferMap.getInstance().getSpriteBuffer(Constants.ALPHABET_BASE, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, 'c');
+	Sprite colonSprite = new Sprite();
+        colonSprite.getBufferMap().put(0, colonSBuffer);
+	alphabetSprites.put('c', colonSprite);
+
+	SpriteBuffer periodSBuffer = BufferMap.getInstance().getSpriteBuffer(Constants.ALPHABET_BASE, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, 'p');
+	Sprite periodSprite = new Sprite();
+	periodSprite.getBufferMap().put(0, periodSBuffer);
+	alphabetSprites.put('p', periodSprite);
 
 	return alphabetSprites;
     }
