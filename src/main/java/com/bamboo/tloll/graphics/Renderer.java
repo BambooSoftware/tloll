@@ -187,7 +187,7 @@ public final class Renderer {
 	Map<Character, Sprite> alphabetSprites = new HashMap<Character, Sprite>();
 	for (char i = 'A'; i <= 'Z'; ++i)
 	    {
-		SpriteBuffer spriteBuffer = BufferMap.getInstance().getSpriteBuffer(Constants.ALPHABET_BASE, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, i);
+		SpriteBuffer spriteBuffer = BufferMap.getInstance().getSpriteBuffer(Constants.ALPHABET_BASE, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, String.valueOf(i)); // Need to convert char to string to save.
 		Sprite alphabetSprite = new Sprite();
 		alphabetSprite.getBufferMap().put(0, spriteBuffer);
 		alphabetSprites.put(i, alphabetSprite);
@@ -195,28 +195,29 @@ public final class Renderer {
 	
 	for (char i = '0'; i <= '9'; ++i)
 	    {
-		SpriteBuffer spriteBuffer = BufferMap.getInstance().getSpriteBuffer(Constants.ALPHABET_BASE, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, i);
+		SpriteBuffer spriteBuffer = BufferMap.getInstance().getSpriteBuffer(Constants.ALPHABET_BASE, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, String.valueOf(i)); // Need to convert char to string to save.
 		Sprite alphabetSprite = new Sprite();
 		alphabetSprite.getBufferMap().put(0, spriteBuffer);
 		alphabetSprites.put(i, alphabetSprite);
 	    }
-	
-	SpriteBuffer spaceSBuffer = BufferMap.getInstance().getSpriteBuffer(Constants.ALPHABET_BASE, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, 's');
+
+	// Storing the special characters we care about for now.
+	SpriteBuffer spaceSBuffer = BufferMap.getInstance().getSpriteBuffer(Constants.ALPHABET_BASE, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, "space");
 	Sprite spaceSprite = new Sprite();
         spaceSprite.getBufferMap().put(0, spaceSBuffer);
 	alphabetSprites.put('s', spaceSprite);
 
-	SpriteBuffer colonSBuffer = BufferMap.getInstance().getSpriteBuffer(Constants.ALPHABET_BASE, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, 'c');
+	SpriteBuffer colonSBuffer = BufferMap.getInstance().getSpriteBuffer(Constants.ALPHABET_BASE, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, "colon");
 	Sprite colonSprite = new Sprite();
         colonSprite.getBufferMap().put(0, colonSBuffer);
 	alphabetSprites.put('c', colonSprite);
 
-	SpriteBuffer periodSBuffer = BufferMap.getInstance().getSpriteBuffer(Constants.ALPHABET_BASE, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, 'p');
+	SpriteBuffer periodSBuffer = BufferMap.getInstance().getSpriteBuffer(Constants.ALPHABET_BASE, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, "period");
 	Sprite periodSprite = new Sprite();
 	periodSprite.getBufferMap().put(0, periodSBuffer);
 	alphabetSprites.put('p', periodSprite);
 
-	SpriteBuffer negativeSBuffer = BufferMap.getInstance().getSpriteBuffer(Constants.ALPHABET_BASE, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, 'n');
+	SpriteBuffer negativeSBuffer = BufferMap.getInstance().getSpriteBuffer(Constants.ALPHABET_BASE, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, "negative");
 	Sprite negativeSprite = new Sprite();
 	negativeSprite.getBufferMap().put(0, negativeSBuffer);
 	alphabetSprites.put('n', negativeSprite);
