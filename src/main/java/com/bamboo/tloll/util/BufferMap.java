@@ -82,14 +82,14 @@ public final class BufferMap {
         return idToSpriteBufferMap.get(id);
     }
 
-    public SpriteBuffer getSpriteBuffer(String id, int width, int height, char aChar) {
+    public SpriteBuffer getSpriteBuffer(String id, int width, int height, String pngName) {
         GraphicsUtil gu = GraphicsUtil.getInstance();
-        if(idToSpriteBufferMap.get(String.valueOf(aChar)) == null) {
-            SpriteBuffer sBuffer = new SpriteBuffer(gu.loadTexture(Constants.USER_DIR + idToPathBufferMap.get(id) + aChar + ".png"), height, width);
-            idToSpriteBufferMap.put(String.valueOf(aChar), sBuffer);
+        if(idToSpriteBufferMap.get(String.valueOf(pngName)) == null) {
+            SpriteBuffer sBuffer = new SpriteBuffer(gu.loadTexture(Constants.USER_DIR + idToPathBufferMap.get(id) + pngName + ".png"), height, width);
+            idToSpriteBufferMap.put(String.valueOf(pngName), sBuffer);
         }
 
-        return idToSpriteBufferMap.get(String.valueOf(aChar));
+        return idToSpriteBufferMap.get(String.valueOf(pngName));
 	}
 
     public void unloadAllBuffers() {
