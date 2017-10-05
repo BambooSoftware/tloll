@@ -29,16 +29,27 @@ public final class Renderer {
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (int) unit.getWidth(), (int) unit.getHeight(), 0, GL_RGBA,GL_UNSIGNED_BYTE, unit.getBufferMap().get(bufferId).getByteBuffer());
-        glBegin(GL_QUADS);
-        glTexCoord2f(0.0f, 1.0f);
+
+
+	glBegin(GL_TRIANGLES);
+
+	// Lower right triangle.
+	glTexCoord2f(0.0f, 1.0f);
         glVertex3f(unit.getPosX(), unit.getPosY(), 0.0f);
         glTexCoord2f(1.0f, 1.0f);
         glVertex3f(unit.getPosX() + unit.getWidth(), unit.getPosY(), 0.0f);
         glTexCoord2f(1.0f, 0.0f);
         glVertex3f(unit.getPosX() + unit.getWidth(), unit.getPosY() + unit.getHeight(), 0.0f);
+	// Upper left triangle.
         glTexCoord2f(0.0f, 0.0f);
         glVertex3f(unit.getPosX(), unit.getPosY() + unit.getHeight(), 0.0f);
+	glTexCoord2f(0.0f, 1.0f);
+        glVertex3f(unit.getPosX(), unit.getPosY(), 0.0f);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(unit.getPosX() + unit.getWidth(), unit.getPosY() + unit.getHeight(), 0.0f);
+	
         glEnd();
+	
     }
 
     public static void drawSpriteAnimation(Sprite unit, int bufferId, int maxFrames, float width, float minHeight,
@@ -62,16 +73,27 @@ public final class Renderer {
         glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE,
 		     unit.getBufferMap().get(bufferId).getByteBuffer());
-        glBegin(GL_QUADS);
-        glTexCoord2f(xValMin, maxHeight);
+
+
+	glBegin(GL_TRIANGLES);
+
+	// Lower right triangle.
+	glTexCoord2f(0.0f, 1.0f);
         glVertex3f(unit.getPosX(), unit.getPosY(), 0.0f);
-        glTexCoord2f(xValMax, maxHeight);
+        glTexCoord2f(1.0f, 1.0f);
         glVertex3f(unit.getPosX() + unit.getWidth(), unit.getPosY(), 0.0f);
-        glTexCoord2f(xValMax, minHeight);
+        glTexCoord2f(1.0f, 0.0f);
         glVertex3f(unit.getPosX() + unit.getWidth(), unit.getPosY() + unit.getHeight(), 0.0f);
-        glTexCoord2f(xValMin, minHeight);
+	// Upper left triangle.
+        glTexCoord2f(0.0f, 0.0f);
         glVertex3f(unit.getPosX(), unit.getPosY() + unit.getHeight(), 0.0f);
+	glTexCoord2f(0.0f, 1.0f);
+        glVertex3f(unit.getPosX(), unit.getPosY(), 0.0f);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(unit.getPosX() + unit.getWidth(), unit.getPosY() + unit.getHeight(), 0.0f);
+	
         glEnd();
+
     }
 
     public static void drawAnimatedUnit(Unit unit, int bufferId, int colNumber) {
@@ -92,15 +114,24 @@ public final class Renderer {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, sheetWidth, sheetHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, unit.getBufferMap().get(bufferId).getByteBuffer());
-        glBegin(GL_QUADS);
-        glTexCoord2f(xMin, yMax);
+
+	glBegin(GL_TRIANGLES);
+
+	// Lower right triangle.
+	glTexCoord2f(xMin, yMax);
         glVertex3f(unit.getPosX(), unit.getPosY(), 0.0f);
-        glTexCoord2f(xMax, yMax);
+	glTexCoord2f(xMax, yMax);
         glVertex3f(unit.getPosX() + unit.getWidth(), unit.getPosY(), 0.0f);
         glTexCoord2f(xMax, yMin);
         glVertex3f(unit.getPosX() + unit.getWidth(), unit.getPosY() + unit.getHeight(), 0.0f);
-        glTexCoord2f(xMin, yMin);
+	// Upper left triangle.
+	glTexCoord2f(xMin, yMin);
         glVertex3f(unit.getPosX(), unit.getPosY() + unit.getHeight(), 0.0f);
+	glTexCoord2f(xMin, yMax);
+        glVertex3f(unit.getPosX(), unit.getPosY(), 0.0f);
+        glTexCoord2f(xMax, yMin);
+	glVertex3f(unit.getPosX() + unit.getWidth(), unit.getPosY() + unit.getHeight(), 0.0f);
+	
         glEnd();
 
     }
@@ -144,16 +175,27 @@ public final class Renderer {
 	    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Constants.CHARACTER_WIDTH, Constants.CHARACTER_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, Logger.getInstance().getAlphabetSprites().get(characters[i]).getBufferMap().get(0).getByteBuffer());
-	    glBegin(GL_QUADS);
+
+	    glBegin(GL_TRIANGLES);
+
+	    // Lower right triangle.
 	    glTexCoord2f(0.0f, 1.0f);
 	    glVertex3f(sprite.getPosX(), sprite.getPosY(), 0.0f);
 	    glTexCoord2f(1.0f, 1.0f);
 	    glVertex3f(sprite.getPosX() + sprite.getWidth(), sprite.getPosY(), 0.0f);
 	    glTexCoord2f(1.0f, 0.0f);
 	    glVertex3f(sprite.getPosX() + sprite.getWidth(), sprite.getPosY() + sprite.getHeight(), 0.0f);
+	    // Upper left triangle.
 	    glTexCoord2f(0.0f, 0.0f);
 	    glVertex3f(sprite.getPosX(), sprite.getPosY() + sprite.getHeight(), 0.0f);
+	    glTexCoord2f(0.0f, 1.0f);
+	    glVertex3f(sprite.getPosX(), sprite.getPosY(), 0.0f);
+	    glTexCoord2f(1.0f, 0.0f);
+	    glVertex3f(sprite.getPosX() + sprite.getWidth(), sprite.getPosY() + sprite.getHeight(), 0.0f);
+	
 	    glEnd();
+
+	    
 	    sprite.setPosX(sprite.getPosX() - sprite.getWidth());
         }
     }
