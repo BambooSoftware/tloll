@@ -88,4 +88,17 @@ public class Player {
     private void processSecondary() {
     }
 
+    private void processJump()
+    {
+	if (KeybaordHandler.isKeyDown(controls.getJump()))
+	    {
+		unit.moveJumpStart(new Vector3(0.0f, 0.0f, 1.0f));
+	    }
+	else
+	    {
+		unit.moveJumpStop(new Vector3(0.0f, 0.0f, -1.0f));
+	    }
+	
+    }
+    
 }

@@ -276,6 +276,16 @@ public class Unit extends Sprite {
         }
     }
 
+    public void moveJumpStart(Vector3 v3)
+    {
+	// TODO(map) : Do the code for moving here.
+    }
+
+    public void moveJumpStop(Vector3 v3)
+    {
+	// TODO(map) : Do the code for moving here.
+    }
+    
     public void draw() {
         if(debug) {
             highlightUnit();
