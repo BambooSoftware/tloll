@@ -16,7 +16,8 @@ public class Sprite {
     private float centerX;
     private float centerY;
     private int animatedFrameNumber;
-
+    private boolean isJumping;
+    
     private Map<Integer, SpriteBuffer> bufferMap;
 
     public Sprite() {
@@ -24,6 +25,7 @@ public class Sprite {
         this.posY = 0.0f;
         this.width = 10.0f;
         this.height = 10.0f;
+	this.isJumping = false;
         this.centerX = this.posX + (this.width / 2);
         this.centerY = this.posY + (this.height / 2);
         this.animatedFrameNumber = 1;
@@ -35,6 +37,7 @@ public class Sprite {
         this.posY = posY;
         this.width = width;
         this.height = height;
+	this.isJumping = false;
         this.centerX = posX + (width / 2);
         this.centerY = posY + (height / 2);
         this.animatedFrameNumber = 1;
@@ -89,6 +92,16 @@ public class Sprite {
         this.centerY = centerY;
     }
 
+    public boolean isJumping()
+    {
+	return isJumping;
+    }
+
+    public void setIsJumping(boolean isJumping)
+    {
+	this.isJumping = isJumping;
+    }
+    
     public int getAnimatedSpriteNumber() {
         return animatedFrameNumber;
     }

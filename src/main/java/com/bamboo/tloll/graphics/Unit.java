@@ -279,11 +279,23 @@ public class Unit extends Sprite {
     public void moveJumpStart(Vector3 v3)
     {
 	// TODO(map) : Do the code for moving here.
+	for (int i = 0; i < 50; ++i)
+	    {
+		System.out.println("Jumping up.");
+	        moveUpStart(v3);
+		//moveUpStop(v3);
+	    }
     }
 
     public void moveJumpStop(Vector3 v3)
     {
 	// TODO(map) : Do the code for moving here.
+	for (int i = 0; i < 50; ++i)
+	    {
+		System.out.println("Falling down.");
+	        //moveDownStart(v3);
+		//moveDownStop(v3);
+	    }
     }
     
     public void draw() {

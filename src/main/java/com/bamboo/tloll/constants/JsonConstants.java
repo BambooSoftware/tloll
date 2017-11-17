@@ -47,6 +47,7 @@ public class JsonConstants {
     public static final String RIGHT = "right";
     public static final String PRIMARY = "primary";
     public static final String SECONDARY = "secondary";
+    public static final String JUMP = "jump";
 
     public static final String PLAYER_ID = "playerId";
     public static final String UNIT_ID = "unitId";

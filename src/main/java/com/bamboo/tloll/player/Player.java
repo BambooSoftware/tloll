@@ -48,6 +48,7 @@ public class Player {
         processRight();
         processPrimary();
         processSecondary();
+	processJump();
     }
 
     private void processUp() {
@@ -90,15 +91,20 @@ public class Player {
 
     private void processJump()
     {
-	if (KeybaordHandler.isKeyDown(controls.getJump()))
+	// TODO(map) : Pretty simple logic here.  If the downward speed is currently 0 then do nothing.
+	// If the space is pressed move upward until a certain point and then proceed to fall.
+	if (!unit.isJumping())
 	    {
-		unit.moveJumpStart(new Vector3(0.0f, 0.0f, 1.0f));
+		if (KeyboardHandler.isKeyDown(controls.getJump()))
+		    {
+			unit.setIsJumping(true);
+			unit.moveJumpStart(new Vector3(0.0f, 1.0f, 1.0f));
+			unit.getUnitVector().setZComponent(unit.getUnitVector().getZComponent() + 1.0f);
+			unit.moveJumpStop(new Vector3(0.0f, -1.0f, -1.0f));
+			unit.getUnitVector().setZComponent(unit.getUnitVector().getZComponent() - 1.0f);
+			unit.setIsJumping(false);
+		    }
 	    }
-	else
-	    {
-		unit.moveJumpStop(new Vector3(0.0f, 0.0f, -1.0f));
-	    }
-	
     }
     
 }
