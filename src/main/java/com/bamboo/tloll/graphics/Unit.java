@@ -29,7 +29,8 @@ public class Unit extends Sprite {
     private boolean isAttackingMelee;
     private int hitPoints;
     private int colNumber;
-
+    private int maxHeight;
+    
     private boolean debug;
 
     private long lastMoved;
@@ -49,6 +50,7 @@ public class Unit extends Sprite {
         this.colNumber = 1;
         this.debug = false;
         this.lastMoved = 0;
+	this.maxHeight = 50;
     }
 
     public Unit(float posX, float posY, float width, float height, float acceleration, Vector3 v3, Direction direction, float maxSpeed) {
@@ -67,6 +69,7 @@ public class Unit extends Sprite {
         this.debug = false;
         this.maxSpeed = maxSpeed;
         this.lastMoved = 0;
+	this.maxHeight = 50;
     }
 
     public float getAcceleration() {
@@ -189,6 +192,16 @@ public class Unit extends Sprite {
         this.debug = debug;
     }
 
+    public int getMaxHeight()
+    {
+	return maxHeight;
+    }
+
+    public void setMaxHeight(int maxHeight)
+    {
+	this.maxHeight = maxHeight;
+    }
+    
     public void moveUpStart(Vector3 v3) {
 
         //TODO: abstract away the speed calculation to be generic ?
@@ -279,22 +292,20 @@ public class Unit extends Sprite {
     public void moveJumpStart(Vector3 v3)
     {
 	// TODO(map) : Do the code for moving here.
-	for (int i = 0; i < 50; ++i)
+	for (int i = 0; i < 10; ++i)
 	    {
 		System.out.println("Jumping up.");
-	        moveUpStart(v3);
-		//moveUpStop(v3);
+		setPosY(getPosY() + v3.getYComponent());
 	    }
     }
 
     public void moveJumpStop(Vector3 v3)
     {
 	// TODO(map) : Do the code for moving here.
-	for (int i = 0; i < 50; ++i)
+	for (int i = 0; i < 10; ++i)
 	    {
 		System.out.println("Falling down.");
-	        //moveDownStart(v3);
-		//moveDownStop(v3);
+		setPosY(getPosY() + v3.getYComponent());
 	    }
     }
     

@@ -98,11 +98,36 @@ public class Player {
 		if (KeyboardHandler.isKeyDown(controls.getJump()))
 		    {
 			unit.setIsJumping(true);
-			unit.moveJumpStart(new Vector3(0.0f, 1.0f, 1.0f));
-			unit.getUnitVector().setZComponent(unit.getUnitVector().getZComponent() + 1.0f);
-			unit.moveJumpStop(new Vector3(0.0f, -1.0f, -1.0f));
-			unit.getUnitVector().setZComponent(unit.getUnitVector().getZComponent() - 1.0f);
-			unit.setIsJumping(false);
+			unit.setIsRising(true);
+		    }
+	    }
+	else
+	    {
+		if (unit.isRising())
+		    {
+			if (unit.getPosZ() >= unit.getMaxHeight())
+			    {
+				unit.setIsRising(false);
+				unit.setPosZ(unit.getMaxHeight());
+			    }
+			else
+			    {
+				unit.setPosZ(unit.getPosZ() + 1.0f);
+				unit.setPosY(unit.getPosY() + 1.0f);
+			    }
+		    }
+		else
+		    {
+			if (unit.getPosZ() <= 0.0f)
+			    {
+				unit.setIsJumping(false);
+				unit.setPosZ(0.0f);
+			    }
+			else
+			    {
+				unit.setPosZ(unit.getPosZ() - 1.0f);
+				unit.setPosY(unit.getPosY() - 1.0f);
+			    }
 		    }
 	    }
     }

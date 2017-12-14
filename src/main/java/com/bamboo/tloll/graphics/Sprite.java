@@ -11,22 +11,26 @@ public class Sprite {
 
     private float posX;
     private float posY;
+    private float posZ;
     private float width;
     private float height;
     private float centerX;
     private float centerY;
     private int animatedFrameNumber;
     private boolean isJumping;
+    private boolean isRising;
     
     private Map<Integer, SpriteBuffer> bufferMap;
 
     public Sprite() {
         this.posX = 0.0f;
         this.posY = 0.0f;
+	this.posZ = 0.0f;
         this.width = 10.0f;
         this.height = 10.0f;
 	this.isJumping = false;
-        this.centerX = this.posX + (this.width / 2);
+	this.isRising = false;
+    this.centerX = this.posX + (this.width / 2);
         this.centerY = this.posY + (this.height / 2);
         this.animatedFrameNumber = 1;
         this.bufferMap = new HashMap<>();
@@ -35,9 +39,11 @@ public class Sprite {
     public Sprite(float posX, float posY, float width, float height) {
         this.posX = posX;
         this.posY = posY;
+	this.posZ = 0.0f; // TODO(map) : This may need to be a value that can be initialized later.
         this.width = width;
         this.height = height;
 	this.isJumping = false;
+	this.isRising = false;
         this.centerX = posX + (width / 2);
         this.centerY = posY + (height / 2);
         this.animatedFrameNumber = 1;
@@ -58,6 +64,14 @@ public class Sprite {
 
     public void setPosY(float posY) {
         this.posY = posY;
+    }
+
+    public float getPosZ() {
+        return posZ;
+    }
+
+    public void setPosZ(float posZ) {
+        this.posZ = posZ;
     }
 
     public float getWidth() {
@@ -100,6 +114,16 @@ public class Sprite {
     public void setIsJumping(boolean isJumping)
     {
 	this.isJumping = isJumping;
+    }
+
+    public boolean isRising()
+    {
+	return isRising;
+    }
+
+    public void setIsRising(boolean isRising)
+    {
+	this.isRising = isRising;
     }
     
     public int getAnimatedSpriteNumber() {
