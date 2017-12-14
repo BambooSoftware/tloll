@@ -289,26 +289,13 @@ public class Unit extends Sprite {
         }
     }
 
-    public void moveJumpStart(Vector3 v3)
+    public void jump(Vector3 v3)
     {
-	// TODO(map) : Do the code for moving here.
-	for (int i = 0; i < 10; ++i)
-	    {
-		System.out.println("Jumping up.");
-		setPosY(getPosY() + v3.getYComponent());
-	    }
+	Vector3 unitReducedVector = getUnitVector().add(v3);
+	setUnitVector(unitReducedVector);
+	PhysicsEngine.getInstance().jumpPlayer(this);
     }
 
-    public void moveJumpStop(Vector3 v3)
-    {
-	// TODO(map) : Do the code for moving here.
-	for (int i = 0; i < 10; ++i)
-	    {
-		System.out.println("Falling down.");
-		setPosY(getPosY() + v3.getYComponent());
-	    }
-    }
-    
     public void draw() {
         if(debug) {
             highlightUnit();

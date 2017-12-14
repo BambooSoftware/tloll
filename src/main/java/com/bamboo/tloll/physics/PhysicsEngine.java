@@ -24,7 +24,8 @@ public class PhysicsEngine {
 
         float deltaX = movement.getXComponent();
         float deltaY = movement.getYComponent();
-
+	float deltaZ = movement.getZComponent();
+	
         if (!isOutOfBoundsX(player, deltaX) && CollisionDetector.getInstance().isTilePassableX(player, deltaX)) {
             player.setPosX(player.getPosX() + deltaX);
 	        player.setCenterX(player.getCenterX() + deltaX);
@@ -55,9 +56,22 @@ public class PhysicsEngine {
                     player.setRelativeTileY(newRelativeY);
                 }
             }
-
         }
+    }
 
+    public void jumpPlayer(Unit player)
+    {
+	float deltaX = player.getUnitVector().getXComponent();
+        float deltaY = player.getUnitVector().getYComponent();
+	float deltaZ = player.getUnitVector().getZComponent();
+
+	// TODO(map) : At least for now we don't care about out of bounds with Z.
+	// This should however work without glitching the player movement like it currently does.
+	if (player.isJumping())
+	    {
+		player.setPosY(player.getPosY() + deltaY);
+		player.setPosZ(player.getPosZ() + deltaZ);
+	    }
     }
 
     // Bind the player to the X dimension of the board.
