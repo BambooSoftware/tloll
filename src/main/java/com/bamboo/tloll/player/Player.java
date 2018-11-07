@@ -49,6 +49,11 @@ public class Player {
         processPrimary();
         processSecondary();
 	processJump();
+
+	// NOTE(map) : This may not be the best solution at the end of the day.  It is a temporary fix and should
+	// be investigated further about how to ensure every unit on screen has its lastMoved value updated
+	// every frame.
+	unit.setLastMoved(System.currentTimeMillis());
     }
 
     private void processUp() {
@@ -87,6 +92,7 @@ public class Player {
     }
 
     private void processSecondary() {
+
     }
 
     private void processJump()

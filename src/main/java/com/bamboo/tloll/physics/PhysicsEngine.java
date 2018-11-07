@@ -19,14 +19,13 @@ public class PhysicsEngine {
     }
 
     public void movePlayer(Unit player) {
-
-        Vector3 movement = normalizeMovement(player);
+	Vector3 movement = normalizeMovement(player);
 
         float deltaX = movement.getXComponent();
         float deltaY = movement.getYComponent();
 	float deltaZ = movement.getZComponent();
-	
-        if (!isOutOfBoundsX(player, deltaX) && CollisionDetector.getInstance().isTilePassableX(player, deltaX)) {
+
+	if (!isOutOfBoundsX(player, deltaX) && CollisionDetector.getInstance().isTilePassableX(player, deltaX)) {
             player.setPosX(player.getPosX() + deltaX);
 	        player.setCenterX(player.getCenterX() + deltaX);
             if (moveInTileX(player, deltaX)) {
@@ -124,10 +123,11 @@ public class PhysicsEngine {
         float secondsPerFrame = (float) deltaTime/1000.0f;
         float movementValue = unit.getMaxSpeed() * secondsPerFrame;
 
-        float  deltaX = unit.getUnitVector().getXComponent() * movementValue;
+        float deltaX = unit.getUnitVector().getXComponent() * movementValue;
         float deltaY = unit.getUnitVector().getYComponent() * movementValue;
+        float deltaZ = unit.getUnitVector().getZComponent() * movementValue;
 
-        return new Vector3(deltaX, deltaY, 0.0f);
+        return new Vector3(deltaX, deltaY, deltaZ);
     }
 
 }
