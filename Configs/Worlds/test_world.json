@@ -522,7 +522,20 @@
 		],
 		"links" :
 		[
-			{ "exitTileId" : "46", "newSceneId" : "1", "newTileId" : "25" }   
+		    { "exitTileId" : "46", "newSceneId" : "1", "newTileId" : "25" }   
+		],
+		"obstacles" :
+		[
+		    {
+			"id" : "0",
+			"passable" : "false",
+			"bufferId" : "rock",
+			"posX": "250",
+			"posY": "250",
+			"width" : "32",
+			"height" : "32",
+			"protrusionHeight" : "4"
+		    }
 		]
 	    },
 	    {
@@ -1044,8 +1057,31 @@
 		],
 		"links" :
 		[
-			{ "exitTileId" : "53", "newSceneId" : "0", "newTileId" : "25" } ,
-			{ "exitTileId" : "13", "newSceneId" : "0", "newTileId" : "22" }   			
+		    { "exitTileId" : "53", "newSceneId" : "0", "newTileId" : "25" } ,
+		    { "exitTileId" : "13", "newSceneId" : "0", "newTileId" : "22" }   			
+		],
+		"obstacles" :
+		[
+		    {
+			"id" : "0",
+			"passable" : "false",
+			"bufferId" : "rock",
+			"posX": "250",
+			"posY": "250",
+			"width" : "32",
+			"height" : "32",
+			"protrusionHeight" : "4"
+		    },
+		    {
+			"id" : "1",
+			"passable" : "false",
+			"bufferId" : "tree",
+			"posX": "250",
+			"posY": "350",
+			"width" : "64",
+			"height" : "64",
+			"protrusionHeight" : "64"
+		    }
 		]
 	    }
 	]

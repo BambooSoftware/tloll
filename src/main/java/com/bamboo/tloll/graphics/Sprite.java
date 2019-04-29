@@ -1,5 +1,7 @@
 package com.bamboo.tloll.graphics;
 
+import com.bamboo.tloll.physics.MapCoordinates;
+
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,23 +25,23 @@ public class Sprite {
     private Map<Integer, SpriteBuffer> bufferMap;
 
     public Sprite() {
-        this.posX = 0.0f;
-        this.posY = 0.0f;
+	this.posX = 0.0f;
+	this.posY = 0.0f;
 	this.posZ = 0.0f;
         this.width = 10.0f;
         this.height = 10.0f;
 	this.isJumping = false;
 	this.isRising = false;
-    this.centerX = this.posX + (this.width / 2);
+	this.centerX = this.posX + (this.width / 2);
         this.centerY = this.posY + (this.height / 2);
         this.animatedFrameNumber = 1;
         this.bufferMap = new HashMap<>();
     }
 
     public Sprite(float posX, float posY, float width, float height) {
-        this.posX = posX;
-        this.posY = posY;
-	this.posZ = 0.0f; // TODO(map) : This may need to be a value that can be initialized later.
+	this.posX = posX;
+	this.posY = posY;
+	this.posZ = 0.0f;
         this.width = width;
         this.height = height;
 	this.isJumping = false;
@@ -50,30 +52,36 @@ public class Sprite {
         this.bufferMap = new HashMap<>();
     }
 
-    public float getPosX() {
-        return posX;
+    public float getPosX()
+    {
+	return posX;
     }
 
-    public void setPosX(float posX) {
-        this.posX = posX;
+    public void setPosX(float posX)
+    {
+	this.posX = posX;
     }
 
-    public float getPosY() {
-        return posY;
+    public float getPosY()
+    {
+	return posY;	
     }
 
-    public void setPosY(float posY) {
-        this.posY = posY;
+    public void setPosY(float posY)
+    {
+	this.posY = posY;
+    }
+    
+    public float getPosZ()
+    {
+	return posZ;	
     }
 
-    public float getPosZ() {
-        return posZ;
+    public void setPosZ(float posZ)
+    {
+	this.posZ = posZ;
     }
-
-    public void setPosZ(float posZ) {
-        this.posZ = posZ;
-    }
-
+    
     public float getWidth() {
         return width;
     }

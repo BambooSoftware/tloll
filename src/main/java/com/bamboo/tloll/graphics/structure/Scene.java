@@ -26,6 +26,7 @@ public class Scene {
 
     Map<Integer, Link> links;
     ImmutableList<Tile> tiles;
+    ImmutableList<Obstacle> obstacles;
     ImmutableMap<Position, Boolean> blockIndex;
 
     private List<Unit> enemyList;
@@ -40,9 +41,10 @@ public class Scene {
     // 4 = Upper Right
     // 5 = Straight Left/Right
     // 6 = Straight Up/Down
-    public Scene(int sceneId, List<Tile> tiles, Map<Integer, Link> links) {
+    public Scene(int sceneId, List<Tile> tiles, List<Obstacle> obstacles, Map<Integer, Link> links) {
         this.sceneId = sceneId;
         this.tiles = ImmutableList.copyOf(tiles);
+        this.obstacles = ImmutableList.copyOf(obstacles);
         this.links = ImmutableMap.copyOf(links);
     }
 
@@ -75,6 +77,10 @@ public class Scene {
 
     public List<Tile> getTileList() {
         return tiles;
+    }
+
+    public List<Obstacle> getObstacleList() {
+        return obstacles;
     }
 
     public List<Unit> getEnemyList() {

@@ -19,10 +19,14 @@ public class JsonConstants {
     public static final String LINKS = "links";
     public static final String WIDTH = "width";
     public static final String HEIGHT = "height";
+    public static final String PROT_HEIGHT = "protrusionHeight";
+    public static final String POS_X = "posX";
+    public static final String POS_Y = "posY";
     public static final String PASSABLE = "passable";
     public static final String BUFFER_ID = "bufferId";
     public static final String EXIT = "exit";
     public static final String TILES = "tiles";
+    public static final String OBSTACLES = "obstacles";
     public static final String WORLD = "world";
     public static final String SCENES = "scenes";
     public static final String ACCELERATION = "acceleration";

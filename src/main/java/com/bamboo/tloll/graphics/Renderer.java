@@ -3,6 +3,7 @@ package com.bamboo.tloll.graphics;
 import com.bamboo.tloll.constants.Constants;
 import com.bamboo.tloll.graphics.structure.Scene;
 import com.bamboo.tloll.graphics.structure.Tile;
+import com.bamboo.tloll.graphics.structure.Obstacle;
 import com.bamboo.tloll.graphics.structure.WorldMap;
 import com.bamboo.tloll.util.BufferMap;
 
@@ -28,7 +29,7 @@ public final class Renderer {
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (int) unit.getWidth(), (int) unit.getHeight(), 0, GL_RGBA,GL_UNSIGNED_BYTE, unit.getBufferMap().get(bufferId).getByteBuffer());
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (int) unit.getWidth(), (int) unit.getHeight(), 0, GL_RGBA,GL_UNSIGNED_BYTE, unit.getBufferMap().get(bufferId).getByteBuffer());
 
 
 	glBegin(GL_TRIANGLES);
@@ -204,6 +205,10 @@ public final class Renderer {
 	for (Tile tile : WorldMap.getInstance().getCurrentScene().getTileList()) {
             drawSprite(tile, 0);
         }
+
+	for (Obstacle obstacle : WorldMap.getInstance().getCurrentScene().getObstacleList()) {
+	    drawSprite(obstacle, 0);
+	}
     }
 
     public static Scene loadTileBuffers() {
@@ -211,7 +216,8 @@ public final class Renderer {
         Map<Integer, Scene> loadedScenes = WorldMap.getInstance().getSceneMap();
         for (int i = 0; i < loadedScenes.size(); ++i) {
             loadTileBuffers(loadedScenes.get(i));
-        }
+	    loadObstacleBuffers(loadedScenes.get(i));
+	}
 
         return loadedScenes.get(0);
     }
@@ -221,6 +227,14 @@ public final class Renderer {
         for (Tile tile : scene.getTileList()) {
             SpriteBuffer sBuffer = BufferMap.getInstance().getSpriteBuffer(tile.getBufferId());
             tile.getBufferMap().put(0, sBuffer);
+        }
+    }
+
+    public static void loadObstacleBuffers(Scene scene) {
+        //TODO: change the method for the buffers to a singleton pattern buffer map.
+        for (Obstacle obstacle : scene.getObstacleList()) {
+            SpriteBuffer sBuffer = BufferMap.getInstance().getSpriteBuffer(obstacle.getBufferId());
+            obstacle.getBufferMap().put(0, sBuffer);
         }
     }
 

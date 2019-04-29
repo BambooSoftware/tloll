@@ -86,7 +86,7 @@ public class Tloll {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the frame buffer.
 
         Renderer.drawCurrentScene();
-
+	
         //Handles all player movement
         for(int playerId: Config.getInstance().getPlayers().keySet()) {
             Player player = Config.getInstance().getPlayers().get(playerId);
