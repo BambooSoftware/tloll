@@ -48,6 +48,12 @@ public class Player {
         processRight();
         processPrimary();
         processSecondary();
+	processJump();
+
+	// NOTE(map) : This may not be the best solution at the end of the day.  It is a temporary fix and should
+	// be investigated further about how to ensure every unit on screen has its lastMoved value updated
+	// every frame.
+	unit.setLastMoved(System.currentTimeMillis());
     }
 
     private void processUp() {
@@ -86,6 +92,48 @@ public class Player {
     }
 
     private void processSecondary() {
+
     }
 
+    private void processJump()
+    {
+	if (!unit.isJumping())
+	    {
+		if (KeyboardHandler.isKeyDown(controls.getJump()))
+		    {
+			unit.setIsJumping(true);
+			unit.setIsRising(true);
+		    }
+	    }
+	else
+	    {
+		if (unit.isRising())
+		    {
+			if (unit.getPosZ() >= unit.getMaxHeight())
+			    {
+				unit.setIsRising(false);
+				unit.setPosZ(unit.getMaxHeight());
+			    }
+			else
+			    {
+				unit.jump(new Vector3(0.0f, 1.0f, 1.0f));
+			    }
+		    }
+		else
+		    {
+			if (unit.getPosZ() <= 0.0f)
+			    {
+				unit.setIsJumping(false);
+				unit.setPosZ(0.0f);
+			    }
+			else
+			    {
+				unit.jump(new Vector3(0.0f, -1.0f, -1.0f));
+			    }
+		    }
+		unit.getUnitVector().setYComponent(0.0f);
+		unit.getUnitVector().setZComponent(0.0f);
+	    }
+    }
+    
 }

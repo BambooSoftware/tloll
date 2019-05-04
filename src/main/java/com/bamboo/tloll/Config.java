@@ -96,7 +96,8 @@ public class Config {
                 int right = player.getInt(JsonConstants.RIGHT);
                 int primary = player.getInt(JsonConstants.PRIMARY);
                 int secondary = player.getInt(JsonConstants.SECONDARY);
-                controls.put(id, new Controls(up, down, left, right, primary, secondary));
+		int jump = player.getInt(JsonConstants.JUMP);
+                controls.put(id, new Controls(up, down, left, right, primary, secondary, jump));
             }
         }  catch (IOException e)  {
             e.printStackTrace();

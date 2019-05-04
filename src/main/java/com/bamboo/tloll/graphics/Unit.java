@@ -29,7 +29,8 @@ public class Unit extends Sprite {
     private boolean isAttackingMelee;
     private int hitPoints;
     private int colNumber;
-
+    private int maxHeight;
+    
     private boolean debug;
 
     private long lastMoved;
@@ -49,6 +50,7 @@ public class Unit extends Sprite {
         this.colNumber = 1;
         this.debug = false;
         this.lastMoved = 0;
+	this.maxHeight = 50;
     }
 
     public Unit(float posX, float posY, float width, float height, float acceleration, Vector3 v3, Direction direction, float maxSpeed) {
@@ -67,6 +69,7 @@ public class Unit extends Sprite {
         this.debug = false;
         this.maxSpeed = maxSpeed;
         this.lastMoved = 0;
+	this.maxHeight = 50;
     }
 
     public float getAcceleration() {
@@ -189,6 +192,16 @@ public class Unit extends Sprite {
         this.debug = debug;
     }
 
+    public int getMaxHeight()
+    {
+	return maxHeight;
+    }
+
+    public void setMaxHeight(int maxHeight)
+    {
+	this.maxHeight = maxHeight;
+    }
+    
     public void moveUpStart(Vector3 v3) {
 
         //TODO: abstract away the speed calculation to be generic ?
@@ -274,6 +287,13 @@ public class Unit extends Sprite {
             // TODO(map) : I've added this in but I'm not sure if we want to always call a physics engine move here.
             PhysicsEngine.getInstance().movePlayer(this);
         }
+    }
+
+    public void jump(Vector3 v3)
+    {
+	Vector3 unitReducedVector = getUnitVector().add(v3);
+	setUnitVector(unitReducedVector);
+	PhysicsEngine.getInstance().jumpPlayer(this);
     }
 
     public void draw() {

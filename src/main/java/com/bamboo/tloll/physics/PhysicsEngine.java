@@ -19,15 +19,18 @@ public class PhysicsEngine {
     }
 
     public void movePlayer(Unit player) {
-
-        Vector3 movement = normalizeMovement(player);
+	Vector3 movement = normalizeMovement(player);
 
         float deltaX = movement.getXComponent();
         float deltaY = movement.getYComponent();
+	float deltaZ = movement.getZComponent();
 
-        if (!isOutOfBoundsX(player, deltaX) && CollisionDetector.getInstance().isTilePassableX(player, deltaX)) {
+	if (!isOutOfBoundsX(player, deltaX) &&
+	    CollisionDetector.getInstance().isTilePassableX(player, deltaX) &&
+	    !CollisionDetector.getInstance().willBoxesCollide(player, deltaX, deltaY)) {
             player.setPosX(player.getPosX() + deltaX);
-	        player.setCenterX(player.getCenterX() + deltaX);
+	    player.updateHitBox(deltaX, deltaY, deltaZ);
+	    player.setCenterX(player.getCenterX() + deltaX);
             if (moveInTileX(player, deltaX)) {
                 player.setRelativeTileX(player.getRelativeTileX() + deltaX);
             } else {
@@ -41,8 +44,11 @@ public class PhysicsEngine {
             }
         }
 
-        if (!isOutOfBoundsY(player, deltaY) && CollisionDetector.getInstance().isTilePassableY(player, deltaY)) {
+        if (!isOutOfBoundsY(player, deltaY) &&
+	    CollisionDetector.getInstance().isTilePassableY(player, deltaY) &&
+	    !CollisionDetector.getInstance().willBoxesCollide(player, deltaX, deltaY)) {
             player.setPosY(player.getPosY() + deltaY);
+	    player.updateHitBox(deltaX, deltaY, deltaZ);
 	    player.setCenterY(player.getCenterY() + deltaY);
             if (moveInTileY(player, deltaY)) {
                 player.setRelativeTileY(player.getRelativeTileY() + deltaY);
@@ -55,9 +61,22 @@ public class PhysicsEngine {
                     player.setRelativeTileY(newRelativeY);
                 }
             }
-
         }
+    }
 
+    public void jumpPlayer(Unit player)
+    {
+	float deltaX = player.getUnitVector().getXComponent();
+        float deltaY = player.getUnitVector().getYComponent();
+	float deltaZ = player.getUnitVector().getZComponent();
+
+	// TODO(map) : At least for now we don't care about out of bounds with Z.
+	// This should however work without glitching the player movement like it currently does.
+	if (player.isJumping())
+	    {
+		player.setPosY(player.getPosY() + deltaY);
+		player.setPosZ(player.getPosZ() + deltaZ);
+	    }
     }
 
     // Bind the player to the X dimension of the board.
@@ -110,10 +129,11 @@ public class PhysicsEngine {
         float secondsPerFrame = (float) deltaTime/1000.0f;
         float movementValue = unit.getMaxSpeed() * secondsPerFrame;
 
-        float  deltaX = unit.getUnitVector().getXComponent() * movementValue;
+        float deltaX = unit.getUnitVector().getXComponent() * movementValue;
         float deltaY = unit.getUnitVector().getYComponent() * movementValue;
+        float deltaZ = unit.getUnitVector().getZComponent() * movementValue;
 
-        return new Vector3(deltaX, deltaY, 0.0f);
+        return new Vector3(deltaX, deltaY, deltaZ);
     }
 
 }

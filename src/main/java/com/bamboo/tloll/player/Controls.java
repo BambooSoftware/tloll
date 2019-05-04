@@ -12,14 +12,16 @@ public class Controls {
     private int right;
     private int primary;
     private int secondary;
+    private int jump;
 
-    public Controls(int up, int down, int left, int right, int primary, int secondary ) {
+    public Controls(int up, int down, int left, int right, int primary, int secondary, int jump ) {
         this.up = up;
         this.down = down;
         this.left = left;
         this.right = right;
         this.primary = primary;
         this.secondary = secondary;
+	this.jump = jump;
     }
 
     public int getUp() {
@@ -70,6 +72,16 @@ public class Controls {
         this.secondary = secondary;
     }
 
+    public int getJump()
+    {
+	return jump;
+    }
+
+    public void setJump(int jump)
+    {
+	this.jump = jump;
+    }
+    
     public int[] getDirectionalInputs() {
         return new int[] {getUp(), getDown(),getLeft(), getRight()};
     }

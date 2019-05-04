@@ -2,6 +2,8 @@ package com.bamboo.tloll.collision;
 
 import com.bamboo.tloll.graphics.Unit;
 import com.bamboo.tloll.graphics.structure.Tile;
+import com.bamboo.tloll.graphics.structure.Scene;
+import com.bamboo.tloll.graphics.structure.Obstacle;
 import com.bamboo.tloll.graphics.structure.WorldMap;
 import com.bamboo.tloll.constants.Constants;
 
@@ -58,7 +60,20 @@ public class CollisionDetector
 
         return new ArrayList<>(occupiedTiles.values());
     }
-
+    
+    // NOTE(map) : We are subtracting the Z position because it's a mo best way to hack the PhysicsEngine for now.
+    // Could probably be a function instead that is more self documenting in the future and maybe less hacky if
+    // we decide we want something like that on the overworld screen.
+    public boolean willBoxesCollide(Unit player, float deltaX, float deltaY) {
+	Scene currentScene = WorldMap.getInstance().getCurrentScene();
+	for (Obstacle obstacle : currentScene.getObstacleList()) {
+	    if (player.collisionBetweenBoxes(deltaX, deltaY, obstacle) && player.getPosZ() < obstacle.getProtrusionHeight())
+		return true;
+	}
+	    
+	return false;
+    }
+    
     public boolean isTilePassableX(Unit player, float deltaX)
     {
 	List<Tile> futureOccupiedTiles = getOccupiedTiles(player, deltaX, 0.0f);

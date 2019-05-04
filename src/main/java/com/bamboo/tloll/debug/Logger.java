@@ -39,15 +39,20 @@ public class Logger {
     public void displayPlayerInfo(Unit player) {
         printToWindow("Player Pos X " + player.getPosX(), 0.0f, 470.0f);
         printToWindow("Player Pos Y " + player.getPosY(), 0.0f, 450.0f);
-        printToWindow("Player Center Coords", 0.0f, 430.0f);
-        printToWindow("" + player.getCenterX() + " " + player.getCenterY(), 0.0f, 410.0f);
-        printToWindow("Occupied TIle IDs", 0.0f, 390.0f);
+	printToWindow("Player Pos Z " + player.getPosZ(), 0.0f, 430.0f);
+	printToWindow("Player V3 X " + player.getUnitVector().getXComponent(), 0.0f, 410.0f);
+	printToWindow("Player V3 Y " + player.getUnitVector().getYComponent(), 0.0f, 390.0f);
+	printToWindow("Player V3 Z " + player.getUnitVector().getZComponent(), 0.0f, 370.0f);
+	printToWindow("Player Center Coords", 0.0f, 350.0f);
+        printToWindow("" + player.getCenterX() + " " + player.getCenterY(), 0.0f, 330.0f);
+        printToWindow("Occupied TIle IDs", 0.0f, 290.0f);
+	
     }
 
     public void displayOccupiedTiles(Unit player) {
         GraphicsUtil gu = GraphicsUtil.getInstance();
 
-        float yPosForTileInfo = 370.0f;
+        float yPosForTileInfo = 270.0f;
         for (Tile tile : CollisionDetector.getInstance().getOccupiedTiles(player)) {
             printToWindow("" + tile.getTileId(), 0.0f, yPosForTileInfo);
             yPosForTileInfo -= 20.0f;
@@ -65,7 +70,7 @@ public class Logger {
 
     private void displayFps(long fps) {
         GraphicsUtil gu = GraphicsUtil.getInstance();
-        printToWindow("FPS: " + fps, 0.0f, 320.0f);
+        printToWindow("FPS: " + fps, 0.0f, 310.0f);
     }
 
 

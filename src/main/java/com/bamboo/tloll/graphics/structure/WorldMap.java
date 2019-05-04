@@ -49,6 +49,7 @@ public class WorldMap {
     private Map<Integer, Scene> loadMapFromJson() {
         Map<Integer, Scene> sceneMap = new HashMap<>();
         List<Tile> tileList = new ArrayList<>();
+        List<Obstacle> obstacleList = new ArrayList<>();
 
         try {
             String contents = new String(Files.readAllBytes(Paths.get(Constants.USER_DIR + JsonConstants.WORLD_MAP_PATH)));
@@ -64,23 +65,38 @@ public class WorldMap {
                 // Grab all tiles for a given scene and loop over.
                 JSONArray tiles = scenes.getJSONObject(i).getJSONArray(JsonConstants.TILES);
                 for (int j = 0; j < tiles.length(); j++) {
-
-
                     float posX = 80.0f * (int) (j / 8);
                     float posY = 80.0f * (j % 8);
                     Tile tile = new Tile(posX,
-                            posY,
-                            (float) tiles.getJSONObject(j).getInt(JsonConstants.WIDTH),
-                            (float) tiles.getJSONObject(j).getInt(JsonConstants.HEIGHT),
-                            tiles.getJSONObject(j).getBoolean(JsonConstants.PASSABLE),
-                            tiles.getJSONObject(j).getString(JsonConstants.BUFFER_ID),
-                            tiles.getJSONObject(j).getInt(JsonConstants.ID),
-                            tiles.getJSONObject(j).getBoolean(JsonConstants.EXIT)
-                    );
+					 posY,
+					 (float) tiles.getJSONObject(j).getInt(JsonConstants.WIDTH),
+					 (float) tiles.getJSONObject(j).getInt(JsonConstants.HEIGHT),
+					 tiles.getJSONObject(j).getBoolean(JsonConstants.PASSABLE),
+					 tiles.getJSONObject(j).getString(JsonConstants.BUFFER_ID),
+					 tiles.getJSONObject(j).getInt(JsonConstants.ID),
+					 tiles.getJSONObject(j).getBoolean(JsonConstants.EXIT)
+					 );
                     tileList.add(tile);
-                }
+		}
 
-                JSONArray jsonLinks = scenes.getJSONObject(i).getJSONArray(JsonConstants.LINKS);
+		// TODO(map) : Consider putting a check in here for if there are no obstacles.
+		JSONArray obstacles = scenes.getJSONObject(i).getJSONArray(JsonConstants.OBSTACLES);
+                for (int j = 0; j < obstacles.length(); j++) {
+                    float posX = obstacles.getJSONObject(j).getInt(JsonConstants.POS_X);
+                    float posY = obstacles.getJSONObject(j).getInt(JsonConstants.POS_Y);
+                    Obstacle obstacle = new Obstacle(posX,
+						     posY,
+						     (float) obstacles.getJSONObject(j).getInt(JsonConstants.WIDTH),
+						     (float) obstacles.getJSONObject(j).getInt(JsonConstants.HEIGHT),
+						     (float) obstacles.getJSONObject(j).getInt(JsonConstants.PROT_HEIGHT),
+						     obstacles.getJSONObject(j).getBoolean(JsonConstants.PASSABLE),
+						     obstacles.getJSONObject(j).getString(JsonConstants.BUFFER_ID),
+						     obstacles.getJSONObject(j).getInt(JsonConstants.ID)
+						     );
+                    obstacleList.add(obstacle);
+		}
+		
+		JSONArray jsonLinks = scenes.getJSONObject(i).getJSONArray(JsonConstants.LINKS);
 
                 Map<Integer, Link> links = new HashMap<>();
                 for (int k = 0; k < jsonLinks.length(); ++k) {
@@ -93,9 +109,10 @@ public class WorldMap {
 
 
                 int sceneId = scenes.getJSONObject(i).getInt(JsonConstants.ID);
-                Scene scene = new Scene(sceneId, tileList, links);
+                Scene scene = new Scene(sceneId, tileList, obstacleList, links);
                 sceneMap.put(sceneId, scene);
                 tileList.clear();
+                obstacleList.clear();
             }
 
         } catch (IOException e) {

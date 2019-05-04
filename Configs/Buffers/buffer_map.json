@@ -1,17 +1,19 @@
 {
     "bufferMap" : [
-      { "id" : "stairs",                    "path" : "/Assets/Images/stairs.png"},
-      { "id" : "grass",                     "path" : "/Assets/Map/Tiles/Water_Grass/grass.PNG"},
-      { "id" : "left_water_right_grass",    "path" : "/Assets/Map/Tiles/Water_Grass/left_water_right_grass.PNG"},
-      { "id" : "top_water_bottom_grass",    "path" : "/Assets/Map/Tiles/Water_Grass/top_water_bottom_grass.PNG"},
-      { "id" : "left_grass_right_water",    "path" : "/Assets/Map/Tiles/Water_Grass/left_grass_right_water.PNG"},
-      { "id" : "top_grass_bottom_water",    "path" : "/Assets/Map/Tiles/Water_Grass/top_grass_bottom_water.PNG"},
-      { "id" : "water",                     "path" : "/Assets/Map/Tiles/Water_Grass/water.PNG"},
-      { "id" : "grass_bottom_left_water",   "path" : "/Assets/Map/Tiles/Water_Grass/grass_bottom_left_water.PNG"},
-      { "id" : "grass_top_left_water",      "path" : "/Assets/Map/Tiles/Water_Grass/grass_top_left_water.PNG"},
-      { "id" : "grass_top_right_water",     "path" : "/Assets/Map/Tiles/Water_Grass/grass_top_right_water.PNG"},
-      { "id" : "grass_bottom_right_water",  "path" : "/Assets/Map/Tiles/Water_Grass/grass_bottom_right_water.PNG"},
+	{ "id" : "stairs",                    "path" : "/Assets/Images/stairs.png"},
+	{ "id" : "grass",                     "path" : "/Assets/Map/Tiles/Water_Grass/grass.PNG"},
+	{ "id" : "left_water_right_grass",    "path" : "/Assets/Map/Tiles/Water_Grass/left_water_right_grass.PNG"},
+	{ "id" : "top_water_bottom_grass",    "path" : "/Assets/Map/Tiles/Water_Grass/top_water_bottom_grass.PNG"},
+	{ "id" : "left_grass_right_water",    "path" : "/Assets/Map/Tiles/Water_Grass/left_grass_right_water.PNG"},
+	{ "id" : "top_grass_bottom_water",    "path" : "/Assets/Map/Tiles/Water_Grass/top_grass_bottom_water.PNG"},
+	{ "id" : "water",                     "path" : "/Assets/Map/Tiles/Water_Grass/water.PNG"},
+	{ "id" : "grass_bottom_left_water",   "path" : "/Assets/Map/Tiles/Water_Grass/grass_bottom_left_water.PNG"},
+	{ "id" : "grass_top_left_water",      "path" : "/Assets/Map/Tiles/Water_Grass/grass_top_left_water.PNG"},
+	{ "id" : "grass_top_right_water",     "path" : "/Assets/Map/Tiles/Water_Grass/grass_top_right_water.PNG"},
+	{ "id" : "grass_bottom_right_water",  "path" : "/Assets/Map/Tiles/Water_Grass/grass_bottom_right_water.PNG"},
+	{ "id" : "rock",                      "path" : "/Assets/Objects/rock.PNG"},
+	{ "id" : "tree",                      "path" : "/Assets/Objects/summer_tree.PNG"},
 	{ "id" : "dirt",                      "path" : "/Assets/Map/Tiles/Water_Grass/dirt.PNG"},
-	{ "id" : "alphabet_base",                      "path" : "/Assets/Alphabet/"}
+	{ "id" : "alphabet_base",             "path" : "/Assets/Alphabet/"}
     ]
 }
