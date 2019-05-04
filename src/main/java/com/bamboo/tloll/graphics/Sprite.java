@@ -1,6 +1,8 @@
 package com.bamboo.tloll.graphics;
 
 import com.bamboo.tloll.physics.MapCoordinates;
+import com.bamboo.tloll.physics.HitBox;
+import com.bamboo.tloll.physics.Vertex;
 
 import java.nio.ByteBuffer;
 import java.util.HashMap;
@@ -21,6 +23,7 @@ public class Sprite {
     private int animatedFrameNumber;
     private boolean isJumping;
     private boolean isRising;
+    private HitBox hitbox;
     
     private Map<Integer, SpriteBuffer> bufferMap;
 
@@ -36,6 +39,10 @@ public class Sprite {
         this.centerY = this.posY + (this.height / 2);
         this.animatedFrameNumber = 1;
         this.bufferMap = new HashMap<>();
+	this.hitbox = new HitBox(new Vertex(posX, posY),
+				 new Vertex(posX + width, posY),
+				 new Vertex(posX, posY + height),
+				 new Vertex(posX + width, posY + height));
     }
 
     public Sprite(float posX, float posY, float width, float height) {
@@ -50,6 +57,10 @@ public class Sprite {
         this.centerY = posY + (height / 2);
         this.animatedFrameNumber = 1;
         this.bufferMap = new HashMap<>();
+	this.hitbox = new HitBox(new Vertex(posX, posY),
+				 new Vertex((posX + width), posY),
+				 new Vertex(posX, (posY + height)),
+				 new Vertex((posX + width), (posY + height)));
     }
 
     public float getPosX()
@@ -149,4 +160,51 @@ public class Sprite {
     public void addBufferToMap(Integer bufferId, SpriteBuffer buffer) {
         this.bufferMap.put(bufferId, buffer);
     }
+
+    public HitBox getHitBox() {
+	return hitbox;
+    }
+
+    public void updateHitBox(float deltaX, float deltaY, float deltaZ)
+    {
+	this.hitbox.getLowerLeft().setX(this.posX + deltaX);
+	this.hitbox.getLowerLeft().setY(this.posY + deltaY);
+	this.hitbox.getLowerRight().setX(this.posX + this.width + deltaX);
+	this.hitbox.getLowerRight().setY(this.posY + deltaY);
+	this.hitbox.getUpperLeft().setX(this.posX + deltaX);
+	this.hitbox.getUpperLeft().setY(this.posY + this.height + deltaY);
+	this.hitbox.getUpperRight().setX(this.posX + this.width + deltaX);
+	this.hitbox.getUpperRight().setY(this.posY + this.height + deltaY);
+    }
+    // NOTE(map) : I'm not putting a setter in here for a hitbox since there is no need to dynamically change it
+    // right now and would be a waste of code.
+
+    // NOTE(map) : This is only doing single point collsion right now.  I need to update it to check all four corners
+    // of the hit box and if any of them fall within the hitbox of the other sprite.
+    public boolean collisionBetweenBoxes(float deltaX, float deltaY, Sprite aSprite)
+    {
+	if (this.hitbox.getLowerLeft().getX() + deltaX >= aSprite.getHitBox().getLowerLeft().getX() &&
+	    this.hitbox.getLowerLeft().getX() + deltaX <= aSprite.getHitBox().getLowerRight().getX() &&
+	    this.hitbox.getLowerLeft().getY() + deltaY >= aSprite.getHitBox().getLowerLeft().getY() &&
+	    this.hitbox.getLowerLeft().getY() + deltaY <= aSprite.getHitBox().getUpperLeft().getY())
+	    return true;
+	else if (this.hitbox.getLowerRight().getX() + deltaX >= aSprite.getHitBox().getLowerLeft().getX() &&
+		 this.hitbox.getLowerRight().getX() + deltaX <= aSprite.getHitBox().getLowerRight().getX() &&
+		 this.hitbox.getLowerRight().getY() + deltaY >= aSprite.getHitBox().getLowerLeft().getY() &&
+		 this.hitbox.getLowerRight().getY() + deltaY <= aSprite.getHitBox().getUpperLeft().getY())
+	    return true;
+	else if (this.hitbox.getUpperLeft().getX() + deltaX >= aSprite.getHitBox().getLowerLeft().getX() &&
+		 this.hitbox.getUpperLeft().getX() + deltaX <= aSprite.getHitBox().getLowerRight().getX() &&
+		 this.hitbox.getUpperLeft().getY() + deltaY >= aSprite.getHitBox().getLowerLeft().getY() &&
+		 this.hitbox.getUpperLeft().getY() + deltaY <= aSprite.getHitBox().getUpperLeft().getY())
+	    return true;
+	else if (this.hitbox.getUpperRight().getX() + deltaX >= aSprite.getHitBox().getLowerLeft().getX() &&
+		 this.hitbox.getUpperRight().getX() + deltaX <= aSprite.getHitBox().getLowerRight().getX() &&
+		 this.hitbox.getUpperRight().getY() + deltaY >= aSprite.getHitBox().getLowerLeft().getY() &&
+		 this.hitbox.getUpperRight().getY() + deltaY <= aSprite.getHitBox().getUpperLeft().getY())
+	    return true;
+	else
+	    return false;
+    }
+
 }

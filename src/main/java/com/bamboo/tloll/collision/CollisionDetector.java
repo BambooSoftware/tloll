@@ -64,19 +64,14 @@ public class CollisionDetector
     // NOTE(map) : We are subtracting the Z position because it's a mo best way to hack the PhysicsEngine for now.
     // Could probably be a function instead that is more self documenting in the future and maybe less hacky if
     // we decide we want something like that on the overworld screen.
-    public boolean canCrossObstacle(Unit player, float deltaX, float deltaY) {
+    public boolean willBoxesCollide(Unit player, float deltaX, float deltaY) {
 	Scene currentScene = WorldMap.getInstance().getCurrentScene();
 	for (Obstacle obstacle : currentScene.getObstacleList()) {
-	    if ((player.getPosX() + deltaX) >= obstacle.getPosX() &&
-		(player.getPosX() + deltaX) <= (obstacle.getPosX() + obstacle.getWidth()) &&
-		(player.getPosY() + deltaY - player.getPosZ()) >= obstacle.getPosY() &&
-		(player.getPosY() + deltaY - player.getPosZ()) <= (obstacle.getPosY() + obstacle.getHeight()) &&
-		(player.getPosZ()) < obstacle.getProtrusionHeight()) {
-		return false;
-	    }
+	    if (player.collisionBetweenBoxes(deltaX, deltaY, obstacle) && player.getPosZ() < obstacle.getProtrusionHeight())
+		return true;
 	}
 	    
-	return true;
+	return false;
     }
     
     public boolean isTilePassableX(Unit player, float deltaX)

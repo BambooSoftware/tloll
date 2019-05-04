@@ -27,9 +27,10 @@ public class PhysicsEngine {
 
 	if (!isOutOfBoundsX(player, deltaX) &&
 	    CollisionDetector.getInstance().isTilePassableX(player, deltaX) &&
-	    CollisionDetector.getInstance().canCrossObstacle(player, deltaX, deltaY)) {
+	    !CollisionDetector.getInstance().willBoxesCollide(player, deltaX, deltaY)) {
             player.setPosX(player.getPosX() + deltaX);
-	        player.setCenterX(player.getCenterX() + deltaX);
+	    player.updateHitBox(deltaX, deltaY, deltaZ);
+	    player.setCenterX(player.getCenterX() + deltaX);
             if (moveInTileX(player, deltaX)) {
                 player.setRelativeTileX(player.getRelativeTileX() + deltaX);
             } else {
@@ -45,8 +46,9 @@ public class PhysicsEngine {
 
         if (!isOutOfBoundsY(player, deltaY) &&
 	    CollisionDetector.getInstance().isTilePassableY(player, deltaY) &&
-	    CollisionDetector.getInstance().canCrossObstacle(player, deltaX, deltaY)) {
+	    !CollisionDetector.getInstance().willBoxesCollide(player, deltaX, deltaY)) {
             player.setPosY(player.getPosY() + deltaY);
+	    player.updateHitBox(deltaX, deltaY, deltaZ);
 	    player.setCenterY(player.getCenterY() + deltaY);
             if (moveInTileY(player, deltaY)) {
                 player.setRelativeTileY(player.getRelativeTileY() + deltaY);
