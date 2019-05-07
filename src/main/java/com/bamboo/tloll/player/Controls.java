@@ -13,8 +13,9 @@ public class Controls {
     private int primary;
     private int secondary;
     private int jump;
-
-    public Controls(int up, int down, int left, int right, int primary, int secondary, int jump ) {
+    private int toggle;
+    
+    public Controls(int up, int down, int left, int right, int primary, int secondary, int jump, int toggle) {
         this.up = up;
         this.down = down;
         this.left = left;
@@ -22,6 +23,7 @@ public class Controls {
         this.primary = primary;
         this.secondary = secondary;
 	this.jump = jump;
+	this.toggle = toggle;
     }
 
     public int getUp() {
@@ -80,6 +82,16 @@ public class Controls {
     public void setJump(int jump)
     {
 	this.jump = jump;
+    }
+
+    public int getToggle()
+    {
+	return toggle;
+    }
+
+    public void setToggle(int toggle)
+    {
+	this.toggle = toggle;
     }
     
     public int[] getDirectionalInputs() {
