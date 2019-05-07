@@ -14,7 +14,8 @@ public class Player {
 
     Unit unit;
     Controls controls;
-
+    boolean overworldToCombatTransition = false;
+    
     public Player(Controls controls) {
         this.controls = controls;
     }
@@ -49,7 +50,8 @@ public class Player {
         processPrimary();
         processSecondary();
 	processJump();
-
+	processToggle(); // TODO(map) : This will need to be removed when prod build
+	
 	// NOTE(map) : This may not be the best solution at the end of the day.  It is a temporary fix and should
 	// be investigated further about how to ensure every unit on screen has its lastMoved value updated
 	// every frame.
@@ -93,6 +95,15 @@ public class Player {
 
     private void processSecondary() {
 
+    }
+
+    private void processToggle() {
+	if (KeyboardHandler.isKeyDown(controls.getToggle()) && !overworldToCombatTransition) {
+	    overworldToCombatTransition = true;
+	}
+	else {
+	    overworldToCombatTransition = false;
+	}
     }
 
     private void processJump()

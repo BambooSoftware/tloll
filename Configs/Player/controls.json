@@ -1,24 +1,15 @@
 {
-  "players": [
-    {
-      "id": "1",
-      "up": "87",
-      "down": "83",
-      "left": "65",
-      "right": "68",
-      "primary": "32",
-	"secondary": "71",
-	"jump": "32"
-    },
-    {
-      "id": "2",
-      "up": "265",
-      "down": "264",
-      "left": "263",
-      "right": "262",
-      "primary": "32",
-	"secondary": "71",
-	"jump": "44"
-    }
-  ]
+    "players": [
+	{
+	    "id": "1",
+	    "up": "87",
+	    "down": "83",
+	    "left": "65",
+	    "right": "68",
+	    "primary": "32",
+	    "secondary": "71",
+	    "jump": "32",
+	    "toggle": "84"
+	}
+    ]
 }
