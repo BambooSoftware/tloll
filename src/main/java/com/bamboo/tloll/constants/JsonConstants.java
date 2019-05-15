@@ -8,6 +8,7 @@ public class JsonConstants {
     //JSON Paths
     public static final String BUFFER_MAP_PATH = "/Configs/Buffers/buffer_map.json";
     public static final String WORLD_MAP_PATH = "/Configs/Worlds/test_world.json";
+    public static final String COMBAT_MAP_PATH = "/Configs/Worlds/test_combat.json";
     public static final String CONTROLS_PATH = "/Configs/Player/controls.json";
     public static final String PLAYER_UNIT_MAP_PATH = "/Configs/Player/playerUnitMap.json";
     public static final String UNITS_PATH = "/Configs/Units/units.json";

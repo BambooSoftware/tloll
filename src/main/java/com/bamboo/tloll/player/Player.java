@@ -1,5 +1,6 @@
 package com.bamboo.tloll.player;
 
+import com.bamboo.tloll.WorldManager;
 import com.bamboo.tloll.graphics.Unit;
 import com.bamboo.tloll.input.KeyboardHandler;
 import com.bamboo.tloll.physics.Vector3;
@@ -41,7 +42,7 @@ public class Player {
         this.controls = controls;
     }
 
-    public void processMovement() {
+    public void processInput() {
         //Since we have the controls and the player we can go ahead and trigger movement here.
         processUp();
         processDown();
@@ -99,10 +100,7 @@ public class Player {
 
     private void processToggle() {
 	if (KeyboardHandler.isKeyDown(controls.getToggle()) && !overworldToCombatTransition) {
-	    overworldToCombatTransition = true;
-	}
-	else {
-	    overworldToCombatTransition = false;
+	    WorldManager.getInstance().setInCombat(!WorldManager.getInstance().getInCombat());
 	}
     }
 

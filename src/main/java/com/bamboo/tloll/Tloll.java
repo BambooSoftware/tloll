@@ -4,7 +4,7 @@ import com.bamboo.tloll.constants.Constants;
 import com.bamboo.tloll.debug.Logger;
 import com.bamboo.tloll.graphics.GraphicsUtil;
 import com.bamboo.tloll.graphics.Renderer;
-import com.bamboo.tloll.graphics.structure.WorldMap;
+import com.bamboo.tloll.graphics.structure.MapHandler;
 import com.bamboo.tloll.input.Input;
 import com.bamboo.tloll.input.KeyboardHandler;
 import com.bamboo.tloll.player.Player;
@@ -17,7 +17,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class Tloll {
 
     private GLFWKeyCallback keyCallback; // We need to strongly reference callback instances.
-
+    
     public static void main(String[] args) {
         new Tloll().run();
     }
@@ -59,7 +59,6 @@ public class Tloll {
 
         // NOTE(map) : We have this here because it was causing problems having int in drawCurrentScene
         // as it reset the current scene to scene 0 every time.  Maybe move this elswhere???
-        WorldMap.getInstance().setCurrentScene(Renderer.loadTileBuffers());
 	Logger.getInstance().setAlphabetSprites(Renderer.loadAlphabetSprites());
     }
 
@@ -85,13 +84,17 @@ public class Tloll {
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the frame buffer.
 
+	// TODO(map) : Apparently calling this one time in the beginning doesn't do what I would expect.  Instead
+	// it only loads things once and the most recently loaded item is what is brought to the screen.
+	Renderer.loadTileBuffers(MapHandler.getInstance().getMapBasedOnCombat().getCurrentScene().getSceneId());
+
         Renderer.drawCurrentScene();
 	
         //Handles all player movement
         for(int playerId: Config.getInstance().getPlayers().keySet()) {
             Player player = Config.getInstance().getPlayers().get(playerId);
             player.getUnit().draw();
-            player.processMovement();
+            player.processInput();
             SceneTransition.checkForTransition(player.getUnit()); //What to do  when we have multi-units ?
         }
 
