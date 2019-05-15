@@ -2,7 +2,7 @@ package com.bamboo.tloll;
 
 import com.bamboo.tloll.graphics.Unit;
 import com.bamboo.tloll.graphics.structure.Tile;
-import com.bamboo.tloll.graphics.structure.WorldMap;
+import com.bamboo.tloll.graphics.structure.MapHandler;
 import com.bamboo.tloll.graphics.structure.Scene;
 import com.bamboo.tloll.graphics.structure.Link;
 
@@ -26,10 +26,10 @@ public final class SceneTransition {
 
     public static void handleTransition(Unit player, Tile tile) {
         // In the event stairs exist we will transition and set the current scene to the new scene.
-        Link exitLink = WorldMap.getInstance().getCurrentScene().getLinks().get(tile.getTileId());
-        Scene transitionedScene = WorldMap.getInstance().getSceneMap().get(exitLink.getSceneId());
-        WorldMap.getInstance().setCurrentScene(transitionedScene);
-
+        Link exitLink = MapHandler.getInstance().getMapBasedOnCombat().getCurrentScene().getLinks().get(tile.getTileId());
+        Scene transitionedScene = MapHandler.getInstance().getMapBasedOnCombat().getSceneMap().get(exitLink.getSceneId());
+	MapHandler.getInstance().getMapBasedOnCombat().setCurrentScene(transitionedScene);
+	
         // Set the player's new position.
         player.setPosX(transitionedScene.getTileList().get(exitLink.getExitId()).getPosX());
         player.setPosY(transitionedScene.getTileList().get(exitLink.getExitId()).getPosY());
